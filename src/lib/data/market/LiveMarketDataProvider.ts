@@ -4,7 +4,7 @@ import Parser from 'rss-parser';
 // Bypass Next.js ESM proxy objects for yahoo-finance2
 const yfPkg = require('yahoo-finance2');
 const YF = yfPkg.default || yfPkg;
-const yahooFinance = typeof YF === 'function' && YF.name === 'YahooFinance' ? new YF() : YF;
+const yahooFinance = typeof YF === 'function' ? new YF() : YF;
 
 export class LiveMarketDataProvider implements MarketDataProvider {
   async getTopStories(limit: number = 10): Promise<MarketStory[]> {
