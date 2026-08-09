@@ -17,10 +17,10 @@ const FEATURES = [
 ];
 
 export default function ChatLogsPage() {
-  const [sessions, setSessions] = useState([]);
+  const [sessions, setSessions] = useState<any[]>([]);
   const [selectedFeature, setSelectedFeature] = useState('ALL');
   const [loading, setLoading] = useState(true);
-  const [selectedSession, setSelectedSession] = useState(null);
+  const [selectedSession, setSelectedSession] = useState<any>(null);
 
   useEffect(() => {
     fetchSessions();
