@@ -20,7 +20,7 @@ export default function DashboardLayout({
       <AuthGuard>
         <Sidebar />
         <main className="flex-1 h-screen overflow-y-auto relative print:h-auto print:overflow-visible">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#050505] to-[#050505] -z-10 print:hidden" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(49,46,129,0.2),_#050505,_#050505)] -z-10 print:hidden" />
           {children}
         </main>
         <FloatingButtons />
