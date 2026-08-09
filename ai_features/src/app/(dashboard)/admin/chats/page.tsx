@@ -82,7 +82,7 @@ export default function ChatLogsPage() {
           ) : sessions.length === 0 ? (
             <div className="text-gray-500 text-sm p-4 text-center">No chats found for this feature.</div>
           ) : (
-            sessions.map(s => (
+            sessions.map((s: any) => (
               <div 
                 key={s.id}
                 onClick={() => setSelectedSession(s)}
@@ -121,7 +121,7 @@ export default function ChatLogsPage() {
             </div>
             
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              {selectedSession.messages.map(msg => (
+              {selectedSession.messages.map((msg: any) => (
                 <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-[70%] rounded-2xl px-4 py-3 ${
                     msg.role === 'user' 
