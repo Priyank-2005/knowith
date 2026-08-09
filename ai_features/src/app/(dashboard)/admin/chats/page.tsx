@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { Headphones, Target, ShieldCheck, PieChart, Activity, Search, User, Clock, MessageSquare } from 'lucide-react';
-import { format } from 'date-fns';
+
+const formatTime = (date) => new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(date));
+const formatShortDate = (date) => new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(date));
+const formatLongDate = (date) => new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(date));
 
 const FEATURES = [
   { id: 'ALL', name: 'All Chats', icon: MessageSquare },
@@ -89,7 +92,7 @@ export default function ChatLogsPage() {
               >
                 <div className="flex justify-between items-start mb-1">
                   <span className="text-xs font-semibold text-blue-400">{s.feature}</span>
-                  <span className="text-[10px] text-gray-500">{format(new Date(s.updatedAt), 'MMM d, HH:mm')}</span>
+                  <span className="text-[10px] text-gray-500">{formatShortDate(s.updatedAt)}</span>
                 </div>
                 <div className="text-sm text-gray-300 font-medium truncate mb-1">
                   {s.user?.name || s.user?.email || 'Anonymous User'}
@@ -112,7 +115,7 @@ export default function ChatLogsPage() {
                 <h3 className="text-white font-medium">Session ID: <span className="text-gray-400 font-mono text-xs">{selectedSession.id}</span></h3>
                 <div className="flex items-center gap-4 mt-1 text-xs text-gray-400">
                   <span className="flex items-center gap-1"><User className="w-3 h-3"/> {selectedSession.user?.email || 'Anonymous'}</span>
-                  <span className="flex items-center gap-1"><Clock className="w-3 h-3"/> Started: {format(new Date(selectedSession.createdAt), 'MMM d, yyyy HH:mm')}</span>
+                  <span className="flex items-center gap-1"><Clock className="w-3 h-3"/> Started: {formatLongDate(selectedSession.createdAt)}</span>
                 </div>
               </div>
             </div>
@@ -127,7 +130,7 @@ export default function ChatLogsPage() {
                   }`}>
                     <div className="text-xs opacity-50 mb-1 flex justify-between">
                       <span>{msg.role === 'user' ? 'User' : 'Knowith AI'}</span>
-                      <span>{format(new Date(msg.createdAt), 'HH:mm')}</span>
+                      <span>{formatTime(msg.createdAt)}</span>
                     </div>
                     <div className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</div>
                   </div>
