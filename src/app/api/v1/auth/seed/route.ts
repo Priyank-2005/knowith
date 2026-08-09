@@ -24,7 +24,7 @@ export async function POST() {
       create: {
         email: 'client@knowith.com',
         password: 'client@123',
-        name: 'Priyank Bohra',
+        name: 'Ayushi Sainani',
         role: 'CLIENT',
       },
     });
