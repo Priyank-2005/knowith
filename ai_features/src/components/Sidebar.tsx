@@ -26,7 +26,6 @@ export function cn(...inputs: ClassValue[]) {
 
 // AI Features — visible to NON_CLIENT only
 const aiFeatureItems = [
-  { name: 'Overview', href: '/features', icon: LayoutDashboard },
   { name: 'Investment Advisor', href: '/advisor', icon: TrendingUp },
   { name: 'Financial Health', href: '/health', icon: Activity },
   { name: 'Portfolio Analyzer', href: '/portfolio', icon: PieChart },

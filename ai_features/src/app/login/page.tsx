@@ -55,13 +55,13 @@ export default function LoginPage() {
           router.push('/client/dashboard');
           break;
         case 'NON_CLIENT':
-          router.push('/features');
+          router.push('/advisor');
           break;
         case 'ADMIN':
           router.push('/admin/campaigns');
           break;
         default:
-          router.push('/features');
+          router.push('/advisor');
       }
     } catch (err) {
       setError('An unexpected error occurred');

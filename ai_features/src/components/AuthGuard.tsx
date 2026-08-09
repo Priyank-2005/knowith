@@ -28,7 +28,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
       
       if (user.role !== 'ADMIN' && pathname.startsWith('/admin')) {
         // Non-admin shouldn't be in admin tools
-        router.push('/features');
+        router.push('/advisor');
         return;
       }
 
