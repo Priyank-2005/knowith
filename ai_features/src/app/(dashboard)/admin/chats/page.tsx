@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import { Headphones, Target, ShieldCheck, PieChart, Activity, Search, User, Clock, MessageSquare } from 'lucide-react';
 
-const formatTime = (date) => new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(date));
-const formatShortDate = (date) => new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(date));
-const formatLongDate = (date) => new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(date));
+const formatTime = (date: any) => new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(date));
+const formatShortDate = (date: any) => new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(date));
+const formatLongDate = (date: any) => new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(date));
 
 const FEATURES = [
   { id: 'ALL', name: 'All Chats', icon: MessageSquare },
