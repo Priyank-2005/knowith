@@ -1,23 +1,72 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
+const TABS = [
+  { key: 'client', label: 'Clients', color: '#60a5fa', desc: 'For existing Knowith clients' },
+  { key: 'non-client', label: 'Non-Clients', color: '#818cf8', desc: 'Explore our AI tools & features' },
+  { key: 'admin', label: 'Admin', color: '#f59e0b', desc: 'Internal admin access' },
+];
+
 export default function LoginPage() {
   const router = useRouter();
-  const [adminMode, setAdminMode] = useState(false);
+  const [activeTab, setActiveTab] = useState('client');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [seeded, setSeeded] = useState(false);
 
-  const handleAdminLogin = (e) => {
+  // Seed users on first load
+  useEffect(() => {
+    fetch('/api/v1/auth/seed', { method: 'POST' })
+      .then(() => setSeeded(true))
+      .catch(() => {});
+  }, []);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (password === 'admin123') {
-      router.push('/admin/campaigns');
-    } else {
-      setError('Invalid admin password. Try "admin123"');
+    setError('');
+    setLoading(true);
+
+    try {
+      const res = await fetch('/api/v1/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || 'Login failed');
+        setLoading(false);
+        return;
+      }
+
+      // Route based on role
+      switch (data.user.role) {
+        case 'CLIENT':
+          router.push('/client/dashboard');
+          break;
+        case 'NON_CLIENT':
+          router.push('/features');
+          break;
+        case 'ADMIN':
+          router.push('/admin/campaigns');
+          break;
+        default:
+          router.push('/');
+      }
+    } catch (err) {
+      setError('Something went wrong. Please try again.');
+      setLoading(false);
     }
   };
+
+  const currentTab = TABS.find(t => t.key === activeTab);
 
   return (
     <div style={{
@@ -26,35 +75,37 @@ export default function LoginPage() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '24px',
+      padding: 24,
       position: 'relative',
       overflow: 'hidden',
       fontFamily: "'Inter', 'Segoe UI', sans-serif",
     }}>
-      {/* Background glow */}
+      {/* Background glows */}
       <div style={{
-        position: 'absolute', top: '25%', left: '-15%',
+        position: 'absolute', top: '20%', left: '-10%',
         width: 500, height: 500,
-        background: 'rgba(59,130,246,0.15)', borderRadius: '50%',
-        filter: 'blur(120px)', pointerEvents: 'none'
+        background: `${currentTab.color}22`, borderRadius: '50%',
+        filter: 'blur(120px)', pointerEvents: 'none',
+        transition: 'background 0.5s ease',
       }} />
       <div style={{
-        position: 'absolute', bottom: '25%', right: '-15%',
+        position: 'absolute', bottom: '20%', right: '-10%',
         width: 500, height: 500,
-        background: 'rgba(99,102,241,0.15)', borderRadius: '50%',
-        filter: 'blur(120px)', pointerEvents: 'none'
+        background: 'rgba(99,102,241,0.12)', borderRadius: '50%',
+        filter: 'blur(120px)', pointerEvents: 'none',
       }} />
 
       <div style={{
-        width: '100%', maxWidth: 420,
+        width: '100%', maxWidth: 440,
         background: 'rgba(10,10,15,0.85)',
         backdropFilter: 'blur(24px)',
         border: '1px solid #2E2E3E',
-        borderRadius: 24, padding: 32,
+        borderRadius: 24, padding: 36,
         boxShadow: '0 25px 50px rgba(0,0,0,0.5)',
         position: 'relative', zIndex: 10,
       }}>
-        <div style={{ textAlign: 'center', marginBottom: 40 }}>
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <h1 style={{
             fontSize: 28, fontWeight: 700,
             background: 'linear-gradient(to right, #60a5fa, #818cf8)',
@@ -63,138 +114,135 @@ export default function LoginPage() {
           }}>
             Welcome to Knowith
           </h1>
-          <p style={{ color: '#9ca3af', fontSize: 14 }}>Select your login portal to continue</p>
+          <p style={{ color: '#9ca3af', fontSize: 14 }}>Sign in to your account</p>
         </div>
 
-        {!adminMode ? (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {/* Clients Login */}
+        {/* Tabs */}
+        <div style={{
+          display: 'flex', gap: 4,
+          background: '#151515', borderRadius: 12,
+          padding: 4, marginBottom: 28,
+          border: '1px solid #2E2E3E',
+        }}>
+          {TABS.map(tab => (
             <button
-              onClick={() => router.push('/client/dashboard')}
+              key={tab.key}
+              onClick={() => { setActiveTab(tab.key); setError(''); setEmail(''); setPassword(''); }}
               style={{
-                width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                padding: 16, background: '#151515', border: '1px solid #2E2E3E',
-                borderRadius: 12, cursor: 'pointer', transition: 'all 0.2s',
-                color: 'white',
+                flex: 1, padding: '10px 0',
+                borderRadius: 8, border: 'none', cursor: 'pointer',
+                fontSize: 13, fontWeight: 600,
+                transition: 'all 0.2s',
+                background: activeTab === tab.key ? '#2E2E3E' : 'transparent',
+                color: activeTab === tab.key ? tab.color : '#6b7280',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#3b82f680'; e.currentTarget.style.background = '#1A1A24'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#2E2E3E'; e.currentTarget.style.background = '#151515'; }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 8, background: 'rgba(59,130,246,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                </div>
-                <div style={{ textAlign: 'left' }}>
-                  <h3 style={{ fontSize: 15, fontWeight: 500, margin: 0, color: 'white' }}>Clients Login</h3>
-                  <p style={{ fontSize: 12, color: '#6b7280', margin: 0 }}>For existing Knowith clients</p>
-                </div>
-              </div>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4b5563" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              {tab.label}
             </button>
+          ))}
+        </div>
 
-            {/* Non-Clients Login */}
-            <button
-              onClick={() => router.push('/features')}
-              style={{
-                width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                padding: 16, background: '#151515', border: '1px solid #2E2E3E',
-                borderRadius: 12, cursor: 'pointer', transition: 'all 0.2s',
-                color: 'white',
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#6366f180'; e.currentTarget.style.background = '#1A1A24'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#2E2E3E'; e.currentTarget.style.background = '#151515'; }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 8, background: 'rgba(99,102,241,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#818cf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                </div>
-                <div style={{ textAlign: 'left' }}>
-                  <h3 style={{ fontSize: 15, fontWeight: 500, margin: 0, color: 'white' }}>Non-Clients Login</h3>
-                  <p style={{ fontSize: 12, color: '#6b7280', margin: 0 }}>Explore our AI tools & features</p>
-                </div>
-              </div>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4b5563" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </button>
+        {/* Description */}
+        <p style={{ color: '#6b7280', fontSize: 13, textAlign: 'center', marginBottom: 24 }}>
+          {currentTab.desc}
+        </p>
 
-            {/* Admin Login */}
-            <div style={{ paddingTop: 24, marginTop: 24, borderTop: '1px solid #2E2E3E' }}>
-              <button
-                onClick={() => setAdminMode(true)}
+        {/* Login Form */}
+        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#9ca3af', marginBottom: 6 }}>Email</label>
+            <div style={{ position: 'relative' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)' }}>
+                <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
                 style={{
-                  width: '100%', display: 'flex', alignItems: 'center', gap: 16,
-                  padding: 16, background: 'transparent', border: '1px solid transparent',
-                  borderRadius: 12, cursor: 'pointer', color: '#9ca3af',
-                  transition: 'all 0.2s',
+                  width: '100%', background: '#151515', border: '1px solid #2E2E3E',
+                  borderRadius: 8, padding: '12px 16px 12px 40px',
+                  color: 'white', fontSize: 14, outline: 'none',
+                  boxSizing: 'border-box', transition: 'border-color 0.2s',
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#2E2E3E'; e.currentTarget.style.color = 'white'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.color = '#9ca3af'; }}
-              >
-                <div style={{ width: 40, height: 40, borderRadius: 8, background: '#151515', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                </div>
-                <h3 style={{ fontSize: 15, fontWeight: 500, margin: 0 }}>Admin Login</h3>
-              </button>
+                placeholder={
+                  activeTab === 'client' ? 'client@knowith.com' :
+                  activeTab === 'non-client' ? 'user@knowith.com' :
+                  'admin@knowith.com'
+                }
+                onFocus={(e) => e.target.style.borderColor = currentTab.color}
+                onBlur={(e) => e.target.style.borderColor = '#2E2E3E'}
+              />
             </div>
           </div>
-        ) : (
+
           <div>
-            <button 
-              onClick={() => { setAdminMode(false); setError(''); setPassword(''); }}
-              style={{
-                fontSize: 14, color: '#9ca3af', background: 'none', border: 'none',
-                cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8,
-                marginBottom: 24, padding: 0,
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = 'white'}
-              onMouseLeave={(e) => e.currentTarget.style.color = '#9ca3af'}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-              Back to options
-            </button>
-            
-            <form onSubmit={handleAdminLogin} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div>
-                <label style={{ display: 'block', fontSize: 14, fontWeight: 500, color: '#9ca3af', marginBottom: 8 }}>Admin Password</label>
-                <div style={{ position: 'relative' }}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)' }}>
-                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                  </svg>
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    style={{
-                      width: '100%', background: '#151515', border: '1px solid #2E2E3E',
-                      borderRadius: 8, padding: '12px 16px 12px 40px',
-                      color: 'white', fontSize: 14, outline: 'none',
-                      boxSizing: 'border-box',
-                    }}
-                    placeholder="Enter password..."
-                    autoFocus
-                    onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-                    onBlur={(e) => e.target.style.borderColor = '#2E2E3E'}
-                  />
-                </div>
-                {error && <p style={{ color: '#f87171', fontSize: 12, marginTop: 8 }}>{error}</p>}
-              </div>
-              
-              <button
-                type="submit"
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#9ca3af', marginBottom: 6 }}>Password</label>
+            <div style={{ position: 'relative' }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)' }}>
+                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
                 style={{
-                  width: '100%', padding: 12,
-                  background: 'linear-gradient(to right, #3b82f6, #6366f1)',
-                  borderRadius: 8, fontSize: 14, fontWeight: 500,
-                  color: 'white', border: 'none', cursor: 'pointer',
-                  transition: 'opacity 0.2s',
+                  width: '100%', background: '#151515', border: '1px solid #2E2E3E',
+                  borderRadius: 8, padding: '12px 16px 12px 40px',
+                  color: 'white', fontSize: 14, outline: 'none',
+                  boxSizing: 'border-box', transition: 'border-color 0.2s',
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.opacity = '0.9'}
-                onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-              >
-                Access Admin Panel
-              </button>
-            </form>
+                placeholder="Enter your password"
+                onFocus={(e) => e.target.style.borderColor = currentTab.color}
+                onBlur={(e) => e.target.style.borderColor = '#2E2E3E'}
+              />
+            </div>
           </div>
-        )}
+
+          {error && (
+            <p style={{
+              color: '#f87171', fontSize: 13, margin: 0,
+              background: 'rgba(248,113,113,0.08)',
+              padding: '8px 12px', borderRadius: 8,
+              border: '1px solid rgba(248,113,113,0.2)',
+            }}>
+              {error}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              width: '100%', padding: 13, marginTop: 4,
+              background: `linear-gradient(to right, ${currentTab.color}, #6366f1)`,
+              borderRadius: 10, fontSize: 14, fontWeight: 600,
+              color: 'white', border: 'none', cursor: loading ? 'wait' : 'pointer',
+              transition: 'opacity 0.2s',
+              opacity: loading ? 0.7 : 1,
+            }}
+          >
+            {loading ? 'Signing in...' : 'Sign In'}
+          </button>
+        </form>
+
+        {/* Credentials hint */}
+        <div style={{
+          marginTop: 24, padding: 16,
+          background: '#0f0f14', borderRadius: 10,
+          border: '1px solid #1f1f2e',
+        }}>
+          <p style={{ color: '#6b7280', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 8px 0' }}>
+            Demo Credentials
+          </p>
+          <div style={{ fontSize: 12, color: '#9ca3af', lineHeight: 1.8 }}>
+            {activeTab === 'client' && <><b style={{ color: '#60a5fa' }}>Email:</b> client@knowith.com &nbsp;|&nbsp; <b style={{ color: '#60a5fa' }}>Pass:</b> client@123</>}
+            {activeTab === 'non-client' && <><b style={{ color: '#818cf8' }}>Email:</b> user@knowith.com &nbsp;|&nbsp; <b style={{ color: '#818cf8' }}>Pass:</b> user@123</>}
+            {activeTab === 'admin' && <><b style={{ color: '#f59e0b' }}>Email:</b> admin@knowith.com &nbsp;|&nbsp; <b style={{ color: '#f59e0b' }}>Pass:</b> admin@123</>}
+          </div>
+        </div>
       </div>
 
       <div style={{ position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)' }}>
