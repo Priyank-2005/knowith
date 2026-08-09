@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 const TABS = [
-  { key: 'client', label: 'Clients', color: '#60a5fa', desc: 'For existing Knowith clients' },
-  { key: 'non-client', label: 'Non-Clients', color: '#818cf8', desc: 'Explore our AI tools & features' },
-  { key: 'admin', label: 'Admin', color: '#f59e0b', desc: 'Internal admin access' },
+  { key: 'client', label: 'Clients', color: '#60a5fa', desc: 'For existing Knowith Capital clients' },
+  { key: 'non-client', label: 'Non-Clients', color: '#818cf8', desc: 'Explore our AI-powered financial tools' },
+  { key: 'admin', label: 'Admin', color: '#f59e0b', desc: 'Internal admin & email marketing panel' },
 ];
 
 export default function LoginPage() {
@@ -17,13 +17,10 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [seeded, setSeeded] = useState(false);
 
   // Seed users on first load
   useEffect(() => {
-    fetch('/api/v1/auth/seed', { method: 'POST' })
-      .then(() => setSeeded(true))
-      .catch(() => {});
+    fetch('/api/v1/auth/seed', { method: 'POST' }).catch(() => {});
   }, []);
 
   const handleLogin = async (e) => {
@@ -45,6 +42,9 @@ export default function LoginPage() {
         setLoading(false);
         return;
       }
+
+      // Store user info for sidebar role filtering
+      localStorage.setItem('knowith_user', JSON.stringify(data.user));
 
       // Route based on role
       switch (data.user.role) {
