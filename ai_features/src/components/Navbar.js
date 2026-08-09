@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
+import MarketTicker from './MarketTicker';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -39,6 +40,7 @@ export default function Navbar() {
         </button>
 
       </div>
+      <MarketTicker />
     </nav>
   );
 }

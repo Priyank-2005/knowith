@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
+import Navbar from '@/components/Navbar';
+
 const TABS = [
   { key: 'client', label: 'Clients', color: '#60a5fa', desc: 'For existing Knowith Capital clients' },
   { key: 'non-client', label: 'Non-Clients', color: '#818cf8', desc: 'Explore our AI-powered financial tools' },
@@ -58,10 +60,10 @@ export default function LoginPage() {
           router.push('/admin/campaigns');
           break;
         default:
-          router.push('/');
+          router.push('/features');
       }
     } catch (err) {
-      setError('Something went wrong. Please try again.');
+      setError('An unexpected error occurred');
       setLoading(false);
     }
   };
@@ -73,13 +75,26 @@ export default function LoginPage() {
       minHeight: '100vh',
       background: '#050505',
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center',
-      padding: 24,
       position: 'relative',
       overflow: 'hidden',
       fontFamily: "'Inter', 'Segoe UI', sans-serif",
     }}>
+      <div style={{ width: '100%', zIndex: 10 }}>
+        <Navbar />
+      </div>
+
+      <div style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 24,
+        width: '100%',
+        position: 'relative',
+      }}>
       {/* Background glows */}
       <div style={{
         position: 'absolute', top: '20%', left: '-10%',
@@ -253,6 +268,7 @@ export default function LoginPage() {
           Return to Website
         </Link>
       </div>
+    </div>
     </div>
   );
 }
