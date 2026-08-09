@@ -1,0 +1,71 @@
+AI FEATURES PROPOSAL
+Prepared ForKnowith CapitalPrepared ByAyushi SainaniDate20 July 2026
+CONFIDENTIALThis document contains proposed AI-powered solutions prepared exclusively for Knowith Capital. The contents are confidential and intended only for discussion and evaluation purposes.
+Table of Contents
+1. AI Investment Advisor
+2. AI Financial Health Analyzer
+3. AI Portfolio Analyzer
+4. AI SIP Goal Calculator
+5. AI Tax Saving Advisor
+6. AI Loan Eligibility Checker
+7. AI Document Reader
+8. AI Customer Support Assistant
+9. AI Lead Qualification Assistant
+10. AI Meeting Summary Generator
+11. AI WhatsApp Assistant
+12. AI Investment Goal Planner
+13. AI Risk Profiling Engine
+14. AI Market News Summarizer
+15. AI Advisor Recommendation Dashboard
+Conclusion
+Introduction
+This proposal presents a collection of AI-powered features that can be integrated into Knowith Capital's website and digital platform. These features are designed to enhance customer experience, automate repetitive tasks, improve advisor productivity, and provide intelligent financial assistance through modern AI technologies.Each feature described below includes a practical use case and a brief explanation of how it works.
+1. AI Investment Advisor
+Use CaseA visitor wants investment suggestions based on their income, financial goals, investment amount, and risk tolerance.
+How It WorksThe AI assistant interacts with the customer through a conversational interface, gathers relevant information, and recommends suitable investment products offered by Knowith Capital. It can also schedule a consultation with a financial advisor.
+2. AI Financial Health Analyzer
+Use CaseA customer wants to understand their current financial health.
+How It WorksThe user provides information such as income, expenses, savings, liabilities, and investments. The platform calculates important financial metrics and AI generates an easy-to-understand report with personalized recommendations.
+3. AI Portfolio Analyzer
+Use CaseA customer uploads their investment portfolio and wants professional insights.
+How It WorksThe system evaluates portfolio diversification, asset allocation, sector exposure, and overall risk. AI summarizes the findings and highlights strengths, weaknesses, and opportunities for improvement.
+4. AI SIP Goal Calculator
+Use CaseA customer wants to know how much they need to invest monthly to achieve a future financial goal.
+How It WorksThe platform calculates the required SIP based on investment duration, expected returns, and target amount. AI explains the calculation and provides investment planning guidance.
+5. AI Tax Saving Advisor
+Use CaseA salaried individual wants suggestions for reducing tax liability.
+How It WorksThe system evaluates salary, tax regime, deductions, and current investments before recommending suitable tax-saving products and strategies available through the company.
+6. AI Loan Eligibility Checker
+Use CaseA customer wants to know whether they qualify for a loan.
+How It WorksThe platform analyzes income, monthly obligations, liabilities, and repayment capacity to estimate loan eligibility and affordability before providing a detailed explanation.
+7. AI Document Reader
+Use CaseA customer uploads financial documents instead of manually entering information.
+How It WorksThe system extracts important details from documents such as bank statements, PAN cards, Aadhaar cards, income proofs, and investment reports, organizing them into structured information.
+8. AI Customer Support Assistant
+Use CaseCustomers ask questions related to services, investments, documentation, or company policies.
+How It WorksThe AI assistant instantly answers customer queries using the company's knowledge base and forwards complex questions to human advisors whenever required.
+9. AI Lead Qualification Assistant
+Use CasePotential customers visit the website and request investment advice.
+How It WorksThe AI asks qualification questions related to income, investment amount, financial goals, occupation, and age before assigning a lead score and forwarding qualified prospects to advisors.
+10. AI Meeting Summary Generator
+Use CaseFinancial advisors conduct client meetings and require automated documentation.
+How It WorksThe meeting recording is converted into text and summarized into key discussion points, recommendations, action items, and follow-up tasks.
+11. AI WhatsApp Assistant
+Use CaseCustomers prefer communicating through WhatsApp instead of using the website.
+How It WorksThe WhatsApp assistant answers queries, shares investment information, provides reminders, updates portfolio information, and books appointments automatically.
+12. AI Investment Goal Planner
+Use CaseCustomers want to plan financial goals such as retirement, higher education, marriage, or purchasing a house.
+How It WorksThe platform estimates future costs after inflation, calculates monthly investment requirements, and recommends suitable investment strategies.
+13. AI Risk Profiling Engine
+Use CaseThe company wants to understand each customer's investment personality before making recommendations.
+How It WorksThe AI conducts an interactive questionnaire and categorizes customers into Conservative, Moderate, or Aggressive investor profiles to help advisors recommend suitable products.
+14. AI Market News Summarizer
+Use CaseClients want quick daily updates on financial markets.
+How It WorksThe platform gathers financial news from multiple trusted sources, summarizes important developments, highlights potential market impacts, and generates concise daily reports.
+15. AI Advisor Recommendation Dashboard
+Use CaseFinancial advisors want to identify important client opportunities every day.
+How It WorksThe dashboard automatically detects portfolio review opportunities, upcoming investment maturities, inactive customers, SIP renewals, and pending follow-ups before generating AI-powered recommendations.
+Conclusion
+The features presented in this proposal represent potential enhancements that can transform Knowith Capital's digital platform into a modern, AI-powered financial ecosystem. Depending on business priorities, these features can be implemented individually or combined into a comprehensive solution that improves customer engagement, advisor productivity, and overall operational efficiency.The final scope can be customized according to business requirements, future expansion plans, and customer experience goals.
+Prepared By
+Ayushi SainaniSoftware DeveloperAI & Full Stack Solutions
