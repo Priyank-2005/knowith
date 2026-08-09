@@ -3,6 +3,7 @@ import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 // @ts-ignore
 import FloatingButtons from "@/components/FloatingButtons";
+// @ts-ignore
 import AuthGuard from "@/components/AuthGuard";
 
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });

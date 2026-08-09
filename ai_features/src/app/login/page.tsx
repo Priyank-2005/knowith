@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
+// @ts-ignore
 import Navbar from '@/components/Navbar';
 
 const TABS = [
