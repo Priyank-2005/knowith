@@ -25,7 +25,7 @@ export default function LoginPage() {
     fetch('/api/v1/auth/seed', { method: 'POST' }).catch(() => {});
   }, []);
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
     setError('');
     setLoading(true);
@@ -68,7 +68,7 @@ export default function LoginPage() {
     }
   };
 
-  const currentTab = TABS.find(t => t.key === activeTab);
+  const currentTab = TABS.find(t => t.key === activeTab)!;
 
   return (
     <div style={{

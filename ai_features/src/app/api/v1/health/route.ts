@@ -114,7 +114,8 @@ If all fields are present and valid, set nextState to "REPORT_READY" immediately
     );
 
     const sessionId = body.sessionId || `health_${Date.now()}`;
-    const botResponseStr = aiResult.data.message || (aiResult.data.nextState === 'REPORT_READY' ? "Generating health report..." : "Please provide more details.");
+    const data = aiResult.data as any;
+    const botResponseStr = data.message || (data.nextState === 'REPORT_READY' ? "Generating health report..." : "Please provide more details.");
 
     await logChatSequence(
       sessionId,
@@ -125,7 +126,7 @@ If all fields are present and valid, set nextState to "REPORT_READY" immediately
       'v1.0.0'
     );
 
-    return NextResponse.json({ ...aiResult.data, sessionId });
+    return NextResponse.json({ ...data, sessionId });
 
   } catch (error: any) {
     console.error('Health API Error:', error);
