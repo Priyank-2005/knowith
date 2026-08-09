@@ -13,6 +13,8 @@ export default function FloatingButtons() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
+  const [sessionId, setSessionId] = useState(null);
+
   // Auto-scroll to bottom of chat
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -22,7 +24,7 @@ export default function FloatingButtons() {
     scrollToBottom();
   }, [messages, isTyping]);
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
 
@@ -32,16 +34,35 @@ export default function FloatingButtons() {
     setInputValue('');
     setIsTyping(true);
 
-    // Simulate AI thinking and responding
-    setTimeout(() => {
+    try {
+      const user = JSON.parse(localStorage.getItem('knowith_user') || '{}');
+      const res = await fetch('/api/v1/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          message: newUserMsg.text,
+          sessionId: sessionId,
+          userId: user.id || null
+        })
+      });
+
+      const data = await res.json();
+      
+      if (data.sessionId && !sessionId) {
+        setSessionId(data.sessionId);
+      }
+
       setIsTyping(false);
       const aiResponse = { 
         id: Date.now() + 1, 
         sender: 'ai', 
-        text: "That is an excellent question. While I am just a demo AI right now, our human experts would love to discuss this with you. Feel free to click the WhatsApp button on the right to chat with us instantly!" 
+        text: data.message || "I'm sorry, I couldn't process that." 
       };
       setMessages(prev => [...prev, aiResponse]);
-    }, 1500);
+    } catch (error) {
+      setIsTyping(false);
+      setMessages(prev => [...prev, { id: Date.now(), sender: 'ai', text: 'Error connecting to support.' }]);
+    }
   };
 
   return (

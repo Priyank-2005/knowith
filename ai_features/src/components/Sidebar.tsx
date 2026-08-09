@@ -32,15 +32,15 @@ const aiFeatureItems = [
   { name: 'Portfolio Analyzer', href: '/portfolio', icon: PieChart },
   { name: 'SIP Calculator', href: '/sip', icon: Target },
   { name: 'Tax Advisor', href: '/tax', icon: ShieldCheck },
-  { name: 'Support Assistant', href: '/support', icon: Headphones },
   { name: 'Market News', href: '/market', icon: Newspaper },
 ];
 
-// Email Marketing — visible to ADMIN only
+// Email Marketing & Admin Tools — visible to ADMIN only
 const adminItems = [
   { name: 'Campaigns', href: '/admin/campaigns', icon: Mail },
   { name: 'Email Templates', href: '/admin/campaigns/templates', icon: LayoutTemplate },
   { name: 'Audience', href: '/admin/campaigns/contacts', icon: Users },
+  { name: 'Chat Logs', href: '/admin/chats', icon: Headphones },
 ];
 
 export default function Sidebar() {

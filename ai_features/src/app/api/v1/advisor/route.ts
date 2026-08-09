@@ -24,6 +24,8 @@ const workflowExecutor = new WorkflowExecutor(
   { maxConcurrent: 1, maxRetries: 3 } // Changed to 1 to prevent rate-limit cascade
 );
 
+import { logChatSequence } from '@/lib/chatLogger';
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -39,13 +41,18 @@ export async function POST(request: Request) {
 
     const { message, currentState, history = [] } = parsed.data;
 
+    // We need a session ID from the client, or generate a temporary one
+    // For now we'll use a random UUID if not provided by the frontend.
+    // In a real app, you'd update the frontend schema to send sessionId.
+    const sessionId = body.sessionId || `session-${Date.now()}`;
+
     // 2. We use the original LLM purely as a conversational router to collect data.
     const messages = [
       { 
         role: 'system' as const, 
         content: `Current Profile State Data: ${JSON.stringify(currentState || {})}` 
       },
-      ...history.map(h => ({ role: h.role as any, content: h.content })),
+      ...history.map((h: any) => ({ role: h.role as any, content: h.content })),
       { 
         role: 'user' as const, 
         content: message 
@@ -60,8 +67,6 @@ export async function POST(request: Request) {
     );
 
     // 3. Multi-Agent Orchestration Intercept
-    // If the LLM transitions to REPORT_READY, we pause the standard flow 
-    // and hand over to our massive parallel Enterprise AI Framework.
     let massiveBlueprint = null;
 
     if (aiData.nextState === 'REPORT_READY') {
@@ -77,9 +82,9 @@ export async function POST(request: Request) {
         metrics: { surplus, savingsRate, readinessScore: readiness }
       };
 
-      // Execute Workflow! (Runs Analyst, Strategist, Psychologist in parallel, then Educator)
+      // Execute Workflow! 
       const workflowResult = await workflowExecutor.execute(
-        `session-${Date.now()}`,
+        sessionId,
         mathContext
       );
 
@@ -91,14 +96,26 @@ export async function POST(request: Request) {
       massiveBlueprint = workflowResult.data;
     }
 
+    // Log to DB
+    const botResponseStr = aiData.message || (massiveBlueprint ? "Here is your generated blueprint." : "Please provide the next piece of information.");
+    await logChatSequence(
+      sessionId,
+      'ADVISOR',
+      body.userId || null,
+      message,
+      botResponseStr,
+      'v1.0.0'
+    );
+
     // 4. Return to Frontend
     return NextResponse.json({
       success: true,
       data: {
+        sessionId,
         updatedProfile: aiData.updatedProfile,
-        botResponse: aiData.message || "Please provide the next piece of information.",
+        botResponse: botResponseStr,
         cards: aiData.cards, 
-        blueprint: massiveBlueprint || undefined, // Overwrite with our orchestrated blueprint
+        blueprint: massiveBlueprint || undefined,
         nextState: aiData.nextState,
         missingFields: aiData.missingFields
       }

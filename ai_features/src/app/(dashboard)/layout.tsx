@@ -1,6 +1,7 @@
 import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
+import FloatingButtons from "@/components/FloatingButtons";
 
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: '--font-playfair' });
@@ -18,6 +19,7 @@ export default function DashboardLayout({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-[#050505] to-[#050505] -z-10 print:hidden" />
         {children}
       </main>
+      <FloatingButtons />
     </div>
   );
 }
