@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 
 type TickerItem = {
-  symbol: string;
-  name: string;
-  price: number;
-  change: number;
-  changePercent: number;
+  indexName: string;
+  currentValue: number;
+  changeAmount: number;
+  changePercentage: number;
+  trend: string;
 };
 
 export default function MarketTicker() {
@@ -37,29 +37,31 @@ export default function MarketTicker() {
   if (loading || items.length === 0) return null;
 
   return (
-    <div className="w-full bg-[#0a0a0a] border-b border-[#1f1f1f] py-2 overflow-hidden flex items-center shrink-0">
-      <div className="flex whitespace-nowrap animate-marquee">
-        {/* Render items twice for infinite loop effect */}
-        {[...items, ...items].map((item, i) => (
-          <div key={`${item.symbol}-${i}`} className="flex items-center mx-6 text-sm font-medium">
-            <span className="text-gray-300 mr-2">{item.name}</span>
-            <span className="text-white mr-2">{item.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-            <span className={`text-xs ${item.change >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-              {item.change >= 0 ? '▲' : '▼'} {Math.abs(item.change).toFixed(2)} ({Math.abs(item.changePercent).toFixed(2)}%)
+    <div style={{ width: '100%', backgroundColor: '#1b433a', padding: '8px 0', overflow: 'hidden', borderBottom: '1px solid #13302a', display: 'block' }}>
+      <div className="animate-marquee" style={{ display: 'inline-flex', flexWrap: 'nowrap', width: 'fit-content' }}>
+        {[...items, ...items, ...items].map((item, i) => (
+          <div key={`${item.indexName}-${i}`} style={{ display: 'inline-flex', alignItems: 'center', fontSize: '12px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
+            <span style={{ color: '#84a39b', fontWeight: 600, letterSpacing: '0.025em', marginRight: '8px' }}>{item.indexName}</span>
+            <span style={{ color: 'white', fontWeight: 700, marginRight: '8px' }}>
+              {item.currentValue != null ? item.currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 'N/A'}
             </span>
+            <span style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px', color: item.changeAmount >= 0 ? '#34d399' : '#f87171' }}>
+              {item.changeAmount >= 0 ? '▲' : '▼'} {Math.abs(item.changePercentage || 0).toFixed(2)}%
+            </span>
+            <span style={{ margin: '0 24px', color: '#4a6b62' }}>·</span>
           </div>
         ))}
       </div>
       <style jsx>{`
         .animate-marquee {
-          animation: marquee 25s linear infinite;
+          animation: marquee 35s linear infinite;
         }
         .animate-marquee:hover {
           animation-play-state: paused;
         }
         @keyframes marquee {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          100% { transform: translateX(-33.33%); }
         }
       `}</style>
     </div>
