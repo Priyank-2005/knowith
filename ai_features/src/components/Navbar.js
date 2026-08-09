@@ -30,6 +30,7 @@ export default function Navbar() {
         {/* Right Nav */}
         <div className={styles.navRight}>
           <span className={styles.phone}>+91 98765 43210</span>
+          <Link href="/login" className={styles.loginBtn}>Login</Link>
           <Link href="/contact" className={styles.bookBtn}>Book a Consultation</Link>
         </div>
 

@@ -24,18 +24,11 @@ const ibmMono = IBM_Plex_Mono({
   variable: '--font-mono'
 });
 
-export const metadata = {
-  title: "Knowith Capital | Wealth Architecture",
-  description: "Institutional-grade mutual fund advisory and financial planning in Udaipur.",
-};
-
-export default function RootLayout({ children }) {
+export default function WebsiteLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${fraunces.variable} ${manrope.variable} ${ibmMono.variable} ${manrope.className}`}>
-        {children}
-        <FloatingButtons />
-      </body>
-    </html>
+    <div className={`${fraunces.variable} ${manrope.variable} ${ibmMono.variable} ${manrope.className}`}>
+      {children}
+      <FloatingButtons />
+    </div>
   );
 }
