@@ -1,0 +1,81 @@
+.main {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.contactSection {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  padding: var(--section-pad-y) var(--section-pad-x);
+  background-color: var(--ink);
+  color: var(--marble);
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+.contactInfo h1 {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  margin-bottom: 24px;
+  color: var(--marble);
+}
+
+.contactInfo p {
+  color: var(--on-dark-soft);
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.infoItem h5 {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  color: var(--gold);
+  margin-bottom: 8px;
+  letter-spacing: 0.1em;
+}
+
+.contactForm {
+  background-color: var(--ink-2);
+  padding: 60px;
+  border-radius: var(--radius-sharp);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.inputUnderline {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-dark);
+  padding: 16px 0;
+  color: var(--marble);
+  font-family: var(--font-body), sans-serif;
+  font-size: 1rem;
+  margin-bottom: 32px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.inputUnderline:focus {
+  border-color: var(--gold);
+}
+
+.inputUnderline::placeholder {
+  color: var(--on-dark-soft);
+}
+
+@media (max-width: 980px) {
+  .contactGrid { grid-template-columns: 1fr; gap: 40px; }
+  .contactForm { padding: 40px; }
+}

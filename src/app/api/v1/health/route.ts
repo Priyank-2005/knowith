@@ -9,6 +9,8 @@ import { HealthAnalystCapability } from '@/lib/ai/features/health/capabilities/H
 import { HealthBehaviourCapability } from '@/lib/ai/features/health/capabilities/HealthBehaviourCapability';
 import { HealthRecommenderCapability } from '@/lib/ai/features/health/capabilities/HealthRecommenderCapability';
 import { HealthEducatorCapability } from '@/lib/ai/features/health/capabilities/HealthEducatorCapability';
+// @ts-ignore
+import { logChatSequence } from '@/lib/chatLogger';
 
 const healthRegistry = new Map();
 const analyst = new HealthAnalystCapability();
@@ -73,13 +75,23 @@ export async function POST(request: Request) {
 
       const aiResponse = await executor.execute(sessionId, payload, 'user_placeholder');
 
+      await logChatSequence(
+        sessionId,
+        'HEALTH',
+        body.userId || null,
+        message,
+        "Your Financial Health Blueprint is ready.",
+        'v1.0.0'
+      );
+
       return NextResponse.json({
         version: "1.0",
         status: "success",
         message: "Your Financial Health Blueprint is ready.",
         updatedProfile: profileData,
         nextState: "AWAITING_USER_ACTION",
-        blueprint: aiResponse.data
+        blueprint: aiResponse.data,
+        sessionId
       });
     }
 
@@ -102,7 +114,20 @@ If all fields are present and valid, set nextState to "REPORT_READY" immediately
       { temperature: 0.1 }
     );
 
-    return NextResponse.json(aiResult.data);
+    const sessionId = body.sessionId || `health_${Date.now()}`;
+    const data = aiResult.data as any;
+    const botResponseStr = data.message || (data.nextState === 'REPORT_READY' ? "Generating health report..." : "Please provide more details.");
+
+    await logChatSequence(
+      sessionId,
+      'HEALTH',
+      body.userId || null,
+      message,
+      botResponseStr,
+      'v1.0.0'
+    );
+
+    return NextResponse.json({ ...data, sessionId });
 
   } catch (error: any) {
     console.error('Health API Error:', error);

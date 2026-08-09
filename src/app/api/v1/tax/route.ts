@@ -8,6 +8,9 @@ import { TaxWorkflow } from '@/lib/ai/features/tax/TaxWorkflow';
 import { TaxCalculatorCapability } from '@/lib/ai/features/tax/capabilities/TaxCalculatorCapability';
 import { TaxStrategistCapability } from '@/lib/ai/features/tax/capabilities/TaxStrategistCapability';
 
+// @ts-ignore
+import { logChatSequence } from '@/lib/chatLogger';
+
 const taxRegistry = new Map();
 taxRegistry.set(TaxCalculatorCapability.id, TaxCalculatorCapability);
 taxRegistry.set(TaxStrategistCapability.id, TaxStrategistCapability);
@@ -31,13 +34,14 @@ export async function POST(request: Request) {
     }
 
     const { message, currentState, history = [] } = parsed.data;
+    const sessionId = body.sessionId || `session-${Date.now()}`;
 
     const messages = [
       { 
         role: 'system' as const, 
         content: `Current Profile State Data: ${JSON.stringify(currentState || {})}`
       },
-      ...history.map(h => ({ role: h.role as any, content: h.content })),
+      ...history.map((h: any) => ({ role: h.role as any, content: h.content })),
       { 
         role: 'user' as const, 
         content: message 
@@ -61,7 +65,7 @@ export async function POST(request: Request) {
       };
 
       const workflowResult = await workflowExecutor.execute(
-        `session-${Date.now()}`,
+        sessionId,
         mathContext
       );
 
@@ -73,22 +77,35 @@ export async function POST(request: Request) {
       massiveBlueprint = workflowResult.data;
     }
 
+    const botResponseStr = aiData.message || (massiveBlueprint ? "Here is your generated tax optimization blueprint." : "Please provide the next piece of information.");
+    
+    // Log to DB
+    await logChatSequence(
+      sessionId,
+      'TAX',
+      body.userId || null,
+      message,
+      botResponseStr,
+      'v1.0.0'
+    );
+
     return NextResponse.json({
       success: true,
       data: {
+        sessionId,
         updatedProfile: aiData.updatedProfile,
-        botResponse: aiData.message || "Please provide the next piece of information.",
+        botResponse: botResponseStr,
         cards: aiData.cards, 
+        blueprint: massiveBlueprint || undefined,
         nextState: aiData.nextState,
-        blueprint: massiveBlueprint
-      },
-      meta: { usage }
+        missingFields: aiData.missingFields
+      }
     });
 
   } catch (error: any) {
-    console.error('[Tax API] Error:', error);
+    console.error('Tax API Error:', error);
     return NextResponse.json(
-      { success: false, error: { code: 'INTERNAL_ERROR', message: error.message } },
+      { success: false, error: { code: 'INTERNAL_SERVER_ERROR', message: error.message } },
       { status: 500 }
     );
   }
