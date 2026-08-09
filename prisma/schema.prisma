@@ -15,7 +15,9 @@ datasource db {
 model User {
   id            String    @id @default(uuid())
   email         String    @unique
+  password      String?
   name          String?
+  role          String    @default("CLIENT")
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   
@@ -207,4 +209,15 @@ model EmailContact {
   updatedAt       DateTime            @updatedAt
   
   campaigns       CampaignRecipient[]
+}
+
+
+model Inquiry {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  status    String   @default("NEW")
+  createdAt DateTime @default(now())
 }

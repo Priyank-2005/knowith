@@ -19,17 +19,19 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
     }
 
-    if (user.password !== password) {
+    const userData = user as any;
+
+    if (userData.password !== password) {
       return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
     }
 
     return NextResponse.json({
       success: true,
       user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
+        id: userData.id,
+        email: userData.email,
+        name: userData.name,
+        role: userData.role,
       },
     });
   } catch (error: any) {
