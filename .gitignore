@@ -47,3 +47,6 @@ next-env.d.ts
 *.db-journal
 
 /src/generated/prisma
+
+# Local dev subfolder (all code lives at root)
+/ai_features/
