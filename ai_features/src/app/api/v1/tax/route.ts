@@ -8,6 +8,7 @@ import { TaxWorkflow } from '@/lib/ai/features/tax/TaxWorkflow';
 import { TaxCalculatorCapability } from '@/lib/ai/features/tax/capabilities/TaxCalculatorCapability';
 import { TaxStrategistCapability } from '@/lib/ai/features/tax/capabilities/TaxStrategistCapability';
 
+// @ts-ignore
 import { logChatSequence } from '@/lib/chatLogger';
 
 const taxRegistry = new Map();

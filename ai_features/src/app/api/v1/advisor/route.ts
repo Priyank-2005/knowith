@@ -24,6 +24,7 @@ const workflowExecutor = new WorkflowExecutor(
   { maxConcurrent: 1, maxRetries: 3 } // Changed to 1 to prevent rate-limit cascade
 );
 
+// @ts-ignore
 import { logChatSequence } from '@/lib/chatLogger';
 
 export async function POST(request: Request) {

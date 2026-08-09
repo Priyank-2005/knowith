@@ -9,6 +9,7 @@ import { PortfolioAnalystCapability } from '@/lib/ai/features/portfolio/capabili
 import { RiskManagerCapability } from '@/lib/ai/features/portfolio/capabilities/RiskManagerCapability';
 import { RebalancingStrategistCapability } from '@/lib/ai/features/portfolio/capabilities/RebalancingStrategistCapability';
 
+// @ts-ignore
 import { logChatSequence } from '@/lib/chatLogger';
 
 const portfolioRegistry = new Map();

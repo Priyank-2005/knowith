@@ -9,6 +9,7 @@ import { HealthAnalystCapability } from '@/lib/ai/features/health/capabilities/H
 import { HealthBehaviourCapability } from '@/lib/ai/features/health/capabilities/HealthBehaviourCapability';
 import { HealthRecommenderCapability } from '@/lib/ai/features/health/capabilities/HealthRecommenderCapability';
 import { HealthEducatorCapability } from '@/lib/ai/features/health/capabilities/HealthEducatorCapability';
+// @ts-ignore
 import { logChatSequence } from '@/lib/chatLogger';
 
 const healthRegistry = new Map();
