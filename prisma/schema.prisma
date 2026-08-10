@@ -221,3 +221,35 @@ model Inquiry {
   status    String   @default("NEW")
   createdAt DateTime @default(now())
 }
+
+model MarketDataReport {
+  id          String   @id @default(uuid())
+  title       String   @default("Global Market Concentration")
+  month       String   // e.g., 'August 2026'
+  isActive    Boolean  @default(true)
+  uploadedBy  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  entries     MarketDataEntry[]
+}
+
+model MarketDataEntry {
+  id                    String   @id @default(uuid())
+  reportId              String
+  report                MarketDataReport @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  country               String
+  flagEmoji             String   @default("🌍")
+  marketCapUsd          String   // e.g., '$81T'
+  top10ConcentrationPct Float
+  concentrationLevel    String   // 'low', 'medium', 'high'
+  top1SharePct          Float
+  oneYrReturnPct        Float
+  indexName             String
+  topReturnDriver       String
+  largestStock          String
+  largestStockTicker    String
+  marketType            String   // 'Dev' or 'EM'
+  hasVolatilityFlag     Boolean  @default(false)
+  sortOrder             Int      @default(0)
+  createdAt             DateTime @default(now())
+}

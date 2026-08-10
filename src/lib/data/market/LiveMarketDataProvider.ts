@@ -61,9 +61,7 @@ export class LiveMarketDataProvider implements MarketDataProvider {
       { symbol: 'BZ=F', name: 'Crude Oil (Brent)' }
     ];
 
-    const snapshotData: MarketSnapshotData[] = [];
-
-    for (const idx of indices) {
+    const promises = indices.map(async (idx) => {
       try {
         const quote = await yahooFinance.quote(idx.symbol);
         
@@ -77,20 +75,22 @@ export class LiveMarketDataProvider implements MarketDataProvider {
           if (changeAmount > 0) trend = 'up';
           else if (changeAmount < 0) trend = 'down';
 
-          snapshotData.push({
+          return {
             indexName: idx.name,
             currentValue,
             changeAmount,
             changePercentage,
             trend
-          });
+          } as MarketSnapshotData;
         }
       } catch (error) {
         console.error(`[LiveMarketDataProvider] Failed to fetch quote for ${idx.symbol}`, error);
       }
-    }
+      return null;
+    });
 
-    return snapshotData;
+    const results = await Promise.all(promises);
+    return results.filter((r): r is MarketSnapshotData => r !== null);
   }
 
   async getSentiment(): Promise<{ sentiment: 'Bullish' | 'Bearish' | 'Neutral', confidence: number }> {

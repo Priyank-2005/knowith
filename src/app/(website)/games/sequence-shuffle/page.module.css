@@ -1,0 +1,208 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--ink, #0B1533);
+  color: #fff;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-body), sans-serif;
+}
+
+.intro {
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: var(--font-display), serif;
+  font-size: 2.5rem;
+  color: var(--gold, #FFC94A);
+  margin-bottom: 1rem;
+}
+
+.gameArea {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+.slotsContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.slot {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 10px;
+}
+
+.slot:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.chip {
+  background: var(--gold, #FFC94A);
+  color: var(--ink, #0B1533);
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  width: 100%;
+  text-align: center;
+}
+
+.chip.negative {
+  background: #FF5F73;
+  color: #fff;
+}
+
+.chip.positive {
+  background: #45D483;
+  color: #111;
+}
+
+.chipsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.chipButton {
+  background: var(--gold, #FFC94A);
+  color: var(--ink, #0B1533);
+  font-weight: bold;
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s;
+}
+.chipButton:hover {
+  transform: translateY(-2px);
+}
+.chipButton.negative {
+  background: #FF5F73;
+  color: #fff;
+}
+
+.chipButton.positive {
+  background: #45D483;
+  color: #111;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btnConfirm {
+  background: var(--gold, #FFC94A);
+  color: var(--ink, #0B1533);
+  box-shadow: 0 4px 15px rgba(255, 201, 74, 0.3);
+}
+
+.btnConfirm:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 201, 74, 0.4);
+}
+
+.btnConfirm:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btnReset {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 1rem 2rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btnReset:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.results {
+  text-align: center;
+  margin-top: 3rem;
+  background: rgba(255,255,255,0.05);
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.rank {
+  font-size: 1.5rem;
+  color: var(--gold, #FFC94A);
+  margin-bottom: 1rem;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 2rem 0;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.statValue {
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-family: var(--font-mono), monospace;
+}
+
+.insight {
+  font-style: italic;
+  color: #45D483;
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+}

@@ -1,0 +1,206 @@
+.hubMain {
+  background-color: var(--ink);
+  color: var(--marble);
+  min-height: 100vh;
+  padding: 120px 24px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero {
+  max-width: 800px;
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.subtitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-family: var(--font-display), serif;
+  margin-bottom: 16px;
+  color: var(--marble);
+}
+
+.tagline {
+  font-size: 1.5rem;
+  color: var(--on-dark);
+  margin-bottom: 40px;
+}
+
+.quote {
+  font-family: var(--font-body), sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  font-style: italic;
+  color: var(--on-dark-soft);
+  max-width: 600px;
+  margin: 0 auto 60px;
+  position: relative;
+  padding: 0 20px;
+  border-left: 2px solid var(--gold);
+}
+
+.vaultCounter {
+  background: rgba(255, 201, 74, 0.1);
+  border: 1px solid var(--gold);
+  padding: 30px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.vaultLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.9rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+.vaultValue {
+  font-family: var(--font-display), serif;
+  font-size: 4rem;
+  color: var(--marble);
+  line-height: 1;
+}
+
+.chaptersSection {
+  width: 100%;
+  max-width: 900px;
+}
+
+.chaptersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+.chapterCard {
+  background-color: var(--ink-2);
+  padding: 32px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  border: 1px solid var(--border-dark);
+}
+
+.chapterCard:hover {
+  transform: translateY(-5px);
+}
+
+.chapterNum {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  color: var(--slate-soft);
+  margin-bottom: 12px;
+}
+
+.chapterTitle {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: var(--marble);
+}
+
+.chapterDesc {
+  font-size: 1rem;
+  color: var(--on-dark-soft);
+  line-height: 1.5;
+  margin-bottom: 32px;
+  flex-grow: 1;
+}
+
+.chapterAction {
+  margin-top: auto;
+}
+
+.playButton {
+  display: inline-block;
+  background-color: var(--gold);
+  color: var(--ink);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.playButton:hover {
+  opacity: 0.9;
+}
+
+.completedBadge {
+  display: inline-block;
+  background-color: rgba(69, 212, 131, 0.2);
+  color: #45D483;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  padding: 12px 24px;
+  border-radius: 4px;
+  border: 1px solid #45D483;
+}
+
+.finalScorecard {
+  background-color: var(--ink-2);
+  border: 1px dashed var(--border-dark);
+  padding: 40px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.finalScorecard h3 {
+  font-size: 1.75rem;
+  margin-bottom: 12px;
+  color: var(--gold);
+}
+
+.finalScorecard p {
+  color: var(--on-dark-soft);
+  margin-bottom: 24px;
+}
+
+.lockedButton {
+  background-color: transparent;
+  color: var(--slate-soft);
+  border: 1px solid var(--slate-soft);
+  padding: 12px 24px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  cursor: not-allowed;
+}
+
+.revealButton {
+  background-color: var(--gold);
+  color: var(--ink);
+  border: none;
+  padding: 12px 24px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.disclaimer {
+  background-color: var(--ink);
+  color: var(--slate-soft);
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 24px;
+  border-top: 1px solid var(--border-dark);
+}

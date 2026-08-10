@@ -1,0 +1,185 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--ink, #0B1533);
+  color: #fff;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-body), sans-serif;
+}
+
+.intro {
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: var(--font-display), serif;
+  font-size: 2.5rem;
+  color: var(--gold, #FFC94A);
+  margin-bottom: 1rem;
+}
+
+.gameArea {
+  width: 100%;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.progress {
+  display: flex;
+  gap: 5px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+}
+
+.dot.active {
+  background: var(--gold, #FFC94A);
+}
+.dot.correct {
+  background: #45D483;
+}
+.dot.wrong {
+  background: #FF5F73;
+}
+
+.timerRing {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono), monospace;
+  font-weight: bold;
+  border: 3px solid #45D483;
+}
+
+.timerRing.danger {
+  border-color: #FF5F73;
+  color: #FF5F73;
+}
+
+.question {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.optionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.optionBtn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 1.5rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.optionBtn:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--gold, #FFC94A);
+}
+
+.optionBtn:disabled {
+  cursor: default;
+}
+
+.optionBtn.correct {
+  background: rgba(69, 212, 131, 0.2);
+  border-color: #45D483;
+}
+
+.optionBtn.wrong {
+  background: rgba(255, 95, 115, 0.2);
+  border-color: #FF5F73;
+}
+
+.feedbackCard {
+  margin-top: 2rem;
+  background: rgba(0,0,0,0.3);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--gold, #FFC94A);
+}
+
+.feedbackCard.correctCard {
+  border-left-color: #45D483;
+}
+
+.feedbackCard.wrongCard {
+  border-left-color: #FF5F73;
+}
+
+.explanation {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.nextBtn {
+  background: var(--gold, #FFC94A);
+  color: var(--ink, #0B1533);
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.scoreScreen {
+  text-align: center;
+}
+
+.scoreGrid {
+  display: flex;
+  justify-content: space-around;
+  margin: 3rem 0;
+}
+
+.scoreItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.scoreLabel {
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 0.5rem;
+}
+
+.scoreValue {
+  font-size: 2.5rem;
+  font-family: var(--font-mono), monospace;
+  color: var(--gold, #FFC94A);
+}
+
+@media (max-width: 600px) {
+  .optionsGrid {
+    grid-template-columns: 1fr;
+  }
+}

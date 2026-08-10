@@ -41,23 +41,6 @@ export default function Insights() {
     <>
       <Navbar />
       <main>
-        {/* Moving Text Ticker */}
-        <div className={styles.newsTickerContainer}>
-          <div className={styles.tickerContent}>
-            <span className={styles.tickerItem}>NIFTY 50: 24,150.25 <span className={styles.tickerPos}>(+1.2%)</span></span>
-            <span className={styles.tickerItem}>SENSEX: 79,800.10 <span className={styles.tickerPos}>(+1.1%)</span></span>
-            <span className={styles.tickerItem}>GOLD (10g): ₹72,500 <span className={styles.tickerNeg}>(-0.4%)</span></span>
-            <span className={styles.tickerItem}>RBI holds repo rate at 6.5%</span>
-            <span className={styles.tickerItem}>SEBI tightens norms for derivative trading</span>
-            
-            {/* Duplicated for smooth infinite loop */}
-            <span className={styles.tickerItem}>NIFTY 50: 24,150.25 <span className={styles.tickerPos}>(+1.2%)</span></span>
-            <span className={styles.tickerItem}>SENSEX: 79,800.10 <span className={styles.tickerPos}>(+1.1%)</span></span>
-            <span className={styles.tickerItem}>GOLD (10g): ₹72,500 <span className={styles.tickerNeg}>(-0.4%)</span></span>
-            <span className={styles.tickerItem}>RBI holds repo rate at 6.5%</span>
-            <span className={styles.tickerItem}>SEBI tightens norms for derivative trading</span>
-          </div>
-        </div>
 
         <section className={`section-light ${styles.header}`}>
           <div className="container" style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 type TickerItem = {
   indexName: string;
@@ -10,16 +11,30 @@ type TickerItem = {
   trend: string;
 };
 
+// Global cache outside component so it survives unmounts
+let cachedTickerData: TickerItem[] | null = null;
+let lastFetchTime: number = 0;
+
 export default function MarketTicker() {
-  const [items, setItems] = useState<TickerItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [items, setItems] = useState<TickerItem[]>(cachedTickerData || []);
+  const [loading, setLoading] = useState(!cachedTickerData);
+  const pathname = usePathname();
 
   useEffect(() => {
     async function fetchTicker() {
+      // Avoid fetching if we fetched within the last 60 seconds
+      if (cachedTickerData && Date.now() - lastFetchTime < 60000) {
+        setItems(cachedTickerData);
+        setLoading(false);
+        return;
+      }
+      
       try {
         const res = await fetch('/api/v1/market/ticker');
         const json = await res.json();
         if (json.success && json.data) {
+          cachedTickerData = json.data;
+          lastFetchTime = Date.now();
           setItems(json.data);
         }
       } catch (error) {
@@ -34,6 +49,8 @@ export default function MarketTicker() {
     return () => clearInterval(interval);
   }, []);
 
+  // Hide on games paths
+  if (pathname?.startsWith('/games')) return null;
   if (loading || items.length === 0) return null;
 
   return (

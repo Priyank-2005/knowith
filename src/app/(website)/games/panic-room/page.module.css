@@ -1,0 +1,161 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--ink, #0B1533);
+  color: #fff;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-body), sans-serif;
+}
+
+.intro {
+  text-align: center;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: var(--font-display), serif;
+  font-size: 2.5rem;
+  color: var(--gold, #FFC94A);
+  margin-bottom: 1rem;
+}
+
+.gameArea {
+  width: 100%;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.roundInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.yearBadge {
+  background: var(--gold, #FFC94A);
+  color: var(--ink, #0B1533);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  font-family: var(--font-mono), monospace;
+}
+
+.crisisTitle {
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.7);
+}
+
+.headline {
+  font-family: var(--font-display), serif;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  text-align: center;
+  color: #FF5F73;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+}
+
+.timerBarContainer {
+  height: 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.timerBar {
+  height: 100%;
+  background: #45D483;
+  transition: width 1s linear, background-color 0.3s ease;
+}
+
+.timerBar.danger {
+  background: #FF5F73;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.optionBtn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.optionBtn:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--gold, #FFC94A);
+}
+
+.revealCard {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--gold, #FFC94A);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.revealTitle {
+  color: var(--gold, #FFC94A);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.recoveryText {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin-bottom: 2rem;
+}
+
+.points {
+  font-size: 1.2rem;
+  color: #45D483;
+  margin-bottom: 2rem;
+}
+
+.nextBtn {
+  background: var(--gold, #FFC94A);
+  color: var(--ink, #0B1533);
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.finalScoreArea {
+  text-align: center;
+  padding: 2rem;
+}
+
+.scoreValue {
+  font-size: 4rem;
+  font-family: var(--font-display), serif;
+  color: #45D483;
+  margin: 1rem 0;
+}

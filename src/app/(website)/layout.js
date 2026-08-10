@@ -1,5 +1,5 @@
 import { Fraunces, Manrope, IBM_Plex_Mono } from "next/font/google";
-import "./globals.css";
+import "./website.css";
 import FloatingButtons from "@/components/FloatingButtons";
 
 // Display Font

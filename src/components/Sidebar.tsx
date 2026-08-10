@@ -15,7 +15,8 @@ import {
   Mail,
   Users,
   LayoutTemplate,
-  LogOut
+  LogOut,
+  Globe
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -40,6 +41,7 @@ const adminItems = [
   { name: 'Email Templates', href: '/admin/campaigns/templates', icon: LayoutTemplate },
   { name: 'Audience', href: '/admin/campaigns/contacts', icon: Users },
   { name: 'Chat Logs', href: '/admin/chats', icon: Headphones },
+  { name: 'Market Data', href: '/admin/market-data', icon: Globe },
 ];
 
 export default function Sidebar() {

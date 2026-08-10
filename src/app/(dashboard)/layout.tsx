@@ -1,5 +1,4 @@
 import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
-import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 // @ts-ignore
 import FloatingButtons from "@/components/FloatingButtons";
