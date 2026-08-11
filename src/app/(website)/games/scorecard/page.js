@@ -16,7 +16,7 @@ export default function Scorecard() {
     // If not all completed, normally we would redirect, but for dev we might just show it.
     // Uncomment to enforce:
     /*
-    if (!scores.chapter1 || !scores.chapter2 || !scores.chapter3 || !scores.chapter4) {
+    if (!scores.chapter1 || !scores.chapter2 || !scores.chapter3 || !scores.chapter4 || !scores.chapter5) {
       router.push('/games');
     }
     */
@@ -25,8 +25,12 @@ export default function Scorecard() {
   if (!mounted) return null;
 
   // Calculate Average
-  // Chapter 1 is usually included, but I'll average what we have.
-  const allScores = [scores.chapter1, scores.chapter2, scores.chapter3, scores.chapter4].filter(s => s !== null);
+  const allCompleted = scores.chapter1 !== null && 
+                       scores.chapter2 !== null && 
+                       scores.chapter3 !== null && 
+                       scores.chapter4 !== null &&
+                       scores.chapter5 !== null;
+  const allScores = [scores.chapter1, scores.chapter2, scores.chapter3, scores.chapter4, scores.chapter5].filter(s => s !== null);
   const avgScore = allScores.length > 0 ? Math.round(allScores.reduce((a, b) => a + b, 0) / allScores.length) : 0;
 
   // DNA Rank
@@ -43,7 +47,7 @@ export default function Scorecard() {
   };
 
   const restart = () => {
-    resetGames();
+    resetGame();
     router.push('/games'); // Assuming hub is at /games
   };
 
@@ -70,7 +74,7 @@ export default function Scorecard() {
           </div>
           
           <div className={styles.lessonsArea}>
-            <h2 className={styles.lessonsTitle}>4 Golden Lessons Unlocked</h2>
+            <h2 className={styles.lessonsTitle}>5 Golden Lessons Unlocked</h2>
             <ul className={styles.lessonList}>
               <li className={styles.lessonItem}>
                 <strong>1. The NAV Illusion:</strong> High NAV doesn't mean expensive. Low NAV doesn't mean cheap. It's about growth percentage.
@@ -83,6 +87,9 @@ export default function Scorecard() {
               </li>
               <li className={styles.lessonItem}>
                 <strong>4. Compound Knowledge:</strong> Understanding basics like LTCG tax and Expense Ratios prevents expensive mistakes.
+              </li>
+              <li className={styles.lessonItem}>
+                <strong>5. The Contrarian Signal:</strong> Maximum pessimism is usually the best time to buy. Euphoria is the time to be cautious.
               </li>
             </ul>
           </div>

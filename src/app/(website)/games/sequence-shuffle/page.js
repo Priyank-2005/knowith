@@ -1,12 +1,11 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import { useGameState } from '@/lib/games/gameState';
 import { calculateCorpus, getPermutations } from '@/lib/games/mathUtils';
 import { chapter2Returns } from '@/lib/games/gameData';
 import styles from './page.module.css';
+import GameHeader from '@/components/GameHeader';
 
 export default function SequenceShuffle() {
   const router = useRouter();
@@ -89,7 +88,7 @@ export default function SequenceShuffle() {
 
   return (
     <>
-      <Navbar />
+      <GameHeader />
       <div className={styles.container}>
         <div className={styles.intro}>
           <h1 className={styles.title}>Chapter 2: Sequence Shuffle</h1>
@@ -171,7 +170,6 @@ export default function SequenceShuffle() {
           </div>
         )}
       </div>
-      <Footer />
     </>
   );
 }

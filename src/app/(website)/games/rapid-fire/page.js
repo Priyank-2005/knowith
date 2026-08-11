@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { useGameState } from '@/lib/games/gameState';
 import { rapidFireQuestions } from '@/lib/games/gameData';
 import styles from './page.module.css';
+import GameHeader from '@/components/GameHeader';
 
 export default function RapidFire() {
   const router = useRouter();
@@ -151,7 +152,7 @@ export default function RapidFire() {
 
   return (
     <>
-      <Navbar />
+      <GameHeader />
       <div className={styles.container}>
         <div className={styles.gameArea}>
           <div className={styles.header}>
@@ -202,7 +203,6 @@ export default function RapidFire() {
           )}
         </div>
       </div>
-      <Footer />
     </>
   );
 }

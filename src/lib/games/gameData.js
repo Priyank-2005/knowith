@@ -90,3 +90,138 @@ export const INVESTOR_DNA_RANKS = [
   { min: 40, max: 59, title: 'Fair-Weather Investor', desc: 'You invest when markets are sunny but get nervous in storms.' },
   { min: 0, max: 39, title: 'Panic Prone', desc: 'Markets scare you. But awareness is the first step to discipline.' }
 ];
+
+export const contrarianSignalDispatches = [
+  {
+    id: 1,
+    date: 'October 1987',
+    headline: 'BLACK MONDAY: DOW PLUMMETS 22.6% IN A SINGLE DAY',
+    context: 'The largest one-day stock market crash in history sends shockwaves globally. Panic selling wipes out billions in hours. Is the system broken?',
+    outcomes: {
+      buy: { score: 100, text: 'Bold call! Markets completely recovered within 2 years, starting a massive bull run.' },
+      hold: { score: 50, text: 'Good discipline. You ignored the panic and rode the eventual recovery.' },
+      sell: { score: 0, text: 'You locked in permanent losses at the exact bottom of the crash.' }
+    }
+  },
+  {
+    id: 2,
+    date: 'March 2000',
+    headline: 'NEW PARADIGM: TECH STOCKS CAN ONLY GO UP',
+    context: 'Internet companies with zero revenue command multi-billion dollar valuations. "Valuation doesn\'t matter in the new economy" is the mantra.',
+    outcomes: {
+      buy: { score: 0, text: 'You bought into the peak of the Dot-Com bubble. The NASDAQ would lose 78% of its value over the next 2 years.' },
+      hold: { score: 50, text: 'A tough hold, but staying diversified saved you from total ruin.' },
+      sell: { score: 100, text: 'Contrarian genius. You recognized the extreme euphoria and avoided a brutal 78% drawdown.' }
+    }
+  },
+  {
+    id: 3,
+    date: 'September 2001',
+    headline: '9/11 TERROR ATTACKS SHUT DOWN GLOBAL MARKETS',
+    context: 'Unprecedented terrorist attacks close US markets for 4 days. Extreme fear grips global investors as the world braces for war.',
+    outcomes: {
+      buy: { score: 100, text: 'Courageous. Despite geopolitical terror, markets bottomed soon after and began a new cycle.' },
+      hold: { score: 50, text: 'Solid resolve. You didn\'t let geopolitical fear disrupt your long-term plan.' },
+      sell: { score: 0, text: 'You panic-sold on geopolitical news, historically almost always a losing strategy.' }
+    }
+  },
+  {
+    id: 4,
+    date: 'September 2008',
+    headline: 'LEHMAN BROTHERS COLLAPSES, FINANCIAL SYSTEM ON BRINK',
+    context: 'The 158-year-old investment bank files for bankruptcy. Credit markets freeze. Contagion threatens every major global bank.',
+    outcomes: {
+      buy: { score: 50, text: 'A bit early—markets dropped further until March 2009—but a great long-term entry point.' },
+      hold: { score: 50, text: 'Painful, but holding through the storm proved vastly superior to selling.' },
+      sell: { score: 0, text: 'You capitulated near the bottom of the worst financial crisis since the Great Depression.' }
+    }
+  },
+  {
+    id: 5,
+    date: 'March 2009',
+    headline: 'DOW DROPS BELOW 6,600: IS CAPITALISM DEAD?',
+    context: 'Peak pessimism. Media declares the end of equities. Unemployment is surging, and no one sees a way out.',
+    outcomes: {
+      buy: { score: 100, text: 'Legendary contrarian call! This marked the exact bottom and the start of the longest bull market in history.' },
+      hold: { score: 50, text: 'You survived the worst bear market of a generation. Your patience will soon be rewarded.' },
+      sell: { score: 0, text: 'You sold at the point of maximum financial opportunity.' }
+    }
+  },
+  {
+    id: 6,
+    date: 'August 2013',
+    headline: 'RUPEE HITS RECORD LOW OF 68.8, INDIA IN FRAGILE FIVE',
+    context: 'The US Fed tapers QE, causing massive foreign outflows from India. The Rupee collapses and interest rates spike.',
+    outcomes: {
+      buy: { score: 100, text: 'Excellent call! The "Taper Tantrum" was a peak fear event. Indian markets soared 30%+ the following year.' },
+      hold: { score: 50, text: 'You ignored the currency panic and stayed the course.' },
+      sell: { score: 0, text: 'You sold Indian equities right before a massive multi-year bull run.' }
+    }
+  },
+  {
+    id: 7,
+    date: 'November 2016',
+    headline: 'SHOCK DEMONETISATION BANS 86% OF CURRENCY OVERNIGHT',
+    context: 'Cash-heavy sectors freeze. Real estate and auto stocks plummet. Economists predict severe GDP contraction.',
+    outcomes: {
+      buy: { score: 100, text: 'Smart move! The market entirely shrugged off the cash crunch and rallied 28% in 2017.' },
+      hold: { score: 50, text: 'Good discipline. You didn\'t react to the short-term domestic policy shock.' },
+      sell: { score: 0, text: 'You got spooked by domestic noise and missed a major rally.' }
+    }
+  },
+  {
+    id: 8,
+    date: 'September 2018',
+    headline: 'IL&FS DEFAULTS ON ₹91,000 CR: NBFC CRISIS ERUPTS',
+    context: 'A shadow banking giant defaults. Credit markets freeze in India. Mid and small-cap stocks crash 30-40%.',
+    outcomes: {
+      buy: { score: 100, text: 'Great entry! While mid-caps suffered, the broader index recovered to new highs within a year.' },
+      hold: { score: 50, text: 'You absorbed the volatility and let the dust settle.' },
+      sell: { score: 0, text: 'You panic-sold into a liquidity crisis that was eventually resolved by the RBI.' }
+    }
+  },
+  {
+    id: 9,
+    date: 'March 2020',
+    headline: 'GLOBAL LOCKDOWNS: MARKETS PLUNGE 35% IN WEEKS',
+    context: 'The COVID-19 pandemic halts the global economy. Flights grounded, businesses closed. Unprecedented uncertainty.',
+    outcomes: {
+      buy: { score: 100, text: 'The ultimate contrarian bet. Central banks unleashed trillions, sparking the fastest V-shaped recovery in history.' },
+      hold: { score: 50, text: 'You paralyzed your fear and held on, capturing the massive recovery.' },
+      sell: { score: 0, text: 'You sold the fastest bear market in history, missing the equally fast bull market that followed immediately.' }
+    }
+  },
+  {
+    id: 10,
+    date: 'November 2021',
+    headline: 'CRYPTO, MEME STOCKS, IPOS REACH MANIA LEVELS',
+    context: 'Trillions in stimulus lead to wild speculation. Valuations for tech and IPOs reach extreme levels not seen since 2000.',
+    outcomes: {
+      buy: { score: 0, text: 'You bought into extreme euphoria. A punishing bear market in tech and mid-caps began weeks later.' },
+      hold: { score: 50, text: 'You stayed disciplined and diversified, avoiding the worst of the speculative crash.' },
+      sell: { score: 100, text: 'Brilliant. You recognized the bubble and protected your capital before the 2022 rate-hike crash.' }
+    }
+  },
+  {
+    id: 11,
+    date: 'June 2022',
+    headline: 'INFLATION AT 40-YEAR HIGH, WAR IN EUROPE RAGES',
+    context: 'Central banks hike rates aggressively. Recession is deemed 100% certain. Markets are down 20%.',
+    outcomes: {
+      buy: { score: 100, text: 'Contrarian win! The market had already priced in the worst. 2023 saw a massive tech-led rally.' },
+      hold: { score: 50, text: 'You held firm through peak inflation fears.' },
+      sell: { score: 0, text: 'You sold after the market had already priced in the bad news.' }
+    }
+  },
+  {
+    id: 12,
+    date: 'January 2023',
+    headline: 'HINDENBURG REPORT WIPES OUT ₹10 LAKH CRORE IN ADANI STOCKS',
+    context: 'A short-seller report triggers a massive selloff in the Adani group. Fears of systemic risk to Indian banks run rampant.',
+    outcomes: {
+      buy: { score: 100, text: 'Astute. The contagion was contained. The broader Indian market rallied to all-time highs later that year.' },
+      hold: { score: 50, text: 'You ignored the noise and trusted your diversified portfolio.' },
+      sell: { score: 0, text: 'You let a stock-specific crisis scare you out of the broader market.' }
+    }
+  }
+];

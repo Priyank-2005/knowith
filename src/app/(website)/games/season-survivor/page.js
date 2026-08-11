@@ -9,6 +9,7 @@ import styles from './page.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import GameHeader from '@/components/GameHeader';
 
 export default function SeasonSurvivor() {
   const router = useRouter();
@@ -179,124 +180,124 @@ export default function SeasonSurvivor() {
   };
 
   return (
-    <div className={styles.container}>
-      <Navbar />
-      
-      <main className={styles.main}>
-        {gameState === 'intro' && (
-          <motion.div className={styles.introScreen} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <div className={styles.chapterBadge}>Chapter 01</div>
-            <h1>Season Survivor</h1>
-            <p className={styles.introDesc}>
-              Welcome to the ultimate test of investor discipline. You will live through a 10-year market cycle, making one decision per year. 
-            </p>
-            <div className={styles.rules}>
-              <h3>The Rules:</h3>
-              <ul>
-                <li>You start with a ₹10,000 monthly SIP.</li>
-                <li>Each year brings a new market 'season' (Spring, Summer, Autumn, Winter).</li>
-                <li>You can Stay the Course, Top Up (₹15K), Pause, or Sell Everything.</li>
-                <li>Your goal: Accumulate maximum units to beat the 'Never Flinched' benchmark.</li>
-              </ul>
-            </div>
-            <button className={styles.primaryButton} onClick={startGame}>Begin Journey</button>
-          </motion.div>
-        )}
+    <>
+      {(gameState === 'intro' || gameState === 'results') ? <Navbar /> : <GameHeader />}
+      <div className={styles.container}>
+        <main className={styles.main}>
+          {gameState === 'intro' && (
+            <motion.div className={styles.introScreen} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <div className={styles.chapterBadge}>Chapter 01</div>
+              <h1>Season Survivor</h1>
+              <p className={styles.introDesc}>
+                Welcome to the ultimate test of investor discipline. You will live through a 10-year market cycle, making one decision per year. 
+              </p>
+              <div className={styles.rules}>
+                <h3>The Rules:</h3>
+                <ul>
+                  <li>You start with a ₹10,000 monthly SIP.</li>
+                  <li>Each year brings a new market 'season' (Spring, Summer, Autumn, Winter).</li>
+                  <li>You can Stay the Course, Top Up (₹15K), Pause, or Sell Everything.</li>
+                  <li>Your goal: Accumulate maximum units to beat the 'Never Flinched' benchmark.</li>
+                </ul>
+              </div>
+              <button className={styles.primaryButton} onClick={startGame}>Begin Journey</button>
+            </motion.div>
+          )}
 
-        {(gameState === 'playing' || gameState === 'animating') && journey && (
-          <div className={styles.gameBoard}>
-            <div className={styles.headerRow}>
-              <div className={styles.yearIndicator}>
-                Year {currentYear + 1} of 10
+          {(gameState === 'playing' || gameState === 'animating') && journey && (
+            <div className={styles.gameBoard}>
+              <div className={styles.headerRow}>
+                <div className={styles.yearIndicator}>
+                  Year {currentYear + 1} of 10
+                </div>
+                <h2 className={styles.headline}>"{journey.years[currentYear].headline}"</h2>
+                <div className={styles.seasonIndicator} style={{ color: seasons[journey.years[currentYear].season].color }}>
+                  {seasons[journey.years[currentYear].season].name}
+                </div>
               </div>
-              <h2 className={styles.headline}>"{journey.years[currentYear].headline}"</h2>
-              <div className={styles.seasonIndicator} style={{ color: seasons[journey.years[currentYear].season].color }}>
-                {seasons[journey.years[currentYear].season].name}
-              </div>
-            </div>
 
-            <div className={styles.statsPanel}>
-              <div className={styles.statBox}>
-                <label>Current NAV</label>
-                <div className={styles.statVal}>₹{history.filter(d => d?.nav).slice(-1)[0]?.nav.toFixed(2) || '0.00'}</div>
+              <div className={styles.statsPanel}>
+                <div className={styles.statBox}>
+                  <label>Current NAV</label>
+                  <div className={styles.statVal}>₹{history.filter(d => d?.nav).slice(-1)[0]?.nav.toFixed(2) || '0.00'}</div>
+                </div>
+                <div className={styles.statBox}>
+                  <label>Total Units</label>
+                  <div className={styles.statVal}>{stats.totalUnits.toFixed(2)}</div>
+                </div>
+                <div className={styles.statBox}>
+                  <label>Portfolio Value</label>
+                  <div className={styles.statVal}>{formatCurrency(stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0))}</div>
+                </div>
+                <div className={styles.statBox}>
+                  <label>Total Invested</label>
+                  <div className={styles.statVal}>{formatCurrency(stats.totalInvested)}</div>
+                </div>
+                <div className={styles.statBox}>
+                  <label>Cash Balance</label>
+                  <div className={styles.statVal}>{formatCurrency(stats.cashBalance)}</div>
+                </div>
               </div>
-              <div className={styles.statBox}>
-                <label>Total Units</label>
-                <div className={styles.statVal}>{stats.totalUnits.toFixed(2)}</div>
-              </div>
-              <div className={styles.statBox}>
-                <label>Portfolio Value</label>
-                <div className={styles.statVal}>{formatCurrency(stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0))}</div>
-              </div>
-              <div className={styles.statBox}>
-                <label>Total Invested</label>
-                <div className={styles.statVal}>{formatCurrency(stats.totalInvested)}</div>
-              </div>
-              <div className={styles.statBox}>
-                <label>Cash Balance</label>
-                <div className={styles.statVal}>{formatCurrency(stats.cashBalance)}</div>
-              </div>
-            </div>
 
-            <div className={styles.chartContainer}>
-              <Chart history={history} />
-            </div>
-
-            <div className={styles.actionsPanel}>
-              <h3 className={styles.actionTitle}>Your Move for Year {currentYear + 1}:</h3>
-              <div className={styles.actionButtons}>
-                {inMarket ? (
-                  <>
-                    <button disabled={gameState === 'animating'} onClick={() => handleAction('stay')} className={`${styles.actionBtn} ${styles.btnStay}`}>Stay the course (₹10K/mo)</button>
-                    <button disabled={gameState === 'animating'} onClick={() => handleAction('topup')} className={`${styles.actionBtn} ${styles.btnTopup}`}>Top up to ₹15K/mo</button>
-                    <button disabled={gameState === 'animating'} onClick={() => handleAction('pause')} className={`${styles.actionBtn} ${styles.btnPause}`}>Pause SIP</button>
-                    <button disabled={gameState === 'animating'} onClick={() => handleAction('sell')} className={`${styles.actionBtn} ${styles.btnSell}`}>Sell Everything</button>
-                  </>
-                ) : (
-                  <>
-                    <button disabled={gameState === 'animating'} onClick={() => handleAction('comeback')} className={`${styles.actionBtn} ${styles.btnStay}`}>Come back in (₹10K/mo)</button>
-                    <button disabled={gameState === 'animating'} onClick={() => handleAction('stayout')} className={`${styles.actionBtn} ${styles.btnPause}`}>Stay out one more year</button>
-                  </>
-                )}
+              <div className={styles.chartContainer}>
+                <Chart history={history} />
               </div>
-            </div>
-          </div>
-        )}
 
-        {gameState === 'results' && (
-          <motion.div className={styles.resultsScreen} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <h2>Journey Complete</h2>
-            <div className={styles.journeyName}>Scenario: {journey.name}</div>
-            
-            <div className={styles.comparisonBox}>
-              <div className={styles.compSide}>
-                <h3>Your Portfolio</h3>
-                <div className={styles.compVal}>{formatCurrency((stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0)) + stats.cashBalance)}</div>
-                <div className={styles.compSub}>Invested: {formatCurrency(stats.totalInvested)}</div>
-              </div>
-              <div className={styles.compDivider}>VS</div>
-              <div className={styles.compSide}>
-                <h3>'Never Flinched'</h3>
-                <div className={styles.compVal}>{formatCurrency(calculateBenchmark().value)}</div>
-                <div className={styles.compSub}>Invested: {formatCurrency(calculateBenchmark().invested)}</div>
+              <div className={styles.actionsPanel}>
+                <h3 className={styles.actionTitle}>Your Move for Year {currentYear + 1}:</h3>
+                <div className={styles.actionButtons}>
+                  {inMarket ? (
+                    <>
+                      <button disabled={gameState === 'animating'} onClick={() => handleAction('stay')} className={`${styles.actionBtn} ${styles.btnStay}`}>Stay the course (₹10K/mo)</button>
+                      <button disabled={gameState === 'animating'} onClick={() => handleAction('topup')} className={`${styles.actionBtn} ${styles.btnTopup}`}>Top up to ₹15K/mo</button>
+                      <button disabled={gameState === 'animating'} onClick={() => handleAction('pause')} className={`${styles.actionBtn} ${styles.btnPause}`}>Pause SIP</button>
+                      <button disabled={gameState === 'animating'} onClick={() => handleAction('sell')} className={`${styles.actionBtn} ${styles.btnSell}`}>Sell Everything</button>
+                    </>
+                  ) : (
+                    <>
+                      <button disabled={gameState === 'animating'} onClick={() => handleAction('comeback')} className={`${styles.actionBtn} ${styles.btnStay}`}>Come back in (₹10K/mo)</button>
+                      <button disabled={gameState === 'animating'} onClick={() => handleAction('stayout')} className={`${styles.actionBtn} ${styles.btnPause}`}>Stay out one more year</button>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
+          )}
 
-            <div className={styles.scoreBox}>
-              <div className={styles.scoreLabel}>Final Score</div>
-              <div className={styles.scoreValue}>
-                {Math.min(100, Math.max(0, Math.floor((((stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0)) + stats.cashBalance) / calculateBenchmark().value) * 100)))} / 100
+          {gameState === 'results' && (
+            <motion.div className={styles.resultsScreen} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+              <h2>Journey Complete</h2>
+              <div className={styles.journeyName}>Scenario: {journey.name}</div>
+              
+              <div className={styles.comparisonBox}>
+                <div className={styles.compSide}>
+                  <h3>Your Portfolio</h3>
+                  <div className={styles.compVal}>{formatCurrency((stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0)) + stats.cashBalance)}</div>
+                  <div className={styles.compSub}>Invested: {formatCurrency(stats.totalInvested)}</div>
+                </div>
+                <div className={styles.compDivider}>VS</div>
+                <div className={styles.compSide}>
+                  <h3>'Never Flinched'</h3>
+                  <div className={styles.compVal}>{formatCurrency(calculateBenchmark().value)}</div>
+                  <div className={styles.compSub}>Invested: {formatCurrency(calculateBenchmark().invested)}</div>
+                </div>
               </div>
-              <p>You earned {Math.min(100, Math.max(0, Math.floor((((stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0)) + stats.cashBalance) / calculateBenchmark().value) * 100))) * 12} Vault Units.</p>
-            </div>
 
-            <button className={styles.primaryButton} onClick={finishGame}>Back to Hub</button>
-          </motion.div>
-        )}
-      </main>
-      
-      <Footer />
-    </div>
+              <div className={styles.scoreBox}>
+                <div className={styles.scoreLabel}>Final Score</div>
+                <div className={styles.scoreValue}>
+                  {Math.min(100, Math.max(0, Math.floor((((stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0)) + stats.cashBalance) / calculateBenchmark().value) * 100)))} / 100
+                </div>
+                <p>You earned {Math.min(100, Math.max(0, Math.floor((((stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0)) + stats.cashBalance) / calculateBenchmark().value) * 100))) * 12} Vault Units.</p>
+              </div>
+
+              <button className={styles.primaryButton} onClick={finishGame}>Back to Hub</button>
+            </motion.div>
+          )}
+        </main>
+      </div>
+      {(gameState === 'intro' || gameState === 'results') && <Footer />}
+    </>
   );
 }
 

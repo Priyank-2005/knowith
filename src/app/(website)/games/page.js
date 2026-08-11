@@ -49,12 +49,20 @@ const chapters = [
     desc: '10 questions, 15 seconds each. Test your market mechanics.',
     href: '/games/rapid-fire',
     color: '#8FA3C8' // autumn blue-grey
+  },
+  {
+    id: 'chapter5',
+    num: '05',
+    title: 'The Contrarian Signal',
+    desc: 'Read real market extreme headlines, make a call, see what happened next.',
+    href: '/games/contrarian-signal',
+    color: '#3B82F6' // royal blue
   }
 ];
 
 function HubContent() {
   const { vaultUnits, scores, resetGame } = useGameState();
-  const allCompleted = scores.chapter1 !== null && scores.chapter2 !== null && scores.chapter3 !== null && scores.chapter4 !== null;
+  const allCompleted = scores.chapter1 !== null && scores.chapter2 !== null && scores.chapter3 !== null && scores.chapter4 !== null && scores.chapter5 !== null;
 
   return (
     <>

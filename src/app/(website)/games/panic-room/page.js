@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { useGameState } from '@/lib/games/gameState';
 import { panicRoomRounds } from '@/lib/games/gameData';
 import styles from './page.module.css';
+import GameHeader from '@/components/GameHeader';
 
 export default function PanicRoom() {
   const router = useRouter();
@@ -117,7 +118,7 @@ export default function PanicRoom() {
 
   return (
     <>
-      <Navbar />
+      <GameHeader />
       <div className={styles.container}>
         <div className={styles.gameArea}>
           {!showReveal ? (
@@ -160,7 +161,6 @@ export default function PanicRoom() {
           )}
         </div>
       </div>
-      <Footer />
     </>
   );
 }
