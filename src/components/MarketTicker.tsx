@@ -31,11 +31,13 @@ export default function MarketTicker() {
       
       try {
         const res = await fetch('/api/v1/market/ticker');
-        const json = await res.json();
-        if (json.success && json.data) {
-          cachedTickerData = json.data;
-          lastFetchTime = Date.now();
-          setItems(json.data);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && json.data) {
+            cachedTickerData = json.data;
+            lastFetchTime = Date.now();
+            setItems(json.data);
+          }
         }
       } catch (error) {
         console.error("Failed to fetch ticker data", error);

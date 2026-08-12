@@ -94,134 +94,357 @@ export const INVESTOR_DNA_RANKS = [
 export const contrarianSignalDispatches = [
   {
     id: 1,
-    date: 'October 1987',
-    headline: 'BLACK MONDAY: DOW PLUMMETS 22.6% IN A SINGLE DAY',
-    context: 'The largest one-day stock market crash in history sends shockwaves globally. Panic selling wipes out billions in hours. Is the system broken?',
+    date: '13 August 1979',
+    publication: 'BUSINESSWEEK',
+    headline: 'The Death of Equities',
+    stats: [
+      { label: 'DOW JONES INDUSTRIAL AVERAGE', value: '875.26' },
+      { label: 'US INFLATION, 1979', value: '~11%' },
+      { label: 'SHAREHOLDERS LOST SINCE 1970', value: '7 million' },
+      { label: 'CONSENSUS ADVICE', value: 'Buy gold, land, art' }
+    ],
+    context: 'Inflation had been destroying real returns for a decade. Pension funds were being allowed to shift out of stocks and bonds into hard assets, and the public had largely deserted the market. The obvious advice was that equities were structurally finished as an asset class.',
+    quotes: [
+      { text: 'The Death of Equities: How inflation is destroying the stock market', source: 'BUSINESSWEEK, COVER STORY · 13 Aug 1979' },
+      { text: 'At least 7 million shareholders have defected from the stock market since 1970, leaving equities more than ever the province of giant institutional investors.', source: 'BUSINESSWEEK · 13 Aug 1979' },
+      { text: 'The Great Crash of \'79', source: 'THE NEW YORK TIMES · Oct 1979' }
+    ],
     outcomes: {
-      buy: { score: 100, text: 'Bold call! Markets completely recovered within 2 years, starting a massive bull run.' },
-      hold: { score: 50, text: 'Good discipline. You ignored the panic and rode the eventual recovery.' },
-      sell: { score: 0, text: 'You locked in permanent losses at the exact bottom of the crash.' }
+      buy: { score: 100, text: 'A brilliant contrarian call. Equities were about to begin one of the greatest bull runs in history, defying the consensus.' },
+      hold: { score: 50, text: 'You held firm. It was painful, but patience eventually paid off as the 1980s bull market took hold.' },
+      sell: { score: 0, text: 'You capitulated at exactly the wrong time, locking in a decade of flat returns right before a historic boom.' }
+    },
+    chartData: {
+      type: 'recovery',
+      yAxis: { max: 40, min: -20, step: 20 },
+      lines: [
+        { name: 'Dow Jones', m12: 8, m24: 20, color: '#15803d' }
+      ]
     }
   },
   {
     id: 2,
-    date: 'March 2000',
-    headline: 'NEW PARADIGM: TECH STOCKS CAN ONLY GO UP',
-    context: 'Internet companies with zero revenue command multi-billion dollar valuations. "Valuation doesn\'t matter in the new economy" is the mantra.',
+    date: '20 October 1987',
+    publication: 'THE WALL STREET JOURNAL',
+    headline: 'Stocks Plunge 508 Points',
+    stats: [
+      { label: 'DOW JONES INDUSTRIAL AVERAGE', value: '1,738.74' },
+      { label: 'ONE-DAY DROP', value: '-22.6%' },
+      { label: 'MARKET VALUE WIPED OUT', value: '$500 Billion' },
+      { label: 'PREVIOUS RECORD DROP', value: '-12.8% (1929)' }
+    ],
+    context: 'Black Monday hits global markets. Program trading and portfolio insurance exacerbate a historic selloff. The fear of a new Great Depression is palpable as Wall Street professionals stare blankly at their screens.',
+    quotes: [
+      { text: 'A Financial Meltdown: Panic Grips the Markets', source: 'TIME MAGAZINE · 26 Oct 1987' },
+      { text: 'The worst day in Wall Street history. It feels like the end of the world.', source: 'FLOOR TRADER · 19 Oct 1987' }
+    ],
     outcomes: {
-      buy: { score: 0, text: 'You bought into the peak of the Dot-Com bubble. The NASDAQ would lose 78% of its value over the next 2 years.' },
-      hold: { score: 50, text: 'A tough hold, but staying diversified saved you from total ruin.' },
-      sell: { score: 100, text: 'Contrarian genius. You recognized the extreme euphoria and avoided a brutal 78% drawdown.' }
+      buy: { score: 100, text: 'Bold call! Markets completely recovered within 2 years, starting a massive bull run.' },
+      hold: { score: 50, text: 'Good discipline. You ignored the panic and rode the eventual recovery.' },
+      sell: { score: 0, text: 'You locked in permanent losses at the exact bottom of the crash.' }
+    },
+    chartData: {
+      type: 'recovery',
+      yAxis: { max: 60, min: -20, step: 20 },
+      lines: [
+        { name: 'Dow Jones', m12: 20, m24: 50, color: '#15803d' }
+      ]
     }
   },
   {
     id: 3,
-    date: 'September 2001',
-    headline: '9/11 TERROR ATTACKS SHUT DOWN GLOBAL MARKETS',
-    context: 'Unprecedented terrorist attacks close US markets for 4 days. Extreme fear grips global investors as the world braces for war.',
+    date: '10 March 2000',
+    publication: 'WIRED',
+    headline: 'The New Paradigm: Tech Always Wins',
+    stats: [
+      { label: 'NASDAQ COMPOSITE', value: '5,048.62' },
+      { label: 'PE RATIO (TECH SECTOR)', value: '175x' },
+      { label: 'PETS.COM VALUATION', value: '$300 Million' },
+      { label: 'INTERNET PENETRATION', value: '43% of US' }
+    ],
+    context: 'Internet companies with zero revenue command multi-billion dollar valuations. Traditional valuation metrics are mocked as outdated. "Eyeballs" are the new currency. To not own tech is to be left behind by history.',
+    quotes: [
+      { text: 'Valuation doesn\'t matter in the new economy.', source: 'CNBC COMMENTATOR · Feb 2000' },
+      { text: 'Get Big Fast: The Amazon Way', source: 'FORTUNE · Mar 2000' }
+    ],
     outcomes: {
-      buy: { score: 100, text: 'Courageous. Despite geopolitical terror, markets bottomed soon after and began a new cycle.' },
-      hold: { score: 50, text: 'Solid resolve. You didn\'t let geopolitical fear disrupt your long-term plan.' },
-      sell: { score: 0, text: 'You panic-sold on geopolitical news, historically almost always a losing strategy.' }
+      buy: { score: 0, text: 'You bought into the peak of the Dot-Com bubble. The NASDAQ would lose 78% of its value over the next 2 years.' },
+      hold: { score: 50, text: 'A tough hold, but staying diversified saved you from total ruin.' },
+      sell: { score: 100, text: 'Contrarian genius. You recognized the extreme euphoria and avoided a brutal 78% drawdown.' }
+    },
+    chartData: {
+      type: 'crash',
+      yAxis: { max: 0, min: -80, step: 20 },
+      lines: [
+        { name: 'Nasdaq Composite', m12: -62, m24: -78, color: '#1a365d' },
+        { name: 'BSE Sensex', m12: -31, m24: -43, color: '#b83b3b' }
+      ]
     }
   },
   {
     id: 4,
-    date: 'September 2008',
-    headline: 'LEHMAN BROTHERS COLLAPSES, FINANCIAL SYSTEM ON BRINK',
-    context: 'The 158-year-old investment bank files for bankruptcy. Credit markets freeze. Contagion threatens every major global bank.',
+    date: '17 September 2001',
+    publication: 'THE ECONOMIST',
+    headline: 'Global Markets Paralyzed by Terror',
+    stats: [
+      { label: 'DOW JONES INDUSTRIAL AVERAGE', value: '8,920.70' },
+      { label: 'ONE-WEEK DROP', value: '-14.3%' },
+      { label: 'AIRLINE STOCK INDEX', value: '-40%' },
+      { label: 'MARKET CLOSURE', value: '4 Days' }
+    ],
+    context: 'Following the unprecedented terrorist attacks on 9/11, US markets were closed for four days. Upon reopening, the Dow Jones suffers its worst single-week point drop in history. Geopolitical fear dominates the landscape.',
+    quotes: [
+      { text: 'The world has changed forever, and so have financial markets.', source: 'THE ECONOMIST · 15 Sep 2001' },
+      { text: 'Investors flee to cash and gold as war looms.', source: 'FINANCIAL TIMES · 17 Sep 2001' }
+    ],
     outcomes: {
-      buy: { score: 50, text: 'A bit early—markets dropped further until March 2009—but a great long-term entry point.' },
-      hold: { score: 50, text: 'Painful, but holding through the storm proved vastly superior to selling.' },
-      sell: { score: 0, text: 'You capitulated near the bottom of the worst financial crisis since the Great Depression.' }
+      buy: { score: 100, text: 'Courageous. Despite geopolitical terror, markets bottomed soon after and began a new cycle.' },
+      hold: { score: 50, text: 'Solid resolve. You didn\'t let geopolitical fear disrupt your long-term plan.' },
+      sell: { score: 0, text: 'You panic-sold on geopolitical news, historically almost always a losing strategy.' }
+    },
+    chartData: {
+      type: 'recovery',
+      yAxis: { max: 20, min: -20, step: 10 },
+      lines: [
+        { name: 'Dow Jones', m12: -7, m24: 6, color: '#15803d' }
+      ]
     }
   },
   {
     id: 5,
-    date: 'March 2009',
-    headline: 'DOW DROPS BELOW 6,600: IS CAPITALISM DEAD?',
-    context: 'Peak pessimism. Media declares the end of equities. Unemployment is surging, and no one sees a way out.',
+    date: '15 September 2008',
+    publication: 'FINANCIAL TIMES',
+    headline: 'Lehman Brothers Collapses',
+    stats: [
+      { label: 'S&P 500', value: '1,192.70' },
+      { label: 'LEHMAN BANKRUPTCY', value: '$600 Billion' },
+      { label: 'VIX (FEAR INDEX)', value: '31.7' },
+      { label: 'CREDIT MARKETS', value: 'Frozen' }
+    ],
+    context: 'The 158-year-old investment bank files for the largest bankruptcy in US history. Credit markets freeze globally. Contagion threatens every major bank, and ATMs are rumored to run out of cash by the weekend.',
+    quotes: [
+      { text: 'Wall Street on the Brink: The End of an Era.', source: 'THE WALL STREET JOURNAL · 16 Sep 2008' },
+      { text: 'Is this the beginning of the next Great Depression?', source: 'NEWSWEEK · Sep 2008' }
+    ],
     outcomes: {
-      buy: { score: 100, text: 'Legendary contrarian call! This marked the exact bottom and the start of the longest bull market in history.' },
-      hold: { score: 50, text: 'You survived the worst bear market of a generation. Your patience will soon be rewarded.' },
-      sell: { score: 0, text: 'You sold at the point of maximum financial opportunity.' }
+      buy: { score: 50, text: 'A bit early—markets dropped further until March 2009—but a great long-term entry point.' },
+      hold: { score: 50, text: 'Painful, but holding through the storm proved vastly superior to selling.' },
+      sell: { score: 0, text: 'You capitulated near the bottom of the worst financial crisis since the Great Depression.' }
+    },
+    chartData: {
+      type: 'recovery',
+      yAxis: { max: 50, min: -20, step: 35 },
+      lines: [
+        { name: 'S&P 500', m12: -12, m24: -4, color: '#15803d' },
+        { name: 'Sensex', m12: 13, m24: 45, color: '#b83b3b' }
+      ]
     }
   },
   {
     id: 6,
-    date: 'August 2013',
-    headline: 'RUPEE HITS RECORD LOW OF 68.8, INDIA IN FRAGILE FIVE',
-    context: 'The US Fed tapers QE, causing massive foreign outflows from India. The Rupee collapses and interest rates spike.',
+    date: '9 March 2009',
+    publication: 'THE NEW YORK TIMES',
+    headline: 'Dow Drops Below 6,600: Is Capitalism Dead?',
+    stats: [
+      { label: 'DOW JONES INDUSTRIAL AVERAGE', value: '6,547.05' },
+      { label: 'S&P 500 DRAWDOWN', value: '-57%' },
+      { label: 'US UNEMPLOYMENT', value: '8.5%' },
+      { label: 'INVESTOR SENTIMENT', value: 'Historic Low' }
+    ],
+    context: 'Peak pessimism. The media debates whether the capitalist system has fundamentally failed. Unemployment is surging, bailouts are highly unpopular, and no one sees a catalyst for recovery.',
+    quotes: [
+      { text: 'The Buy-and-Hold Strategy is Dead.', source: 'BARRON\'S · Feb 2009' },
+      { text: 'Investors who buy now are catching a falling knife.', source: 'CNBC · Mar 2009' }
+    ],
     outcomes: {
-      buy: { score: 100, text: 'Excellent call! The "Taper Tantrum" was a peak fear event. Indian markets soared 30%+ the following year.' },
-      hold: { score: 50, text: 'You ignored the currency panic and stayed the course.' },
-      sell: { score: 0, text: 'You sold Indian equities right before a massive multi-year bull run.' }
+      buy: { score: 100, text: 'Legendary contrarian call! This marked the exact bottom and the start of the longest bull market in history.' },
+      hold: { score: 50, text: 'You survived the worst bear market of a generation. Your patience will soon be rewarded.' },
+      sell: { score: 0, text: 'You sold at the point of maximum financial opportunity.' }
+    },
+    chartData: {
+      type: 'recovery',
+      yAxis: { max: 120, min: 0, step: 30 },
+      lines: [
+        { name: 'Sensex', m12: 85, m24: 105, color: '#b83b3b' },
+        { name: 'Dow Jones', m12: 60, m24: 83, color: '#15803d' }
+      ]
     }
   },
   {
     id: 7,
-    date: 'November 2016',
-    headline: 'SHOCK DEMONETISATION BANS 86% OF CURRENCY OVERNIGHT',
-    context: 'Cash-heavy sectors freeze. Real estate and auto stocks plummet. Economists predict severe GDP contraction.',
+    date: '28 August 2013',
+    publication: 'THE ECONOMIC TIMES',
+    headline: 'Rupee Hits 68.8: India in "Fragile Five"',
+    stats: [
+      { label: 'USD/INR EXCHANGE RATE', value: '68.80' },
+      { label: 'NIFTY 50', value: '5,285.00' },
+      { label: 'FII OUTFLOWS (MONTH)', value: '$3 Billion' },
+      { label: 'CURRENT ACCOUNT DEFICIT', value: '4.8% of GDP' }
+    ],
+    context: 'The US Federal Reserve signals an end to quantitative easing (the "Taper Tantrum"). Capital violently exits emerging markets. Morgan Stanley labels India part of the "Fragile Five" vulnerable economies.',
+    quotes: [
+      { text: 'The Indian Growth Story is Over.', source: 'FOREIGN AFFAIRS · Aug 2013' },
+      { text: 'RBI helpless as Rupee goes into freefall.', source: 'BUSINESS STANDARD · 28 Aug 2013' }
+    ],
     outcomes: {
-      buy: { score: 100, text: 'Smart move! The market entirely shrugged off the cash crunch and rallied 28% in 2017.' },
-      hold: { score: 50, text: 'Good discipline. You didn\'t react to the short-term domestic policy shock.' },
-      sell: { score: 0, text: 'You got spooked by domestic noise and missed a major rally.' }
+      buy: { score: 100, text: 'Excellent call! The "Taper Tantrum" was a peak fear event. Indian markets soared 30%+ the following year.' },
+      hold: { score: 50, text: 'You ignored the currency panic and stayed the course.' },
+      sell: { score: 0, text: 'You sold Indian equities right before a massive multi-year bull run.' }
+    },
+    chartData: {
+      type: 'recovery',
+      yAxis: { max: 80, min: -20, step: 20 },
+      lines: [
+        { name: 'Nifty 50', m12: 49, m24: 60, color: '#15803d' }
+      ]
     }
   },
   {
     id: 8,
-    date: 'September 2018',
-    headline: 'IL&FS DEFAULTS ON ₹91,000 CR: NBFC CRISIS ERUPTS',
-    context: 'A shadow banking giant defaults. Credit markets freeze in India. Mid and small-cap stocks crash 30-40%.',
+    date: '8 November 2016',
+    publication: 'BLOOMBERG',
+    headline: 'Shock Demonetisation Bans 86% of Currency',
+    stats: [
+      { label: 'NIFTY 50 (NEXT DAY)', value: '8,002.30 (-6%)' },
+      { label: 'CURRENCY INVALIDATED', value: '₹15.4 Lakh Cr' },
+      { label: 'REAL ESTATE INDEX', value: '-12%' },
+      { label: 'GDP GROWTH FORECAST', value: 'Downgraded' }
+    ],
+    context: 'In an unprecedented move, PM Modi bans ₹500 and ₹1000 notes overnight. Cash-heavy sectors like real estate, auto, and consumer goods freeze. Economists predict severe, long-lasting GDP contraction.',
+    quotes: [
+      { text: 'A monumental blunder that will cripple the economy.', source: 'FORMER PM MANMOHAN SINGH · Nov 2016' },
+      { text: 'Cash crunch brings Indian commerce to a standstill.', source: 'REUTERS · 15 Nov 2016' }
+    ],
     outcomes: {
-      buy: { score: 100, text: 'Great entry! While mid-caps suffered, the broader index recovered to new highs within a year.' },
-      hold: { score: 50, text: 'You absorbed the volatility and let the dust settle.' },
-      sell: { score: 0, text: 'You panic-sold into a liquidity crisis that was eventually resolved by the RBI.' }
+      buy: { score: 100, text: 'Smart move! The market entirely shrugged off the cash crunch and rallied 28% in 2017.' },
+      hold: { score: 50, text: 'Good discipline. You didn\'t react to the short-term domestic policy shock.' },
+      sell: { score: 0, text: 'You got spooked by domestic noise and missed a major rally.' }
+    },
+    chartData: {
+      type: 'recovery',
+      yAxis: { max: 40, min: -10, step: 10 },
+      lines: [
+        { name: 'Nifty 50', m12: 28, m24: 31, color: '#15803d' }
+      ]
     }
   },
   {
     id: 9,
-    date: 'March 2020',
-    headline: 'GLOBAL LOCKDOWNS: MARKETS PLUNGE 35% IN WEEKS',
-    context: 'The COVID-19 pandemic halts the global economy. Flights grounded, businesses closed. Unprecedented uncertainty.',
+    date: '21 September 2018',
+    publication: 'MINT',
+    headline: 'IL&FS Defaults: NBFC Crisis Erupts',
+    stats: [
+      { label: 'NIFTY MIDCAP 100', value: '-25% (YTD)' },
+      { label: 'IL&FS DEBT', value: '₹91,000 Cr' },
+      { label: 'BOND SPREADS', value: 'Spiking' },
+      { label: 'LIQUIDITY DEFICIT', value: '₹1 Lakh Cr' }
+    ],
+    context: 'A shadow banking giant defaults on commercial papers. Credit markets freeze in India. Mutual funds face severe redemption pressure on debt funds, spilling over into a brutal selloff in mid and small-cap stocks.',
+    quotes: [
+      { text: 'India\'s Lehman Moment is Here.', source: 'VARIOUS MEDIA · Sep 2018' },
+      { text: 'Liquidity dries up; NBFCs fight for survival.', source: 'BUSINESS LINE · 25 Sep 2018' }
+    ],
     outcomes: {
-      buy: { score: 100, text: 'The ultimate contrarian bet. Central banks unleashed trillions, sparking the fastest V-shaped recovery in history.' },
-      hold: { score: 50, text: 'You paralyzed your fear and held on, capturing the massive recovery.' },
-      sell: { score: 0, text: 'You sold the fastest bear market in history, missing the equally fast bull market that followed immediately.' }
+      buy: { score: 100, text: 'Great entry! While mid-caps suffered, the broader index recovered to new highs within a year.' },
+      hold: { score: 50, text: 'You absorbed the volatility and let the dust settle.' },
+      sell: { score: 0, text: 'You panic-sold into a liquidity crisis that was eventually resolved by the RBI.' }
+    },
+    chartData: {
+      type: 'recovery',
+      yAxis: { max: 20, min: -30, step: 10 },
+      lines: [
+        { name: 'Nifty 50', m12: 0, m24: -10, color: '#15803d' },
+        { name: 'Nifty Midcap', m12: -15, m24: -25, color: '#b83b3b' }
+      ]
     }
   },
   {
     id: 10,
-    date: 'November 2021',
-    headline: 'CRYPTO, MEME STOCKS, IPOS REACH MANIA LEVELS',
-    context: 'Trillions in stimulus lead to wild speculation. Valuations for tech and IPOs reach extreme levels not seen since 2000.',
+    date: '23 March 2020',
+    publication: 'THE WALL STREET JOURNAL',
+    headline: 'Global Lockdowns: Markets Plunge 35%',
+    stats: [
+      { label: 'S&P 500', value: '2,237.40' },
+      { label: 'NIFTY 50', value: '7,610.25' },
+      { label: 'VIX (FEAR INDEX)', value: '82.69 (Record)' },
+      { label: 'GLOBAL GDP HIT', value: 'Severe Contraction' }
+    ],
+    context: 'The COVID-19 pandemic forces unprecedented global economic lockdowns. Flights are grounded, businesses shuttered. The speed of the market collapse triggers circuit breakers multiple times in a single week.',
+    quotes: [
+      { text: 'The deepest recession since WWII is guaranteed.', source: 'MORGAN STANLEY · Mar 2020' },
+      { text: 'Do not buy this dip. We are entering the unknown.', source: 'HEDGE FUND MANAGER · 20 Mar 2020' }
+    ],
     outcomes: {
-      buy: { score: 0, text: 'You bought into extreme euphoria. A punishing bear market in tech and mid-caps began weeks later.' },
-      hold: { score: 50, text: 'You stayed disciplined and diversified, avoiding the worst of the speculative crash.' },
-      sell: { score: 100, text: 'Brilliant. You recognized the bubble and protected your capital before the 2022 rate-hike crash.' }
+      buy: { score: 100, text: 'The ultimate contrarian bet. Central banks unleashed trillions, sparking the fastest V-shaped recovery in history.' },
+      hold: { score: 50, text: 'You paralyzed your fear and held on, capturing the massive recovery.' },
+      sell: { score: 0, text: 'You sold the fastest bear market in history, missing the equally fast bull market that followed immediately.' }
+    },
+    chartData: {
+      type: 'recovery',
+      yAxis: { max: 150, min: -50, step: 50 },
+      lines: [
+        { name: 'Nifty 50', m12: 90, m24: 123, color: '#15803d' },
+        { name: 'S&P 500', m12: 75, m24: 100, color: '#1a365d' }
+      ]
     }
   },
   {
     id: 11,
-    date: 'June 2022',
-    headline: 'INFLATION AT 40-YEAR HIGH, WAR IN EUROPE RAGES',
-    context: 'Central banks hike rates aggressively. Recession is deemed 100% certain. Markets are down 20%.',
+    date: '10 November 2021',
+    publication: 'CNBC',
+    headline: 'Mania: Crypto, Meme Stocks & IPOs',
+    stats: [
+      { label: 'NASDAQ COMPOSITE', value: '15,886.54' },
+      { label: 'BITCOIN', value: '$69,000' },
+      { label: 'EV STARTUP RIVIAN', value: '$100B Valuation (0 Rev)' },
+      { label: 'INFLATION RATE', value: '6.2% (Transitory?)' }
+    ],
+    context: 'Trillions in COVID stimulus have led to wild speculation. Retail traders coordinate on Reddit to pump meme stocks. Unprofitable tech IPOs double on day one. Valuations reach extremes not seen since the year 2000.',
+    quotes: [
+      { text: 'Stonks only go up.', source: 'RETAIL INVESTOR MANTRA · 2021' },
+      { text: 'Have fun staying poor.', source: 'CRYPTO ENTHUSIAST · Nov 2021' }
+    ],
     outcomes: {
-      buy: { score: 100, text: 'Contrarian win! The market had already priced in the worst. 2023 saw a massive tech-led rally.' },
-      hold: { score: 50, text: 'You held firm through peak inflation fears.' },
-      sell: { score: 0, text: 'You sold after the market had already priced in the bad news.' }
+      buy: { score: 0, text: 'You bought into extreme euphoria. A punishing bear market in tech and mid-caps began weeks later.' },
+      hold: { score: 50, text: 'You stayed disciplined and diversified, avoiding the worst of the speculative crash.' },
+      sell: { score: 100, text: 'Brilliant. You recognized the bubble and protected your capital before the 2022 rate-hike crash.' }
+    },
+    chartData: {
+      type: 'crash',
+      yAxis: { max: 0, min: -40, step: 10 },
+      lines: [
+        { name: 'Nasdaq Composite', m12: -30, m24: -18, color: '#1a365d' }
+      ]
     }
   },
   {
     id: 12,
-    date: 'January 2023',
-    headline: 'HINDENBURG REPORT WIPES OUT ₹10 LAKH CRORE IN ADANI STOCKS',
-    context: 'A short-seller report triggers a massive selloff in the Adani group. Fears of systemic risk to Indian banks run rampant.',
+    date: '25 January 2023',
+    publication: 'BLOOMBERG',
+    headline: 'Hindenburg Report Wipes Out Adani',
+    stats: [
+      { label: 'ADANI ENTERPRISES', value: '-28% (2 Days)' },
+      { label: 'GROUP M-CAP LOST', value: '₹10 Lakh Crore' },
+      { label: 'BANK NIFTY', value: '-4%' },
+      { label: 'FII OUTFLOWS', value: 'Spiking' }
+    ],
+    context: 'A US short-seller accuses India\'s largest infrastructure conglomerate of fraud. The ensuing panic wipes out massive wealth in days. Fears spread that Indian banks, heavily exposed to the group, could face systemic risks.',
+    quotes: [
+      { text: 'The India Growth Story takes a massive credibility hit.', source: 'FOREIGN PRESS · Jan 2023' },
+      { text: 'Is this the tip of the iceberg for Indian corporate governance?', source: 'FINANCIAL ANALYST · 25 Jan 2023' }
+    ],
     outcomes: {
       buy: { score: 100, text: 'Astute. The contagion was contained. The broader Indian market rallied to all-time highs later that year.' },
       hold: { score: 50, text: 'You ignored the noise and trusted your diversified portfolio.' },
       sell: { score: 0, text: 'You let a stock-specific crisis scare you out of the broader market.' }
+    },
+    chartData: {
+      type: 'recovery',
+      yAxis: { max: 120, min: -40, step: 40 },
+      lines: [
+        { name: 'Nifty 50', m12: 20, m24: 35, color: '#15803d' },
+        { name: 'Adani Ent', m12: 100, m24: 110, color: '#b83b3b' }
+      ]
     }
   }
 ];

@@ -89,8 +89,8 @@ export default function Home() {
           <div className={styles.rippleRing}></div>
           <div className={styles.rippleRing}></div>
           <div className={styles.rippleRing}></div>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/City_Palace_Udaipur_02.jpg" alt="Skyline Placeholder" className={styles.citySkyline} style={{mixBlendMode: 'luminosity', filter: 'sepia(1) hue-rotate(10deg) opacity(0.3)'}} />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/City_Palace_Udaipur_02.jpg" alt="Skyline Reflect" className={styles.citySkylineReflect} style={{mixBlendMode: 'luminosity', filter: 'sepia(1) hue-rotate(10deg)'}} />
+          <img src="/images/skyline.jpg" alt="Skyline Placeholder" className={styles.citySkyline} style={{mixBlendMode: 'luminosity', filter: 'sepia(1) hue-rotate(10deg) opacity(0.3)'}} />
+          <img src="/images/skyline.jpg" alt="Skyline Reflect" className={styles.citySkylineReflect} style={{mixBlendMode: 'luminosity', filter: 'sepia(1) hue-rotate(10deg)'}} />
         </div>
       </section>
 

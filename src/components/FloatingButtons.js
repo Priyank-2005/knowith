@@ -2,9 +2,11 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 import styles from './FloatingButtons.module.css';
 
 export default function FloatingButtons() {
+  const pathname = usePathname();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState([
     { id: 1, sender: 'ai', text: 'Hello! I am the Knowith Capital AI Assistant. How can I help you plan your wealth today?' }
@@ -23,6 +25,8 @@ export default function FloatingButtons() {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isTyping]);
+
+  if (pathname?.startsWith('/games')) return null;
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
