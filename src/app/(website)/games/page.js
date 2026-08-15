@@ -3,6 +3,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import styles from './page.module.css';
+import React from 'react';
 import { GameProvider, useGameState } from '@/lib/games/gameState';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -61,8 +62,17 @@ const chapters = [
 ];
 
 function HubContent() {
-  const { vaultUnits, scores, resetGame } = useGameState();
+  const { getTotalScore, scores, resetGame, playerName, setPlayerName } = useGameState();
   const allCompleted = scores.chapter1 !== null && scores.chapter2 !== null && scores.chapter3 !== null && scores.chapter4 !== null && scores.chapter5 !== null;
+
+  const [tempName, setTempName] = React.useState('');
+
+  const handleNameSubmit = (e) => {
+    e.preventDefault();
+    if (tempName.trim()) {
+      setPlayerName(tempName.trim());
+    }
+  };
 
   return (
     <>
@@ -83,17 +93,45 @@ function HubContent() {
           </motion.blockquote>
 
           <motion.div variants={fadeInUp} className={styles.vaultCounter}>
-            <div className={styles.vaultLabel}>Total Vault Units Accumulated</div>
-            <div className={styles.vaultValue}>{vaultUnits.toLocaleString()}</div>
-            {vaultUnits > 0 && (
-              <button 
-                onClick={resetGame} 
-                style={{ marginTop: '1rem', background: 'transparent', border: '1px solid var(--border-light)', color: 'var(--slate)', padding: '0.25rem 0.75rem', borderRadius: '4px', fontSize: '0.8rem', cursor: 'pointer' }}
-                title="Restart your session progress"
-              >
-                Reset Progress
-              </button>
+            <div className={styles.vaultLabel}>Total Score</div>
+            <div className={styles.vaultValue}>{getTotalScore().toLocaleString()}</div>
+            
+            {playerName ? (
+              <div style={{ marginTop: '1rem', color: 'var(--slate)', fontSize: '0.9rem' }}>
+                Playing as: <strong>{playerName}</strong>
+              </div>
+            ) : (
+              <form onSubmit={handleNameSubmit} style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
+                <input 
+                  type="text" 
+                  value={tempName}
+                  onChange={(e) => setTempName(e.target.value)}
+                  placeholder="Enter your name to join Leaderboard"
+                  style={{ padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc', background: 'transparent', color: '#fff' }}
+                  required
+                />
+                <button type="submit" style={{ padding: '0.5rem 1rem', borderRadius: '4px', background: '#b83b3b', color: '#fff', border: 'none', cursor: 'pointer' }}>
+                  Save Name
+                </button>
+              </form>
             )}
+
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1.5rem' }}>
+              <Link href="/games/leaderboard" style={{ textDecoration: 'none' }}>
+                <button style={{ background: '#FFC94A', border: 'none', color: '#000', padding: '0.5rem 1rem', borderRadius: '4px', fontSize: '0.9rem', cursor: 'pointer', fontWeight: 'bold' }}>
+                  View Leaderboard
+                </button>
+              </Link>
+              {getTotalScore() > 0 && (
+                <button 
+                  onClick={resetGame} 
+                  style={{ background: 'transparent', border: '1px solid var(--border-light)', color: 'var(--slate)', padding: '0.5rem 1rem', borderRadius: '4px', fontSize: '0.9rem', cursor: 'pointer' }}
+                  title="Restart your session progress"
+                >
+                  Reset Progress
+                </button>
+              )}
+            </div>
           </motion.div>
         </motion.section>
 

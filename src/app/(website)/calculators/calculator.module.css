@@ -1,0 +1,204 @@
+.calcContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: -70px auto 0;
+  padding: 0 2rem 2rem;
+}
+
+.calcLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+}
+
+.desc {
+  font-size: 1rem;
+  color: var(--slate-soft);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.calcForm {
+  background: white;
+  border: 1px solid var(--border-light);
+  padding: 1.5rem 2rem;
+  border-radius: var(--radius-sharp);
+}
+
+.formGroup {
+  margin-bottom: 1.25rem;
+}
+
+.formGroup:last-child {
+  margin-bottom: 0;
+}
+
+.formGroup label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--slate);
+}
+
+.formGroup label span {
+  color: var(--ink);
+  font-weight: 600;
+  background: var(--marble);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.formGroup input[type="range"] {
+  width: 100%;
+  accent-color: var(--gold);
+  height: 6px;
+  border-radius: 3px;
+}
+
+.calcRight {
+  display: flex;
+  flex-direction: column;
+}
+
+.resultsCard {
+  background: var(--ink);
+  color: var(--marble);
+  padding: 2rem;
+  border-radius: var(--radius-sharp);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.resultRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 1rem;
+}
+
+.resultRow:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.resultLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+.resultValue {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.resultValue.danger {
+  color: #ef4444;
+}
+
+.totalRow {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.totalLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.totalValue {
+  font-family: var(--font-display), serif;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  color: white;
+  line-height: 1;
+}
+
+.chartContainer {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.barRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.barLabel {
+  width: 100px;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.barWrapper {
+  flex-grow: 1;
+  height: 12px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 6px;
+  transition: width 0.5s ease-out;
+}
+
+.barFill.alt {
+  background: #3b82f6;
+}
+
+.barFill.danger {
+  background: #ef4444;
+}
+
+.disclaimer {
+  font-size: 0.8rem;
+  color: var(--slate-soft);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+@media (max-width: 980px) {
+  .calcContainer {
+    grid-template-columns: 1fr;
+  }
+}

@@ -72,21 +72,22 @@ export default function FloatingButtons() {
   return (
     <>
       {/* AI Chat Bot Button - Left */}
-      <button 
-        onClick={() => setIsChatOpen(!isChatOpen)}
-        className={`${styles.fab} ${styles.fabLeft}`} 
-        aria-label="AI Assistant"
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          {isChatOpen ? (
-            <path d="M18 6L6 18M6 6l12 12"/> // X icon when open
-          ) : (
-            <>
+      <AnimatePresence>
+        {!isChatOpen && (
+          <motion.button 
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            onClick={() => setIsChatOpen(true)}
+            className={`${styles.fab} ${styles.fabLeft}`} 
+            aria-label="AI Assistant"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>
-            </>
-          )}
-        </svg>
-      </button>
+            </svg>
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* The Chat Window Modal */}
       <AnimatePresence>

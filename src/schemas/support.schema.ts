@@ -2,14 +2,14 @@ import { z } from 'zod';
 
 export const IntentClassificationSchema = z.object({
   intent: z.enum([
-    'General Question',
-    'Product Information',
-    'Educational',
+    'Taxation',
+    'General Investing',
+    'International Scenarios',
+    'Currency',
     'Lead Intent',
     'Human Advisor',
-    'Complaint',
     'Greeting',
-    'Unknown'
+    'Out of Scope'
   ]),
   confidence: z.number().min(0).max(100)
 });

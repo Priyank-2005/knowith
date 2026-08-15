@@ -1,15 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Upload, FileText, CheckCircle, Trash2, Edit2, AlertCircle } from 'lucide-react';
+import { CheckCircle, Trash2, RefreshCw, Clock, Zap, AlertCircle } from 'lucide-react';
 const cn = (...classes: (string | undefined | null | false)[]) => classes.filter(Boolean).join(' ');
 
 export default function MarketDataAdmin() {
-  const [file, setFile] = useState<File | null>(null);
-  const [month, setMonth] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
   const [report, setReport] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [genResult, setGenResult] = useState<{ success: boolean; message: string } | null>(null);
 
   useEffect(() => {
     fetchReport();
@@ -29,28 +28,22 @@ export default function MarketDataAdmin() {
     setIsLoading(false);
   };
 
-  const handleUpload = async () => {
-    if (!file || !month) return;
-    setIsUploading(true);
-    
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('month', month);
-
+  const handleManualGenerate = async () => {
+    setIsGenerating(true);
+    setGenResult(null);
     try {
-      const res = await fetch('/api/v1/market-data', {
-        method: 'POST',
-        body: formData,
-      });
-      if (res.ok) {
+      const res = await fetch('/api/v1/market-data/generate', { method: 'POST' });
+      const json = await res.json();
+      if (json.success) {
+        setGenResult({ success: true, message: 'Report generated successfully!' });
         await fetchReport();
-        setFile(null);
-        setMonth('');
+      } else {
+        setGenResult({ success: false, message: json.error || 'Generation failed' });
       }
     } catch (error) {
-      console.error('Upload failed', error);
+      setGenResult({ success: false, message: 'Network error during generation' });
     }
-    setIsUploading(false);
+    setIsGenerating(false);
   };
 
   const handleDelete = async (id: string) => {
@@ -65,43 +58,46 @@ export default function MarketDataAdmin() {
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-white mb-2">Global Market Concentration Manager</h1>
-        <p className="text-gray-400">Upload PDF reports to extract and publish market data.</p>
+        <h1 className="text-2xl font-bold text-white mb-2">Global Market Concentration</h1>
+        <p className="text-gray-400">Auto-generated daily via Vercel Cron + Gemini AI + Yahoo Finance.</p>
       </div>
 
+      {/* Status & Manual Trigger */}
       <div className="bg-[#111118] border border-[#1F1F1F] rounded-xl p-6">
-        <h2 className="text-lg font-semibold text-white mb-4">Upload New Report</h2>
-        <div className="flex flex-wrap gap-4 items-end">
-          <div className="space-y-2 flex-1 min-w-[300px]">
-            <label className="text-sm text-gray-400">Report Title / Date</label>
-            <input 
-              type="text" 
-              placeholder="e.g. Daily Update - Aug 10"
-              value={month}
-              onChange={e => setMonth(e.target.value)}
-              className="w-full bg-[#0A0A0A] border border-[#2E2E3E] rounded-lg px-4 py-2 text-white outline-none focus:border-blue-500"
-            />
+        <div className="flex items-start justify-between flex-wrap gap-4">
+          <div>
+            <h2 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+              <Clock className="w-5 h-5 text-blue-400" />
+              Automated Report Generation
+            </h2>
+            <p className="text-gray-400 text-sm max-w-xl">
+              A cron job runs daily at <strong className="text-gray-300">6:00 AM IST</strong> to fetch real market data 
+              from Yahoo Finance, enrich it with Gemini AI analysis, and store the report in the database. 
+              The public page always serves the latest stored report — no tokens are used on page views.
+            </p>
           </div>
-          <div className="space-y-2 flex-1 min-w-[300px]">
-            <label className="text-sm text-gray-400">PDF File</label>
-            <input 
-              type="file" 
-              accept=".pdf"
-              onChange={e => setFile(e.target.files?.[0] || null)}
-              className="w-full bg-[#0A0A0A] border border-[#2E2E3E] rounded-lg px-4 py-2 text-white outline-none focus:border-blue-500 file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
-            />
-          </div>
-          <button 
-            onClick={handleUpload}
-            disabled={!file || !month || isUploading}
-            className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+          <button
+            onClick={handleManualGenerate}
+            disabled={isGenerating}
+            className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 text-white px-5 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2 shrink-0"
           >
-            {isUploading ? <Upload className="w-4 h-4 animate-bounce" /> : <Upload className="w-4 h-4" />}
-            {isUploading ? 'Uploading & Parsing...' : 'Upload Report'}
+            {isGenerating ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
+            {isGenerating ? 'Generating...' : 'Generate Now (Manual)'}
           </button>
         </div>
+
+        {genResult && (
+          <div className={cn(
+            "mt-4 px-4 py-3 rounded-lg text-sm flex items-center gap-2",
+            genResult.success ? "bg-green-500/10 border border-green-500/30 text-green-400" : "bg-red-500/10 border border-red-500/30 text-red-400"
+          )}>
+            {genResult.success ? <CheckCircle className="w-4 h-4" /> : <AlertCircle className="w-4 h-4" />}
+            {genResult.message}
+          </div>
+        )}
       </div>
 
+      {/* Report Table */}
       {isLoading ? (
         <div className="text-center text-gray-500 py-12">Loading data...</div>
       ) : report ? (
@@ -111,10 +107,16 @@ export default function MarketDataAdmin() {
               <h2 className="text-xl font-bold text-white flex items-center gap-2">
                 Active Report: {report.month}
                 <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded-full border border-green-500/30">Live</span>
+                {report.uploadedBy === 'auto-cron' && (
+                  <span className="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full border border-blue-500/30">Auto-generated</span>
+                )}
               </h2>
+              <p className="text-gray-500 text-sm mt-1">
+                Created: {new Date(report.createdAt).toLocaleString()} · {report.entries?.length || 0} countries
+              </p>
             </div>
             <button onClick={() => handleDelete(report.id)} className="text-red-400 hover:text-red-300 flex items-center gap-1 text-sm bg-red-400/10 px-3 py-1.5 rounded-lg">
-              <Trash2 className="w-4 h-4" /> Delete Report
+              <Trash2 className="w-4 h-4" /> Delete
             </button>
           </div>
 
@@ -133,7 +135,7 @@ export default function MarketDataAdmin() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#1F1F1F]">
-                  {report.entries.map((entry: any) => (
+                  {report.entries?.map((entry: any) => (
                     <tr key={entry.id} className="hover:bg-[#1A1A24]">
                       <td className="px-4 py-3 font-medium text-white flex items-center gap-2">
                         <span>{entry.flagEmoji}</span> {entry.country}
@@ -167,8 +169,8 @@ export default function MarketDataAdmin() {
         </div>
       ) : (
         <div className="text-center text-gray-500 py-12 border border-dashed border-[#2E2E3E] rounded-xl">
-          <FileText className="w-12 h-12 mx-auto text-gray-600 mb-3" />
-          <p>No active report found. Upload one to get started.</p>
+          <RefreshCw className="w-12 h-12 mx-auto text-gray-600 mb-3" />
+          <p>No report found. Click "Generate Now" above or wait for the daily cron job.</p>
         </div>
       )}
     </div>

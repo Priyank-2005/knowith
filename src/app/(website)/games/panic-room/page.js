@@ -19,7 +19,22 @@ export default function PanicRoom() {
   const [totalScore, setTotalScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   
+  const [revealMsg, setRevealMsg] = useState('');
   const timerRef = useRef(null);
+  const optionsRef = useRef([]);
+
+  const currentRound = panicRoomRounds[roundIdx];
+
+  useEffect(() => {
+    if (currentRound && currentRound.options) {
+      const shuffled = [...currentRound.options];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      optionsRef.current = shuffled;
+    }
+  }, [currentRound]);
 
   useEffect(() => {
     if (started && !showReveal && !gameOver) {
@@ -42,16 +57,18 @@ export default function PanicRoom() {
     setTimeLeft(12);
   };
 
-  const handleTimeout = () => {
-    setRoundScore(25);
-    setTotalScore(prev => prev + 25);
-    setShowReveal(true);
-  };
-
-  const handleAction = (pts) => {
+  const handleAction = (pts, msg) => {
     clearInterval(timerRef.current);
     setRoundScore(pts);
     setTotalScore(prev => prev + pts);
+    setRevealMsg(msg || '');
+    setShowReveal(true);
+  };
+
+  const handleTimeout = () => {
+    setRoundScore(25);
+    setTotalScore(prev => prev + 25);
+    setRevealMsg('Frozen by fear. You couldn\'t decide and the opportunity passed.');
     setShowReveal(true);
   };
 
@@ -67,8 +84,7 @@ export default function PanicRoom() {
 
   const finishGame = () => {
     const finalAvg = Math.round(totalScore / panicRoomRounds.length);
-    const vaultUnits = finalAvg * 10;
-    saveScore('chapter3', finalAvg, vaultUnits);
+    saveScore('chapter3', finalAvg);
     setGameOver(true);
   };
 
@@ -103,7 +119,7 @@ export default function PanicRoom() {
               <h2>Simulation Complete</h2>
               <p>Your Discipline Score</p>
               <div className={styles.scoreValue}>{finalAvg}/100</div>
-              <p style={{marginBottom: '2rem'}}>Units Earned: {finalAvg * 10}</p>
+
               <button className={styles.nextBtn} onClick={proceed}>Next Chapter</button>
             </div>
           </div>
@@ -113,9 +129,8 @@ export default function PanicRoom() {
     );
   }
 
-  const currentRound = panicRoomRounds[roundIdx];
   const timerPct = (timeLeft / 12) * 100;
-
+  
   return (
     <>
       <GameHeader />
@@ -139,9 +154,11 @@ export default function PanicRoom() {
               </div>
               
               <div className={styles.options}>
-                <button className={styles.optionBtn} onClick={() => handleAction(100)}>Keep the SIP running (Buy cheap units)</button>
-                <button className={styles.optionBtn} onClick={() => handleAction(40)}>Pause until it settles</button>
-                <button className={styles.optionBtn} onClick={() => handleAction(0)}>Redeem everything</button>
+                {optionsRef.current.map((opt, i) => (
+                  <button key={i} className={styles.optionBtn} onClick={() => handleAction(opt.points, opt.msg)}>
+                    {opt.text}
+                  </button>
+                ))}
               </div>
             </>
           ) : (
@@ -149,7 +166,8 @@ export default function PanicRoom() {
               <div className={styles.revealTitle}>What happened next:</div>
               <div className={styles.recoveryText}>{currentRound.recovery}</div>
               <div className={styles.points}>
-                {roundScore === 100 ? '+100 pts: Ice in your veins!' : 
+                {revealMsg ? `+${roundScore} pts: ${revealMsg}` : 
+                 roundScore === 100 ? '+100 pts: Ice in your veins!' : 
                  roundScore === 40 ? '+40 pts: You missed the bottom.' : 
                  roundScore === 25 ? '+25 pts: Frozen by fear.' : 
                  '+0 pts: Panic sold at the bottom.'}

@@ -58,8 +58,7 @@ export default function ContrarianSignal() {
     // Save to global state (assume max possible score is ~3600 if they 3x every 100pt correct answer)
     // We will normalize unitsEarned
     const maxScore = dispatches.length * 300;
-    const unitsEarned = Math.floor((score / maxScore) * 1500); 
-    saveScore('chapter5', score, unitsEarned);
+    saveScore('chapter5', score);
     router.push('/games');
   };
 

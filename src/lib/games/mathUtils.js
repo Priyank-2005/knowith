@@ -36,11 +36,14 @@ export function calculateCorpus(returns) {
   let units = 0;
   let invested = 0;
   let corpus = 0;
-  returns.forEach(r => {
+  const history = [{ year: 0, nav: 10, units: 0, corpus: 0 }];
+  
+  returns.forEach((r, i) => {
     nav = nav * (1 + (r / 100));
     invested += 1000;
     units += 1000 / nav;
+    history.push({ year: i + 1, nav, units, corpus: units * nav, returnPct: r });
   });
   corpus = units * nav;
-  return { finalCorpus: corpus, totalUnits: units };
+  return { finalCorpus: corpus, totalUnits: units, history };
 }

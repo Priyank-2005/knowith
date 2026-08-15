@@ -253,3 +253,11 @@ model MarketDataEntry {
   sortOrder             Int      @default(0)
   createdAt             DateTime @default(now())
 }
+
+model GameScore {
+  id          String   @id @default(uuid())
+  playerName  String
+  totalScore  Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

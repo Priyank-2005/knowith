@@ -32,7 +32,15 @@ export class SupportEngine {
     const leadData = lead ? { name: lead.name, email: lead.email, phone: lead.phone, city: lead.city, investmentRange: lead.investmentRange } : {};
 
     // 3. Intent Detection
-    const intentResult = await IntentRouter.execute({ history, latestMessage: message });
+    let intentResult: any = { intent: 'Unknown', confidence: 0 };
+    const lowerMsg = message.trim().toLowerCase();
+    
+    // Quick bypass for simple greetings to reduce latency
+    if (['hi', 'hello', 'hey', 'good morning', 'good evening', 'thanks', 'thank you'].includes(lowerMsg)) {
+       intentResult = { intent: 'Greeting', confidence: 100 };
+    } else {
+       intentResult = await IntentRouter.execute({ history, latestMessage: message });
+    }
     console.log(`[SupportEngine] Intent detected: ${intentResult.intent} (${intentResult.confidence}%)`);
 
     let proposedResponse = '';
@@ -41,14 +49,15 @@ export class SupportEngine {
     let capturedLeadData = undefined;
 
     // 4. Capability Routing
-    if (intentResult.intent === 'General Question' || intentResult.intent === 'Product Information') {
-      const knowledgeDocs = await this.knowledgeProvider.retrieve(message, 3);
-      console.log(`[SupportEngine] Retrieved ${knowledgeDocs.length} knowledge documents`);
-      const result = await KnowledgeCapability.execute({ knowledgeDocs, history, latestMessage: message });
-      proposedResponse = result.response;
-    } 
-    else if (intentResult.intent === 'Educational') {
-      const result = await EducationalCapability.execute({ history, latestMessage: message });
+    if (
+      intentResult.intent === 'Taxation' ||
+      intentResult.intent === 'General Investing' ||
+      intentResult.intent === 'International Scenarios' ||
+      intentResult.intent === 'Currency'
+    ) {
+      // Import dynamically to avoid circular dependencies or just rely on top-level imports
+      const { DomainExpertCapability } = require('../capabilities/DomainExpertCapability');
+      const result = await DomainExpertCapability.execute({ history, latestMessage: message });
       proposedResponse = result.response;
     }
     else if (intentResult.intent === 'Lead Intent') {
@@ -56,22 +65,28 @@ export class SupportEngine {
       proposedResponse = result.response;
       capturedLeadData = result.capturedLeadData;
     }
-    else if (intentResult.intent === 'Human Advisor' || intentResult.intent === 'Complaint') {
+    else if (intentResult.intent === 'Human Advisor') {
       const result = await HumanEscalationCapability.execute({ leadData, history, latestMessage: message });
       proposedResponse = result.response;
       escalationDetails = result.handoff;
       isEscalated = true;
+      capturedLeadData = result.handoff.collectedDetails;
+    }
+    else if (intentResult.intent === 'Out of Scope') {
+      proposedResponse = "I apologize, but as the Knowith Capital Virtual Wealth Assistant, my expertise is strictly focused on **Taxation, General Investing, International Scenarios, and Currency**. I am unable to assist with other topics. How can I help you with your wealth planning today?";
     }
     else {
-      // Greeting or Unknown
-      proposedResponse = "Hello! I am your digital relationship manager for Knowith Capital. How can I assist you with your wealth management needs today?";
+      // Greeting
+      proposedResponse = "Hello! I am your digital relationship manager for Knowith Capital. My expertise includes Taxation, General Investing, International Scenarios, and Currency. How can I assist you today?";
     }
 
-    // 5. Compliance Review
-    const complianceResult = await ComplianceCapability.execute({ proposedResponse });
-    if (!complianceResult.isCompliant && complianceResult.revisedResponse) {
-      console.log(`[SupportEngine] Compliance intervention triggered. Reason: ${complianceResult.reason}`);
-      proposedResponse = complianceResult.revisedResponse;
+    // 5. Compliance Review (Skip for hardcoded safe responses to reduce latency)
+    if (intentResult.intent !== 'Greeting' && intentResult.intent !== 'Out of Scope') {
+      const complianceResult = await ComplianceCapability.execute({ proposedResponse });
+      if (!complianceResult.isCompliant && complianceResult.revisedResponse) {
+        console.log(`[SupportEngine] Compliance intervention triggered. Reason: ${complianceResult.reason}`);
+        proposedResponse = complianceResult.revisedResponse;
+      }
     }
 
     // 6. Save User Message
@@ -93,9 +108,48 @@ export class SupportEngine {
     });
 
     // 8. Update Lead if new data captured
-    if (capturedLeadData && Object.keys(capturedLeadData).length > 0) {
-       console.log(`[SupportEngine] Lead data captured:`, capturedLeadData);
-       // In a real implementation, we'd upsert the lead here based on sessionId or userId
+    if (capturedLeadData && Object.keys(capturedLeadData).length > 0 && (capturedLeadData.name || capturedLeadData.email || capturedLeadData.phone)) {
+       console.log(`[SupportEngine] Lead data captured, saving to DB:`, capturedLeadData);
+       
+       if (userId || lead?.id) {
+         // Update existing lead
+         await prisma.lead.update({
+           where: { id: lead?.id || 'placeholder' }, // In reality, we'd use the actual ID. Let's just create one if we don't have a reliable ID.
+           data: {
+             name: capturedLeadData.name,
+             email: capturedLeadData.email,
+             phone: capturedLeadData.phone,
+             city: capturedLeadData.city,
+             investmentRange: capturedLeadData.investmentRange
+           }
+         }).catch(() => {
+           // Fallback to create if update fails (e.g. ID mismatch)
+           return prisma.lead.create({
+             data: {
+               name: capturedLeadData.name || 'Unknown',
+               email: capturedLeadData.email,
+               phone: capturedLeadData.phone,
+               city: capturedLeadData.city,
+               investmentRange: capturedLeadData.investmentRange,
+               status: 'NEW',
+               leadSource: 'Chatbot'
+             }
+           });
+         });
+       } else {
+         // Create new lead
+         await prisma.lead.create({
+           data: {
+             name: capturedLeadData.name || 'Unknown',
+             email: capturedLeadData.email,
+             phone: capturedLeadData.phone,
+             city: capturedLeadData.city,
+             investmentRange: capturedLeadData.investmentRange,
+             status: 'NEW',
+             leadSource: 'Chatbot'
+           }
+         });
+       }
     }
 
     return {
@@ -103,9 +157,9 @@ export class SupportEngine {
       isEscalated,
       escalationDetails,
       suggestedQuestions: [
-        "What is Portfolio Management (PMS)?",
-        "How do I start a SIP?",
-        "Can I speak to an advisor?"
+        "What are the new LTCG tax rates?",
+        "Should I invest in US stocks?",
+        "I want to speak to an advisor"
       ]
     };
   }

@@ -18,14 +18,14 @@ User's Latest Message:
 "${context.latestMessage}"
 
 Classify into exactly one of these intents:
-- General Question (factual questions about the company, fees, location)
-- Product Information (questions about PMS, SIPs, Mutual Funds)
-- Educational (asking to explain a concept like CAGR, inflation)
-- Lead Intent (expressing interest to invest, start SIP, get a callback, financial planning)
-- Human Advisor (explicitly asking to speak with a human)
-- Complaint (expressing dissatisfaction)
-- Greeting (hello, hi, good morning)
-- Unknown (cannot determine)
+- Taxation (questions about income tax, LTCG/STCG, tax saving, deductions)
+- General Investing (questions about mutual funds, SIPs, stock market basics, portfolio diversification)
+- International Scenarios (NRI investing, sending money abroad, foreign tax credits, US stocks)
+- Currency (exchange rates, INR depreciation, hedging, forex impact on returns)
+- Lead Intent (expressing interest to invest, start SIP, get financial planning, or sharing contact details)
+- Human Advisor (explicitly asking to speak with a human or schedule a call)
+- Greeting (hello, hi, good morning, thanks)
+- Out of Scope (ANYTHING ELSE. This includes general chit-chat, coding, medical advice, cooking, sports, and even unrelated financial topics like credit card disputes or loans. If it doesn't clearly fit the 4 domains or lead/advisor intents, mark it as Out of Scope.)
 
 Also determine a 'confidence' score between 0 and 100 for your classification.
 `;

@@ -62,12 +62,72 @@ export const seasons = {
 export const chapter2Returns = [-14, -3, 8, 32, 48];
 
 export const panicRoomRounds = [
-  { year: 2008, title: 'Global Financial Crisis', headline: 'Lehman Brothers collapses. Sensex crashes 55% from its peak. Your MF portfolio shows -40%.', recovery: 'Sensex rallied +75% in 2009. SIP investors who stayed got units at rock-bottom NAVs.' },
-  { year: 2013, title: 'The Rupee Crisis', headline: 'Rupee hits record low of ₹68. CAD widens. FIIs pull out ₹12,000 Cr. Nifty down 15%.', recovery: 'Nifty gained +31% in 2014 as Modi mandate restored confidence. Rupee stabilized.' },
-  { year: 2016, title: 'Demonetisation', headline: 'PM Modi bans 86% of currency overnight. Markets crash 6% in a day. Economic chaos predicted.', recovery: 'Nifty rallied +29% in 2017. Market shrugged off demonetisation within months.' },
-  { year: 2018, title: 'Credit Shock', headline: 'IL&FS defaults on ₹91,000 Cr. NBFC crisis spreads. Mid & small caps crash 30%.', recovery: 'Nifty recovered to new highs by late 2019. Quality mid-caps bounced back 40-60%.' },
-  { year: 2020, title: 'Pandemic Crash', headline: 'COVID-19 lockdown. Sensex crashes 38% in one month. Circuit breakers hit repeatedly.', recovery: 'One of the greatest bull runs followed. Nifty doubled from March 2020 lows by 2021.' },
-  { year: 2022, title: 'Rate Hikes & War', headline: 'Russia invades Ukraine. Inflation at 40-year highs. RBI hikes rates aggressively. Markets correct 18%.', recovery: 'Markets recovered within 6 months. India outperformed all major global indices in 2023.' }
+  { 
+    year: 2008, 
+    title: 'Global Financial Crisis', 
+    headline: 'Lehman Brothers collapses. Sensex crashes 55% from its peak. Your MF portfolio shows -40%.', 
+    recovery: 'Sensex rallied +75% in 2009. SIP investors who stayed got units at rock-bottom NAVs.',
+    options: [
+      { text: 'Buy the massive dip (Continue SIP)', points: 100, msg: 'Ice in your veins! You bought the generational bottom.' },
+      { text: 'Pause SIPs until banks stabilize', points: 40, msg: 'You missed accumulating units at rock-bottom prices.' },
+      { text: 'Liquidate portfolio to save cash', points: 0, msg: 'You locked in a 40% loss right at the absolute bottom.' }
+    ]
+  },
+  { 
+    year: 2013, 
+    title: 'The Rupee Crisis', 
+    headline: 'Rupee hits record low of ₹68. CAD widens. FIIs pull out ₹12,000 Cr. Nifty down 15%.', 
+    recovery: 'Nifty gained +31% in 2014 as Modi mandate restored confidence. Rupee stabilized.',
+    options: [
+      { text: 'Ignore currency noise, keep investing', points: 100, msg: 'Smart. Currency fluctuations rarely derail long-term equity growth.' },
+      { text: 'Halt investments until Rupee recovers', points: 40, msg: 'You let macro-economic noise disrupt your micro-level discipline.' },
+      { text: 'Sell equities to buy Gold', points: 0, msg: 'You sold Indian businesses right before a historic multi-year bull run.' }
+    ]
+  },
+  { 
+    year: 2016, 
+    title: 'Demonetisation', 
+    headline: 'PM Modi bans 86% of currency overnight. Markets crash 6% in a day. Economic chaos predicted.', 
+    recovery: 'Nifty rallied +29% in 2017. Market shrugged off demonetisation within months.',
+    options: [
+      { text: 'Stay the course, businesses will adapt', points: 100, msg: 'Correct. Short-term liquidity shocks don\'t destroy long-term earnings power.' },
+      { text: 'Wait and see the GDP impact', points: 40, msg: 'By the time the data cleared up, the market had already rallied 20%.' },
+      { text: 'Panic sell on economic doom predictions', points: 0, msg: 'You got spooked by domestic noise and missed a major rally.' }
+    ]
+  },
+  { 
+    year: 2018, 
+    title: 'Credit Shock', 
+    headline: 'IL&FS defaults on ₹91,000 Cr. NBFC crisis spreads. Mid & small caps crash 30%.', 
+    recovery: 'Nifty recovered to new highs by late 2019. Quality mid-caps bounced back 40-60%.',
+    options: [
+      { text: 'Accumulate cheap mid-cap units', points: 100, msg: 'Excellent. You used the liquidity crisis to buy quality assets cheap.' },
+      { text: 'Stop mid-cap SIPs, switch to large caps', points: 40, msg: 'You abandoned your strategy exactly when mid-caps were cheapest.' },
+      { text: 'Redeem everything, financial system is collapsing', points: 0, msg: 'You panic-sold into a liquidity crisis that the RBI eventually resolved.' }
+    ]
+  },
+  { 
+    year: 2020, 
+    title: 'Pandemic Crash', 
+    headline: 'COVID-19 lockdown. Sensex crashes 38% in one month. Circuit breakers hit repeatedly.', 
+    recovery: 'One of the greatest bull runs followed. Nifty doubled from March 2020 lows by 2021.',
+    options: [
+      { text: 'Keep buying aggressively', points: 100, msg: 'The ultimate contrarian bet. You capitalized on the fastest bear market in history.' },
+      { text: 'Pause investments to preserve cash', points: 40, msg: 'Understandable fear, but you missed the fastest V-shaped recovery ever.' },
+      { text: 'Sell everything, the world is ending', points: 0, msg: 'You sold at peak fear, missing a 100% rally over the next 18 months.' }
+    ]
+  },
+  { 
+    year: 2022, 
+    title: 'Rate Hikes & War', 
+    headline: 'Russia invades Ukraine. Inflation at 40-year highs. RBI hikes rates aggressively. Markets correct 18%.', 
+    recovery: 'Markets recovered within 6 months. India outperformed all major global indices in 2023.',
+    options: [
+      { text: 'Stick to the SIP mandate', points: 100, msg: 'Textbook discipline. Geopolitics rarely cause permanent market destruction.' },
+      { text: 'Pause until the war ends', points: 40, msg: 'Markets price in the bad news immediately. By waiting, you paid higher prices later.' },
+      { text: 'Move all money to Fixed Deposits', points: 0, msg: 'You locked in capital losses to chase yield right before inflation cooled.' }
+    ]
+  }
 ];
 
 export const rapidFireQuestions = [

@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/v1/market-data/generate",
+      "schedule": "30 0 * * *"
+    }
+  ]
+}

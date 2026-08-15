@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGameState } from '@/lib/games/gameState';
-import { seasonSurvivorJourneys, seasons } from '@/lib/games/gameData';
-import { calculateXIRR, formatCurrency } from '@/lib/games/mathUtils';
+import { seasons } from '@/lib/games/gameData';
+import { formatCurrency } from '@/lib/games/mathUtils';
 import styles from './page.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '@/components/Navbar';
@@ -24,20 +24,52 @@ export default function SeasonSurvivor() {
     totalUnits: 0,
     totalInvested: 0,
     cashBalance: 0,
+    benchUnits: 0,
+    benchInvested: 0
   });
   
   const [history, setHistory] = useState([]); // To draw the chart
 
+  const generateRandomJourney = () => {
+    const baseNav = 100;
+    let currentNav = baseNav;
+    const years = [];
+    
+    for (let i = 0; i < 11; i++) { // 11 to have an endpoint for year 10
+      let randomReturn;
+      if (i === 0) randomReturn = 0; // year 0 is base
+      else randomReturn = (Math.random() * 60 - 20) / 100; // -20% to +40%
+      
+      currentNav = i === 0 ? baseNav : currentNav * (1 + randomReturn);
+      
+      let season = 'spring';
+      if (randomReturn < -0.1) season = 'winter';
+      else if (randomReturn < 0) season = 'autumn';
+      else if (randomReturn > 0.15) season = 'summer';
+
+      years.push({
+        year: i + 1,
+        nav: currentNav,
+        headline: i === 0 ? 'Market Opens Steady' : `Market shifts by ${(randomReturn * 100).toFixed(1)}%`,
+        season: season
+      });
+    }
+    return {
+      name: 'Dynamic Market Cycle',
+      years
+    };
+  };
+
   const startGame = () => {
-    const randomJourney = seasonSurvivorJourneys[Math.floor(Math.random() * seasonSurvivorJourneys.length)];
+    const randomJourney = generateRandomJourney();
     setJourney(randomJourney);
     
-    // Start with Year 1 data
     const startNav = randomJourney.years[0].nav;
     setHistory([{
       month: 0,
       nav: startNav,
       totalUnits: 0,
+      benchUnits: 0,
       season: randomJourney.years[0].season
     }]);
     
@@ -71,14 +103,15 @@ export default function SeasonSurvivor() {
 
     setInMarket(newInMarket);
 
-    // Simulate 12 months
     const startNav = journey.years[currentYear].nav;
-    const endNav = currentYear < 9 ? journey.years[currentYear + 1].nav : journey.years[9].nav * 1.1; // Extrapolate last year
+    const endNav = journey.years[currentYear + 1].nav;
     const season = journey.years[currentYear].season;
 
     let currentUnits = stats.totalUnits;
     let currentInvested = stats.totalInvested;
     let currentCash = stats.cashBalance;
+    let currentBenchUnits = stats.benchUnits;
+    let currentBenchInvested = stats.benchInvested;
 
     if (willSell) {
       currentCash += currentUnits * startNav;
@@ -93,36 +126,40 @@ export default function SeasonSurvivor() {
     let newHistory = [];
     
     for (let m = 1; m <= 12; m++) {
-      // Linear interpolation with slight randomness
       let nav = startNav + (endNav - startNav) * (m / 12);
-      if (m < 12) nav += (Math.random() - 0.5) * (startNav * 0.05); // 5% noise
+      if (m < 12) nav += (Math.random() - 0.5) * (startNav * 0.05); // noise
       
       if (monthlySIP > 0) {
         currentUnits += monthlySIP / nav;
         currentInvested += monthlySIP;
       }
       
+      // Benchmark is always 10k/mo
+      currentBenchUnits += 10000 / nav;
+      currentBenchInvested += 10000;
+      
       newHistory.push({
         month: currentYear * 12 + m,
         nav,
         totalUnits: currentUnits,
+        benchUnits: currentBenchUnits,
         season
       });
     }
 
-    // Animate the chart step by step
     let step = 0;
     const interval = setInterval(() => {
       if (step < 12) {
         setHistory(prev => [...prev, newHistory[step]]);
       }
       
-      // Update stats live during animation
       if (step === 11) {
         setStats({
           totalUnits: currentUnits,
           totalInvested: currentInvested,
-          cashBalance: currentCash
+          cashBalance: currentCash,
+          benchUnits: currentBenchUnits,
+          benchInvested: currentBenchInvested
         });
       }
       
@@ -136,46 +173,20 @@ export default function SeasonSurvivor() {
             setCurrentYear(prev => prev + 1);
             setGameState('playing');
           }
-        }, 500);
+        }, 300);
       }
-    }, 100);
-  };
-
-  const calculateBenchmark = () => {
-    // Benchmark: 10K SIP every month, never selling
-    let benchUnits = 0;
-    let benchInvested = 0;
-    
-    for (let y = 0; y < 10; y++) {
-      const startNav = journey.years[y].nav;
-      const endNav = y < 9 ? journey.years[y + 1].nav : journey.years[9].nav * 1.1;
-      
-      for (let m = 1; m <= 12; m++) {
-        let nav = startNav + (endNav - startNav) * (m / 12);
-        benchUnits += 10000 / nav;
-        benchInvested += 10000;
-      }
-    }
-    
-    const finalNav = journey.years[9].nav * 1.1; // approximate final point
-    return {
-      value: benchUnits * finalNav,
-      invested: benchInvested
-    };
+    }, 50);
   };
 
   const finishGame = () => {
     const finalNav = history.filter(d => d?.nav).slice(-1)[0]?.nav || 0;
     const finalPortfolioValue = (stats.totalUnits * finalNav) + stats.cashBalance;
-    const benchmark = calculateBenchmark();
+    const benchValue = stats.benchUnits * (finalNav || 1); // Avoid division by zero
     
-    // Score based on performance vs benchmark (0-100)
-    let score = Math.floor((finalPortfolioValue / benchmark.value) * 100);
-    score = Math.min(100, Math.max(0, score)); // Clamp 0-100
-    
-    const unitsEarned = score * 12;
-    
-    saveScore('chapter1', score, unitsEarned);
+    let score = Math.floor((finalPortfolioValue / benchValue) * 100);
+    // Remove upper clamp so users can score > 100 if they beat the benchmark
+    score = Math.max(0, score || 0); 
+    saveScore('chapter1', score);
     router.push('/games');
   };
 
@@ -189,13 +200,13 @@ export default function SeasonSurvivor() {
               <div className={styles.chapterBadge}>Chapter 01</div>
               <h1>Season Survivor</h1>
               <p className={styles.introDesc}>
-                Welcome to the ultimate test of investor discipline. You will live through a 10-year market cycle, making one decision per year. 
+                Welcome to the ultimate test of investor discipline. You will live through a completely randomized 10-year market cycle, making one decision per year. 
               </p>
               <div className={styles.rules}>
                 <h3>The Rules:</h3>
                 <ul>
                   <li>You start with a ₹10,000 monthly SIP.</li>
-                  <li>Each year brings a new market 'season' (Spring, Summer, Autumn, Winter).</li>
+                  <li>Each year brings a new randomized market 'season' (Spring, Summer, Autumn, Winter).</li>
                   <li>You can Stay the Course, Top Up (₹15K), Pause, or Sell Everything.</li>
                   <li>Your goal: Accumulate maximum units to beat the 'Never Flinched' benchmark.</li>
                 </ul>
@@ -211,8 +222,8 @@ export default function SeasonSurvivor() {
                   Year {currentYear + 1} of 10
                 </div>
                 <h2 className={styles.headline}>"{journey.years[currentYear].headline}"</h2>
-                <div className={styles.seasonIndicator} style={{ color: seasons[journey.years[currentYear].season].color }}>
-                  {seasons[journey.years[currentYear].season].name}
+                <div className={styles.seasonIndicator} style={{ color: seasons[journey.years[currentYear].season]?.color }}>
+                  {seasons[journey.years[currentYear].season]?.name}
                 </div>
               </div>
 
@@ -222,16 +233,16 @@ export default function SeasonSurvivor() {
                   <div className={styles.statVal}>₹{history.filter(d => d?.nav).slice(-1)[0]?.nav.toFixed(2) || '0.00'}</div>
                 </div>
                 <div className={styles.statBox}>
-                  <label>Total Units</label>
-                  <div className={styles.statVal}>{stats.totalUnits.toFixed(2)}</div>
-                </div>
-                <div className={styles.statBox}>
                   <label>Portfolio Value</label>
-                  <div className={styles.statVal}>{formatCurrency(stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0))}</div>
+                  <div className={styles.statVal} style={{color: 'var(--gold)'}}>
+                    {formatCurrency((stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0)) + stats.cashBalance)}
+                  </div>
                 </div>
                 <div className={styles.statBox}>
-                  <label>Total Invested</label>
-                  <div className={styles.statVal}>{formatCurrency(stats.totalInvested)}</div>
+                  <label>Benchmark Value</label>
+                  <div className={styles.statVal} style={{color: '#45D483'}}>
+                    {formatCurrency(stats.benchUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0))}
+                  </div>
                 </div>
                 <div className={styles.statBox}>
                   <label>Cash Balance</label>
@@ -265,9 +276,8 @@ export default function SeasonSurvivor() {
           )}
 
           {gameState === 'results' && (
-            <motion.div className={styles.resultsScreen} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <motion.div className={styles.resultsScreen} style={{ maxWidth: '900px' }} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               <h2>Journey Complete</h2>
-              <div className={styles.journeyName}>Scenario: {journey.name}</div>
               
               <div className={styles.comparisonBox}>
                 <div className={styles.compSide}>
@@ -277,18 +287,22 @@ export default function SeasonSurvivor() {
                 </div>
                 <div className={styles.compDivider}>VS</div>
                 <div className={styles.compSide}>
-                  <h3>'Never Flinched'</h3>
-                  <div className={styles.compVal}>{formatCurrency(calculateBenchmark().value)}</div>
-                  <div className={styles.compSub}>Invested: {formatCurrency(calculateBenchmark().invested)}</div>
+                  <h3 style={{color: '#45D483'}}>'Never Flinched'</h3>
+                  <div className={styles.compVal}>{formatCurrency(stats.benchUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0))}</div>
+                  <div className={styles.compSub}>Invested: {formatCurrency(stats.benchInvested)}</div>
                 </div>
               </div>
 
+              <div className={styles.chartContainer} style={{ marginBottom: '40px', backgroundColor: 'rgba(0,0,0,0.2)' }}>
+                <Chart history={history} />
+              </div>
+
               <div className={styles.scoreBox}>
-                <div className={styles.scoreLabel}>Final Score</div>
+                <div className={styles.scoreLabel}>Final Performance Score</div>
                 <div className={styles.scoreValue}>
-                  {Math.min(100, Math.max(0, Math.floor((((stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0)) + stats.cashBalance) / calculateBenchmark().value) * 100)))} / 100
+                  {Math.max(0, Math.floor((((stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0)) + stats.cashBalance) / (stats.benchUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 1))) * 100))}
                 </div>
-                <p>You earned {Math.min(100, Math.max(0, Math.floor((((stats.totalUnits * (history.filter(d => d?.nav).slice(-1)[0]?.nav || 0)) + stats.cashBalance) / calculateBenchmark().value) * 100))) * 12} Vault Units.</p>
+                <p>A score of 100 means you exactly matched the 'Never Flinched' benchmark.</p>
               </div>
 
               <button className={styles.primaryButton} onClick={finishGame}>Back to Hub</button>
@@ -305,21 +319,26 @@ function Chart({ history }) {
   if (!history || history.length === 0) return null;
 
   const width = 800;
-  const height = 300;
+  const height = 250;
   const padding = 20;
 
   const validHistory = history.filter(d => d && typeof d.nav === 'number');
-  const maxNav = Math.max(200, ...validHistory.map(d => d.nav));
-  const minNav = Math.min(50, ...validHistory.map(d => d.nav)) * 0.8;
+  
+  const getPortValue = (d) => (d.totalUnits * d.nav) || 0;
+  const getBenchValue = (d) => (d.benchUnits * d.nav) || 0;
+
+  const maxVal = Math.max(1000, ...validHistory.map(d => Math.max(getPortValue(d), getBenchValue(d))));
+  const minVal = 0;
   const maxMonth = 120; // 10 years * 12 months
 
   const getX = (m) => padding + (m / maxMonth) * (width - padding * 2);
-  const getY = (v) => height - padding - ((v - minNav) / (maxNav - minNav)) * (height - padding * 2);
+  const getY = (v) => height - padding - ((v - minVal) / (maxVal - minVal)) * (height - padding * 2);
 
-  const points = validHistory.map(d => `${getX(d.month)},${getY(d.nav)}`).join(' ');
-  const areaPoints = validHistory.length > 0 ? `${getX(validHistory[0].month)},${height - padding} ${points} ${getX(validHistory[validHistory.length - 1].month)},${height - padding}` : '';
+  const userPoints = validHistory.map(d => `${getX(d.month)},${getY(getPortValue(d))}`).join(' ');
+  const benchPoints = validHistory.map(d => `${getX(d.month)},${getY(getBenchValue(d))}`).join(' ');
+  
+  const userAreaPoints = validHistory.length > 0 ? `${getX(validHistory[0].month)},${height - padding} ${userPoints} ${getX(validHistory[validHistory.length - 1].month)},${height - padding}` : '';
 
-  // Season bands
   const bands = [];
   if (validHistory.length > 0) {
     let currentSeason = validHistory[0].season;
@@ -353,15 +372,22 @@ function Chart({ history }) {
       {/* Grid lines */}
       <line x1={padding} y1={height/2} x2={width-padding} y2={height/2} stroke="#333" strokeDasharray="4 4" />
       
-      {/* Units Area */}
-      <polygon points={areaPoints} fill="url(#unitsGradient)" opacity={0.5} />
+      {/* User Area */}
+      <polygon points={userAreaPoints} fill="url(#unitsGradient)" opacity={0.3} />
       
-      {/* NAV Line */}
-      <polyline points={points} fill="none" stroke="var(--gold)" strokeWidth="3" />
+      {/* Benchmark Line (Green) */}
+      <polyline points={benchPoints} fill="none" stroke="#45D483" strokeWidth="2" strokeDasharray="5 5" />
       
+      {/* User Line (Gold) */}
+      <polyline points={userPoints} fill="none" stroke="var(--gold)" strokeWidth="3" />
+      
+      {/* Legend */}
+      <text x={padding + 10} y={padding + 15} fill="#45D483" fontSize="12" fontFamily="monospace">--- Benchmark Value</text>
+      <text x={padding + 10} y={padding + 35} fill="var(--gold)" fontSize="12" fontFamily="monospace">― Your Portfolio</text>
+
       <defs>
         <linearGradient id="unitsGradient" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#45D483" stopOpacity="0.8" />
+          <stop offset="0%" stopColor="var(--gold)" stopOpacity="0.8" />
           <stop offset="100%" stopColor="#0B1533" stopOpacity="0.1" />
         </linearGradient>
       </defs>

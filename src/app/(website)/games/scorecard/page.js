@@ -8,7 +8,7 @@ import styles from './page.module.css';
 
 export default function Scorecard() {
   const router = useRouter();
-  const { scores, vaultUnits, resetGames } = useGameState();
+  const { scores, getTotalScore, resetGame } = useGameState();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function Scorecard() {
   else if (avgScore >= 30) dnaRank = 'Fair-Weather Investor';
 
   const copyResult = () => {
-    const text = `I just discovered my Investor DNA is "${dnaRank}" on The Unit Games!\nAverage Score: ${avgScore}/100\nVault Units Earned: ${vaultUnits}\nPlay now!`;
+    const text = `I just discovered my Investor DNA is "${dnaRank}" on The Unit Games!\nAverage Score: ${avgScore}/100\nTotal Score: ${getTotalScore()}\nPlay now!`;
     navigator.clipboard.writeText(text);
     alert('Result copied to clipboard!');
   };
@@ -68,8 +68,8 @@ export default function Scorecard() {
               <span className={styles.statValue}>{avgScore}/100</span>
             </div>
             <div className={styles.statCol}>
-              <span className={styles.statLabel}>Total Vault Units</span>
-              <span className={styles.statValue} style={{color: 'var(--gold)'}}>{vaultUnits}</span>
+              <span className={styles.statLabel}>Total Score</span>
+              <span className={styles.statValue} style={{color: 'var(--gold)'}}>{getTotalScore()}</span>
             </div>
           </div>
           

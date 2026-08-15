@@ -8,10 +8,10 @@
 
 .main {
   flex-grow: 1;
-  padding: 120px 24px 60px;
+  padding: 10px 24px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 
 /* Intro Screen */
@@ -92,7 +92,7 @@
   max-width: 900px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
 }
 
 .headerRow {
@@ -106,12 +106,12 @@
   color: var(--gold);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .headline {
   font-family: var(--font-display), serif;
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: var(--marble);
   margin-bottom: 8px;
 }
@@ -131,9 +131,9 @@
   background-color: var(--ink-2);
   border: 1px solid var(--border-dark);
   border-radius: 8px;
-  padding: 24px;
+  padding: 10px 16px;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 10px;
 }
 
 .statBox {
@@ -160,8 +160,8 @@
   background-color: var(--ink-2);
   border: 1px solid var(--border-dark);
   border-radius: 8px;
-  padding: 24px;
-  height: 350px;
+  padding: 10px;
+  height: 220px;
 }
 
 .svgChart {
@@ -174,13 +174,13 @@
   background-color: var(--ink-2);
   border: 1px solid var(--border-dark);
   border-radius: 8px;
-  padding: 32px;
+  padding: 16px;
   text-align: center;
 }
 
 .actionTitle {
   font-size: 1.25rem;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   color: var(--marble);
 }
 
@@ -194,7 +194,7 @@
 .actionBtn {
   font-family: var(--font-mono), monospace;
   font-size: 0.9rem;
-  padding: 16px 24px;
+  padding: 12px 20px;
   border-radius: 6px;
   cursor: pointer;
   border: 1px solid transparent;

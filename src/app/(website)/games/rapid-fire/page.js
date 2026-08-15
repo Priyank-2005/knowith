@@ -13,7 +13,7 @@ export default function RapidFire() {
   const { saveScore } = useGameState();
   const [started, setStarted] = useState(false);
   const [qIdx, setQIdx] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(15);
+  const [timeLeft, setTimeLeft] = useState(30);
   const [answered, setAnswered] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const [answersState, setAnswersState] = useState(Array(10).fill('pending')); // pending, correct, wrong
@@ -40,7 +40,7 @@ export default function RapidFire() {
 
   const startGame = () => {
     setStarted(true);
-    setTimeLeft(15);
+    setTimeLeft(30);
   };
 
   const handleTimeout = () => {
@@ -56,7 +56,7 @@ export default function RapidFire() {
     setAnswered(true);
     setSelectedOption(option);
     
-    const isCorrect = option === rapidFireQuestions[qIdx].answer;
+    const isCorrect = option === rapidFireQuestions[qIdx].options[rapidFireQuestions[qIdx].correct];
     updateAnswersState(isCorrect);
     setTimes(prev => [...prev, timeLeft]);
   };
@@ -72,7 +72,7 @@ export default function RapidFire() {
       setQIdx(prev => prev + 1);
       setAnswered(false);
       setSelectedOption(null);
-      setTimeLeft(15);
+      setTimeLeft(30);
     } else {
       finishGame();
     }
@@ -83,11 +83,9 @@ export default function RapidFire() {
     const avgTimeRemaining = times.reduce((a, b) => a + b, 0) / times.length;
     
     const accuracyScore = (correctCount / 10) * 80;
-    const speedScore = (avgTimeRemaining / 15) * 20;
+    const speedScore = (avgTimeRemaining / 30) * 20;
     const finalScore = Math.round(accuracyScore + speedScore);
-    const vaultUnits = finalScore * 8; // Max 800
-    
-    saveScore('chapter4', finalScore, vaultUnits);
+    saveScore('chapter4', finalScore);
     setGameOver(true);
   };
 
@@ -102,7 +100,7 @@ export default function RapidFire() {
         <div className={styles.container}>
           <div className={styles.intro}>
             <h1 className={styles.title}>Chapter 4: Unit Rapid Fire</h1>
-            <p>10 Questions. 15 Seconds each. Test your knowledge. Speed matters.</p>
+            <p>10 Questions. 30 Seconds each. Test your knowledge. Speed matters.</p>
             <button className={styles.nextBtn} onClick={startGame} style={{marginTop: '2rem'}}>Start Quiz</button>
           </div>
         </div>
@@ -115,7 +113,7 @@ export default function RapidFire() {
     const correctCount = answersState.filter(s => s === 'correct').length;
     const avgTimeRemaining = times.reduce((a, b) => a + b, 0) / times.length;
     const accuracyScore = (correctCount / 10) * 80;
-    const speedScore = (avgTimeRemaining / 15) * 20;
+    const speedScore = (avgTimeRemaining / 30) * 20;
     const finalScore = Math.round(accuracyScore + speedScore);
 
     return (
@@ -138,7 +136,7 @@ export default function RapidFire() {
                 <span className={styles.scoreValue}>{finalScore}/100</span>
               </div>
             </div>
-            <p style={{marginBottom: '2rem', fontSize: '1.2rem', color: '#45D483'}}>Vault Units Earned: {finalScore * 8}</p>
+
             <button className={styles.nextBtn} onClick={proceed}>View Final Scorecard</button>
           </div>
         </div>
@@ -148,7 +146,7 @@ export default function RapidFire() {
   }
 
   const currentQ = rapidFireQuestions[qIdx];
-  const isCorrectAnswer = selectedOption === currentQ.answer;
+  const isCorrectAnswer = selectedOption === currentQ.options[currentQ.correct];
 
   return (
     <>
@@ -161,8 +159,17 @@ export default function RapidFire() {
                 <div key={i} className={`${styles.dot} ${state === 'pending' && i === qIdx ? styles.active : ''} ${state === 'correct' ? styles.correct : ''} ${state === 'wrong' ? styles.wrong : ''}`}></div>
               ))}
             </div>
-            <div className={`${styles.timerRing} ${timeLeft <= 5 ? styles.danger : ''}`}>
-              {timeLeft}
+            <div style={{display: 'flex', gap: '1rem', alignItems: 'center'}}>
+              <div className={`${styles.timerRing} ${timeLeft <= 10 ? styles.danger : ''}`}>
+                {timeLeft}
+              </div>
+              <button 
+                className={styles.nextBtn} 
+                style={{padding: '0.5rem 1rem', fontSize: '0.9rem', backgroundColor: 'transparent', border: '1px solid #45D483', color: '#45D483'}} 
+                onClick={() => router.push('/games')}
+              >
+                Exit Game
+              </button>
             </div>
           </div>
 
@@ -174,7 +181,7 @@ export default function RapidFire() {
             {currentQ.options.map((opt, i) => {
               let btnClass = styles.optionBtn;
               if (answered) {
-                if (opt === currentQ.answer) btnClass += ` ${styles.correct}`;
+                if (opt === currentQ.options[currentQ.correct]) btnClass += ` ${styles.correct}`;
                 else if (opt === selectedOption) btnClass += ` ${styles.wrong}`;
               }
               

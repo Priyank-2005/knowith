@@ -30,7 +30,7 @@ export default function MarketTicker() {
       }
       
       try {
-        const res = await fetch('/api/v1/market/ticker');
+        const res = await fetch('/api/v1/market/snapshot');
         if (res.ok) {
           const json = await res.json();
           if (json.success && json.data) {
