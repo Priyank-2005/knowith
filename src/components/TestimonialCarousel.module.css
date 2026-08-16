@@ -1,0 +1,86 @@
+.carouselContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.carouselTrack {
+  min-height: 280px; /* enough space for the longest quote */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.testimonialWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+}
+
+.quoteMark {
+  font-family: var(--font-display), serif;
+  font-size: 6rem;
+  color: var(--gold);
+  line-height: 0.5;
+  margin-bottom: 20px;
+  opacity: 0.3;
+}
+
+.quoteText {
+  font-family: var(--font-display), serif;
+  font-size: 1.8rem;
+  line-height: 1.5;
+  color: var(--ink); /* Changed from --marble to be visible on light bg */
+  margin-bottom: 32px;
+  font-style: italic;
+}
+
+.author {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  color: var(--slate); /* Darker than slate-soft for better contrast */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--slate);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.dot:hover {
+  border-color: var(--gold);
+}
+
+.activeDot {
+  background: var(--gold);
+  border-color: var(--gold);
+  transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+  .quoteText {
+    font-size: 1.4rem;
+  }
+  .carouselTrack {
+    min-height: 320px;
+  }
+}

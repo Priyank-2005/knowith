@@ -1,0 +1,22 @@
+export const MARKET_DATA = [
+  { year: 2004, large: 10.6, mid: 15.2, small: 25.1, winner: 'small', headline: "Post-election rally boosts broader markets" },
+  { year: 2005, large: 36.3, mid: 42.1, small: 55.4, winner: 'small', headline: "Global liquidity fuels a massive small-cap surge" },
+  { year: 2006, large: 39.8, mid: 28.5, small: 32.1, winner: 'large', headline: "Large caps lead as foreign investors pour in" },
+  { year: 2007, large: 54.7, mid: 77.2, small: 96.5, winner: 'small', headline: "Euphoria takes over before the global financial crisis" },
+  { year: 2008, large: -51.7, mid: -58.2, small: -64.3, winner: 'large', headline: "Global Financial Crisis: Large caps fall the least" },
+  { year: 2009, large: 75.7, mid: 98.4, small: 115.2, winner: 'small', headline: "V-shaped recovery led by beaten-down small caps" },
+  { year: 2010, large: 17.9, mid: 19.2, small: 17.5, winner: 'mid', headline: "Markets stabilize as mid caps edge out a win" },
+  { year: 2011, large: -24.6, mid: -31.4, small: -35.8, winner: 'large', headline: "Inflation and policy paralysis hit smaller stocks hard" },
+  { year: 2012, large: 27.7, mid: 39.1, small: 36.4, winner: 'mid', headline: "Reforms push markets higher, mid caps outperform" },
+  { year: 2013, large: 6.7, mid: -5.1, small: -12.4, winner: 'large', headline: "Taper tantrum causes a severe mid & small cap bleed" },
+  { year: 2014, large: 31.3, mid: 55.6, small: 71.4, winner: 'small', headline: "Political stability sparks a structural bull run" },
+  { year: 2015, large: -4.1, mid: 7.4, small: 7.2, winner: 'mid', headline: "Large caps struggle while stock-picking works in mid caps" },
+  { year: 2016, large: 3.0, mid: 7.1, small: 1.4, winner: 'mid', headline: "Demonetization causes volatility, mid caps stay resilient" },
+  { year: 2017, large: 28.6, mid: 47.2, small: 57.3, winner: 'small', headline: "Domestic inflows drive small caps to dizzying heights" },
+  { year: 2018, large: 3.1, mid: -15.4, small: -29.1, winner: 'large', headline: "SEBI reclassification triggers a mid & small cap crash" },
+  { year: 2019, large: 12.0, mid: -4.3, small: -9.5, winner: 'large', headline: "Polarized market: Only top 15 large caps perform" },
+  { year: 2020, large: 14.9, mid: 21.8, small: 21.4, winner: 'mid', headline: "Pandemic crash followed by an unprecedented retail rally" },
+  { year: 2021, large: 24.1, mid: 46.0, small: 59.2, winner: 'small', headline: "Low interest rates fuel a massive speculative boom" },
+  { year: 2022, large: 4.3, mid: 3.1, small: -3.5, winner: 'large', headline: "War and inflation: Flight to safety favors large caps" },
+  { year: 2023, large: 20.0, mid: 43.4, small: 48.1, winner: 'small', headline: "India outperforms globally, smaller stocks lead the charge" }
+];

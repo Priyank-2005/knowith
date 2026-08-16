@@ -1,0 +1,811 @@
+.pageWrapper {
+  background-color: #f1efdf; /* Vintage paper beige */
+  color: #1a1a1a;
+  min-height: 100vh;
+  padding: 1rem 2rem;
+  font-family: 'Times New Roman', Times, serif;
+  background-image: 
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOP HEADER BAR */
+.topHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.barsIcon {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 30px;
+}
+
+.bar {
+  width: 6px;
+  background-color: #1a1a1a;
+}
+.barBlue { background-color: #0f3d61; height: 100%; }
+.barYellow { background-color: #d19a22; height: 110%; margin-bottom: -10%; }
+.barBlueShort { background-color: #0f3d61; height: 70%; }
+
+.logoTextContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoTitle {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.logoSubtitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  margin-top: 4px;
+}
+
+.headerRight {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+}
+
+/* SUB HEADER */
+.subHeader {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono), monospace;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+/* 2-COLUMN INTRO SCREEN */
+.introLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.introLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.introRight {
+  display: flex;
+  flex-direction: column;
+}
+
+.hugeHeading {
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1px;
+}
+
+.headingHighlight {
+  color: #c09b43; /* goldish */
+  font-style: italic;
+}
+
+.introDesc {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+/* RULES BOX */
+.rulesBox {
+  border: 1px solid #c2bba8;
+  background: rgba(255,255,255,0.4);
+}
+
+.rulesHeader {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #c2bba8;
+}
+
+.ruleItem {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid #c2bba8;
+}
+
+.ruleItem:last-child {
+  border-bottom: none;
+}
+
+.ruleNum {
+  font-family: var(--font-mono), monospace;
+  color: #c09b43;
+  font-weight: bold;
+}
+
+.ruleContent h4 {
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ruleContent p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* RIGHT IMAGE & EXHIBIT */
+.ledgerImage {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border: 1px solid #c2bba8;
+  margin-bottom: 0.5rem;
+}
+
+.imageCaption {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+.exhibitBox {
+  border: 1px solid #c2bba8;
+  background: rgba(255,255,255,0.4);
+}
+
+.exhibitHeader {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #c2bba8;
+}
+
+.exhibitCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.exhibitCol {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  border-right: 1px dashed #c2bba8;
+}
+.exhibitCol:last-child {
+  border-right: none;
+}
+
+.exColTitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+
+.exColValue {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #2e7d32;
+}
+
+.exhibitFooter {
+  padding: 1rem;
+  font-size: 0.95rem;
+  border-top: 1px solid #c2bba8;
+}
+
+/* FOOTER BAR */
+.footerBar {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.openLedgerBtn {
+  background-color: #1a1a1a;
+  color: #f1efdf;
+  border: none;
+  padding: 16px 32px;
+  font-family: var(--font-mono), monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s ease;
+}
+
+.openLedgerBtn:hover {
+  background-color: #333;
+}
+
+.footerStats {
+  margin-left: 1.5rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+}
+
+/* Game Board */
+.gameBoard {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.yearHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.yearText {
+  font-size: 5rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin-bottom: 0.5rem;
+}
+
+.headlineText {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #555;
+}
+
+/* Stats */
+.statsRow {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 1px solid #c2bba8;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.statBox {
+  text-align: center;
+}
+
+.statLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Buttons Area */
+.optionsRow {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.optionButton {
+  flex: 1;
+  background-color: transparent;
+  border: 2px solid #1a1a1a;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.optionButton:hover:not(:disabled) {
+  background-color: rgba(0,0,0,0.05);
+}
+
+.optionLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.optionReturn {
+  font-size: 2.5rem;
+  font-weight: 900;
+}
+
+/* Result Reveal */
+.correctChoice {
+  background-color: #2e7d32 !important;
+  color: white !important;
+  border-color: #2e7d32 !important;
+}
+
+.wrongChoice {
+  background-color: #c62828 !important;
+  color: white !important;
+  border-color: #c62828 !important;
+}
+
+.winnerChoice {
+  border-color: #2e7d32 !important;
+  color: #2e7d32;
+  background-color: rgba(46, 125, 50, 0.1) !important;
+}
+
+.nextButtonRow {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.primaryButton {
+  background-color: #1a1a1a;
+  color: #f1efdf;
+  border: 1px solid #1a1a1a;
+  padding: 12px 24px;
+  font-family: var(--font-mono), monospace;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.primaryButton:hover {
+  background-color: #333;
+}
+
+/* NEW TICKER TAPE */
+.tickerTape {
+  background-color: #1a1a1a;
+  color: #f1efdf;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+.tickerContent {
+  display: inline-block;
+  animation: tickerScroll 30s linear infinite;
+}
+@keyframes tickerScroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* PLAYING SCREEN LAYOUT */
+.playLayout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+  align-items: start;
+}
+
+/* SIDEBAR */
+.playSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ledgerCard, .houseRulesCard {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #c2bba8;
+  padding: 1.5rem;
+}
+
+.ledgerTitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #888;
+  margin-bottom: 0.25rem;
+}
+.ledgerSub {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+.portfolioValue {
+  font-size: 2.5rem;
+  font-weight: 900;
+  font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 1rem;
+}
+
+.ledgerDivider {
+  height: 2px;
+  background-color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.ledgerStats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.statCol {
+  display: flex;
+  flex-direction: column;
+}
+.statColValue {
+  font-weight: bold;
+  font-size: 1.1rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.roundInfo {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+.progressBarBg {
+  background-color: #e5dfc5;
+  height: 6px;
+  width: 100%;
+}
+.progressBarFill {
+  background-color: #c09b43;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.rulesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.8rem;
+  color: #333;
+}
+.rulesList li {
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+.rulesList li::before {
+  content: "- ";
+}
+
+/* MAIN PLAY AREA */
+.playMain {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.gameCard {
+  background: #ffffff;
+  border: 1px solid #c2bba8;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.gameCardHeader {
+  background-color: #1a1a1a;
+  color: #f1efdf;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.gameCardBody {
+  padding: 2.5rem;
+}
+
+.gameCardTitle {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+}
+.gameCardTitle span {
+  color: #c09b43;
+}
+
+.prevYearStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.prevStatBox {
+  background-color: #f7f6f0;
+  border: 1px solid #e5dfc5;
+  padding: 1.5rem;
+  text-align: center;
+}
+.prevStatTitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+.prevStatValue {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #2e7d32; /* Green for positive */
+}
+.prevStatValue.negative {
+  color: #c62828;
+}
+
+.guessInstruction {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.guessButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.guessBtn {
+  background: white;
+  border: 1px solid #e5dfc5;
+  padding: 2rem 1.5rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+.guessBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+  border-color: #c2bba8;
+}
+
+.btnDot {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.dotLarge { background-color: #0f3d61; }
+.dotMid { background-color: #d19a22; }
+.dotSmall { background-color: #2e7d32; }
+
+.btnIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f7f6f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.btnTitle {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #0f3d61; /* Default dark blue */
+  margin-bottom: 0.25rem;
+}
+.guessBtnMid .btnTitle { color: #8a6311; }
+.guessBtnSmall .btnTitle { color: #1e5622; }
+
+.btnSub {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+}
+
+/* RECORD / HISTORY TABLE */
+.recordSection {
+  margin-top: 1rem;
+}
+.recordHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 0.5rem;
+}
+.recordTitle {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+.recordSubtitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+}
+
+.historyTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid #c2bba8;
+}
+
+.historyTable th {
+  background-color: #1a1a1a;
+  color: #f1efdf;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.75rem 1rem;
+  text-align: right;
+}
+.historyTable th:first-child { text-align: left; }
+
+.historyTable td {
+  padding: 1rem;
+  border-bottom: 1px solid #e5dfc5;
+  text-align: right;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.1rem;
+}
+.historyTable td:first-child { 
+  text-align: left; 
+  font-weight: bold;
+}
+.historyTable tr:last-child td { border-bottom: none; }
+
+.historyWinner {
+  font-weight: 900;
+  color: #2e7d32;
+  background-color: rgba(46, 125, 50, 0.05);
+}
+
+.historyCallCorrect {
+  color: white;
+  background-color: #2e7d32;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 2px;
+}
+.historyCallWrong {
+  color: white;
+  background-color: #c62828;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 2px;
+}
+
+/* Results Screen */
+.resultsScreen {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.finalScoreBox {
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 1px solid #c2bba8;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.scoreComparison {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #c2bba8;
+}
+
+@media (max-width: 1024px) {
+  .introLayout {
+    grid-template-columns: 1fr;
+  }
+  .hugeHeading {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .optionsRow {
+    flex-direction: column;
+  }
+}

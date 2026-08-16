@@ -58,12 +58,28 @@ const chapters = [
     desc: 'Read real market extreme headlines, make a call, see what happened next.',
     href: '/games/contrarian-signal',
     color: '#3B82F6' // royal blue
+  },
+  {
+    id: 'chapter6',
+    num: '06',
+    title: 'Freedom Stack',
+    desc: '120 seconds. Sort financial situations into 5 pillars. Build your freedom floor.',
+    href: '/games/freedom-stack',
+    color: '#F59E0B' // amber gold
+  },
+  {
+    id: 'chapter7',
+    num: '07',
+    title: 'The Market Cap Challenge',
+    desc: '20-year market memory game. Guess each year\'s winning cap and watch ₹1 lakh a year grow.',
+    href: '/games/market-cap-challenge',
+    color: '#9C27B0' // purple
   }
 ];
 
 function HubContent() {
   const { getTotalScore, scores, resetGame, playerName, setPlayerName } = useGameState();
-  const allCompleted = scores.chapter1 !== null && scores.chapter2 !== null && scores.chapter3 !== null && scores.chapter4 !== null && scores.chapter5 !== null;
+  const allCompleted = scores.chapter1 !== null && scores.chapter2 !== null && scores.chapter3 !== null && scores.chapter4 !== null && scores.chapter5 !== null && scores.chapter6 !== null && scores.chapter7 !== null;
 
   const [tempName, setTempName] = React.useState('');
 

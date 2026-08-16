@@ -1,0 +1,732 @@
+/* Freedom Stack — page.module.css */
+/* Matches the Knowith games design system */
+
+.container {
+  background-color: var(--ink);
+  color: var(--marble);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex-grow: 1;
+  padding: 10px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ── Intro Screen ── */
+.introScreen {
+  max-width: 900px;
+  background-color: var(--ink-2);
+  padding: 60px 40px;
+  border-radius: 12px;
+  border: 1px solid var(--border-dark);
+  text-align: center;
+}
+
+.chapterBadge {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.introScreen h1,
+.introTitle {
+  font-family: var(--font-display), serif;
+  font-size: 3rem;
+  margin-bottom: 24px;
+  color: var(--marble);
+}
+
+.introDesc {
+  font-size: 1.1rem;
+  color: var(--on-dark);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.pillarCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-dark);
+  border-radius: 8px;
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top-width: 3px;
+  border-top-style: solid;
+  transition: transform 0.2s ease;
+}
+
+.pillarCard:hover {
+  transform: translateY(-3px);
+}
+
+.pillarLabel {
+  font-family: var(--font-mono), monospace;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.pillarDesc {
+  font-size: 0.7rem;
+  color: var(--on-dark-soft);
+  line-height: 1.35;
+}
+
+.rules {
+  text-align: left;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 32px;
+}
+
+.rules h3 {
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+  color: var(--gold);
+  font-family: var(--font-display), serif;
+}
+
+.rules ul {
+  padding-left: 20px;
+  color: var(--on-dark-soft);
+  line-height: 1.8;
+}
+
+.primaryButton {
+  background-color: var(--gold);
+  color: var(--ink);
+  border: none;
+  padding: 16px 32px;
+  font-family: var(--font-mono), monospace;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* ── Playing Screen ── */
+.gameBoard {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 75vh;
+  position: relative;
+}
+
+.hazardFlash {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(220, 50, 50, 0.2);
+  pointer-events: none;
+  z-index: 100;
+  animation: hazardPulse 0.5s ease-out forwards;
+}
+
+/* Top bar */
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--ink-2);
+  border: 1px solid var(--border-dark);
+  border-radius: 8px;
+  padding: 12px 16px;
+  position: relative;
+  overflow: hidden;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.timerSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.timerFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 8px;
+  transition: width 1s linear, background-color 0.5s ease;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.timerText {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono), monospace;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--marble);
+}
+
+.statsRow {
+  display: flex;
+  gap: 20px;
+  z-index: 1;
+}
+
+.scoreDisplay,
+.streakDisplay,
+.floorCount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.statLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--slate-soft);
+  margin-bottom: 2px;
+}
+
+.statValue {
+  font-family: var(--font-mono), monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--marble);
+}
+
+/* Floor progress dots */
+.floorProgress {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  z-index: 1;
+}
+
+.floorDot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.5rem;
+  font-family: var(--font-mono), monospace;
+  font-weight: 700;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.floorDotFilled {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* Tile area */
+.tileArea {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 240px;
+  position: relative;
+}
+
+.tile {
+  background-color: var(--marble);
+  color: var(--ink);
+  padding: 32px 40px;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  width: 480px;
+  max-width: 92%;
+  text-align: center;
+  position: relative;
+}
+
+.tileText {
+  font-family: var(--font-body), sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.55;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.tileCounter {
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  color: var(--slate-soft);
+  margin-top: 14px;
+  letter-spacing: 0.05em;
+}
+
+/* Bins row */
+.binsRow {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 0;
+  margin-top: auto;
+}
+
+.bin {
+  background: rgba(255, 255, 255, 0.04);
+  border: 2px solid;
+  border-radius: 8px;
+  padding: 14px 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  color: var(--marble);
+}
+
+.bin:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-3px);
+}
+
+.bin:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+.binLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.binCorrect {
+  background: rgba(69, 212, 131, 0.15) !important;
+  border-color: #45D483 !important;
+}
+
+.binWrong {
+  background: rgba(220, 50, 50, 0.15) !important;
+  border-color: #dc3232 !important;
+  animation: shake 0.4s ease;
+}
+
+/* Feedback overlay */
+.feedbackOverlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10, 15, 25, 0.92);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.feedbackCard {
+  background-color: var(--ink-2);
+  border: 1px solid var(--border-dark);
+  border-radius: 8px;
+  padding: 28px 32px;
+  max-width: 460px;
+  text-align: center;
+}
+
+.feedbackIcon {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #dc3232;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.feedbackWrong {
+  font-size: 1rem;
+  color: var(--marble);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.feedbackExplanation {
+  font-size: 0.9rem;
+  color: var(--on-dark-soft);
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+
+.feedbackPenalty {
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  color: #dc3232;
+  margin-bottom: 6px;
+}
+
+.feedbackTap {
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  color: var(--slate-soft);
+  letter-spacing: 0.05em;
+}
+
+/* ── Results Screen ── */
+.resultsScreen {
+  max-width: 740px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.scoreCircle {
+  width: 180px;
+  height: 180px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.scoreSvg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scoreRing {
+  transition: stroke-dasharray 1.2s ease-out;
+}
+
+.scoreNumber {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display), serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--marble);
+  line-height: 1;
+}
+
+.scoreUnit {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  color: var(--slate-soft);
+  margin-top: 4px;
+}
+
+.playerTitle {
+  font-family: var(--font-display), serif;
+  font-size: 2rem;
+  color: var(--marble);
+  margin-bottom: 6px;
+}
+
+.playerTitleDesc {
+  color: var(--on-dark-soft);
+  margin-bottom: 32px;
+  font-size: 1rem;
+}
+
+/* Stats grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.statBox {
+  background-color: var(--ink-2);
+  border: 1px solid var(--border-dark);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statBoxValue {
+  font-family: var(--font-mono), monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--marble);
+  margin-bottom: 4px;
+}
+
+.statBoxLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--slate-soft);
+}
+
+/* Pillar accuracy */
+.sectionTitle {
+  font-family: var(--font-display), serif;
+  font-size: 1.2rem;
+  color: var(--gold);
+  margin-bottom: 16px;
+  text-align: left;
+  width: 100%;
+}
+
+.pillarAccuracySection {
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.pillarAccuracy {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.pillarAccLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+  color: var(--on-dark-soft);
+  min-width: 100px;
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pillarAccBar {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pillarAccFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.8s ease-out;
+}
+
+.pillarAccPct {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* Lessons */
+.lessonsSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.lessonCard {
+  background-color: var(--ink-2);
+  border: 1px solid var(--border-dark);
+  border-left: 3px solid;
+  border-radius: 6px;
+  padding: 16px 20px;
+  text-align: left;
+}
+
+.lessonHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  color: var(--marble);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lessonMistakes {
+  font-size: 0.7rem;
+  color: #dc3232;
+  background: rgba(220, 50, 50, 0.1);
+  padding: 2px 8px;
+  border-radius: 99px;
+  margin-left: auto;
+  font-weight: 600;
+}
+
+.lessonText {
+  font-size: 0.9rem;
+  color: var(--on-dark-soft);
+  line-height: 1.5;
+}
+
+/* Result actions */
+.resultActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 40px;
+}
+
+.shareButton {
+  background-color: var(--gold);
+  color: var(--ink);
+  border: none;
+  padding: 14px 28px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.shareButton:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.backButton {
+  background: transparent;
+  color: var(--slate-soft);
+  border: 1px solid var(--slate-soft);
+  padding: 10px 24px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.backButton:hover {
+  opacity: 0.8;
+}
+
+/* ── Animations ── */
+@keyframes hazardPulse {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+  40%, 60% { transform: translate3d(3px, 0, 0); }
+}
+
+.exitButton {
+  background: transparent;
+  color: var(--slate-soft);
+  border: 1px solid var(--slate-soft);
+  padding: 4px 10px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 12px;
+}
+
+.exitButton:hover {
+  background: rgba(220, 50, 50, 0.1);
+  color: #dc3232;
+  border-color: #dc3232;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .introScreen { padding: 40px 24px; }
+  .introTitle,
+  .introScreen h1 { font-size: 2.2rem; }
+  .pillarsGrid { grid-template-columns: repeat(3, 1fr); }
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+
+  .binsRow { gap: 6px; }
+  .bin { padding: 10px 6px; }
+  .tile { width: 340px; padding: 22px 24px; }
+  .tileText { font-size: 1rem; }
+
+  .topBar {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .statsRow { gap: 14px; }
+  .scoreCircle { width: 150px; height: 150px; }
+  .scoreNumber { font-size: 2.8rem; }
+  .playerTitle { font-size: 1.6rem; }
+  .pillarAccLabel { min-width: 80px; font-size: 0.7rem; }
+}
+
+@media (max-width: 480px) {
+  .introScreen { padding: 32px 18px; }
+  .introTitle,
+  .introScreen h1 { font-size: 1.8rem; }
+  .pillarsGrid { grid-template-columns: repeat(2, 1fr); }
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+
+  .binsRow { gap: 4px; }
+  .bin { flex: 1 1 18%; padding: 8px 4px; }
+  .binLabel { display: none; }
+
+  .tile { width: 280px; padding: 18px; }
+  .tileText { font-size: 0.95rem; }
+  .statValue { font-size: 1rem; }
+  .floorDot { width: 20px; height: 20px; font-size: 0.45rem; }
+  .scoreNumber { font-size: 2.2rem; }
+  .playerTitle { font-size: 1.4rem; }
+}

@@ -6,6 +6,7 @@ import styles from './page.module.css';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import TestimonialCarousel from '@/components/TestimonialCarousel';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -171,6 +172,24 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Testimonials */}
+      <section className="section-light-2">
+        <motion.div 
+          className="container"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp} className="eyebrow" style={{ textAlign: 'center' }}>Client Experience</motion.div>
+          <motion.h2 variants={fadeInUp} style={{ textAlign: 'center' }}>Relationships Built on Trust</motion.h2>
+          <br /><br />
+          <motion.div variants={fadeInUp}>
+            <TestimonialCarousel />
+          </motion.div>
+        </motion.div>
+      </section>
+
       {/* 5. Products */}
       <section className={styles.productsStrip} id="products">
         {['Mutual Funds', 'PMS & AIF', 'Direct Equity', 'Bonds & FDs', 'Gold ETFs', 'NPS / Retirement'].map((prod, i) => (
@@ -295,32 +314,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 9. Testimonials */}
-      <section className="section-light-2">
-        <motion.div 
-          className="container"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={staggerContainer}
-        >
-          <motion.div variants={fadeInUp} className="eyebrow">Client Experience</motion.div>
-          <motion.h2 variants={fadeInUp}>Relationships Built on Trust</motion.h2>
-          <br /><br />
-          <div className={`hairline-grid hairline-grid-light ${styles.testiGrid}`}>
-            {[
-              { quote: "Knowith transformed our scattered investments into a cohesive, generational wealth plan.", attr: "CEO, Tech Firm (Placeholder)" },
-              { quote: "Their transparent, fee-only model gave us the confidence we were lacking.", attr: "Retired Executive (Placeholder)" },
-              { quote: "Exceptional service and deep understanding of NRI tax implications.", attr: "NRI Investor (Placeholder)" }
-            ].map((testi, i) => (
-              <motion.div variants={fadeInUp} key={i} className={`hairline-cell-light ${styles.testiCard}`}>
-                <p className={styles.testiQuote}>"{testi.quote}"</p>
-                <div className={styles.testiAttr}>{testi.attr}</div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
 
       {/* 10. Contact (Dark) */}
       <section className="section-dark">

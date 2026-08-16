@@ -10,7 +10,9 @@ export function GameProvider({ children }) {
     chapter2: null,
     chapter3: null,
     chapter4: null,
-    chapter5: null
+    chapter5: null,
+    chapter6: null,
+    chapter7: null
   });
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -54,7 +56,7 @@ export function GameProvider({ children }) {
   };
 
   const resetGame = () => {
-    setScores({ chapter1: null, chapter2: null, chapter3: null, chapter4: null, chapter5: null });
+    setScores({ chapter1: null, chapter2: null, chapter3: null, chapter4: null, chapter5: null, chapter6: null, chapter7: null });
     sessionStorage.removeItem('knowith_game_scores');
   };
 
