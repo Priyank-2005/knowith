@@ -1,0 +1,232 @@
+.pageWrapper {
+  background-color: #f1efdf; /* Vintage paper beige to match Knowith vibe */
+  color: #1a1a1a;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Input Section */
+.inputSection {
+  background: white;
+  border: 1px solid #c2bba8;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  margin-bottom: 3rem;
+}
+
+.promptLabel {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  display: block;
+  color: #1a1a1a;
+}
+
+.textArea {
+  width: 100%;
+  height: 200px;
+  padding: 1.5rem;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  border: 1px solid #e5dfc5;
+  background-color: #faf9f5;
+  resize: vertical;
+  margin-bottom: 1.5rem;
+  transition: all 0.2s ease;
+  color: #333;
+}
+
+.textArea:focus {
+  outline: none;
+  border-color: #1a1a1a;
+  background-color: #fff;
+}
+
+.buttonRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+}
+
+.primaryButton {
+  background-color: #1a1a1a;
+  color: #f1efdf;
+  border: none;
+  padding: 16px 32px;
+  font-family: var(--font-mono), monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background-color: #333;
+}
+
+.primaryButton:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+.errorMsg {
+  color: #c62828;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+}
+
+.clarificationBox {
+  background-color: #fff8e1;
+  border-left: 4px solid #f5b041;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Results Dashboard */
+.resultsDashboard {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.variablesSidebar {
+  background: white;
+  border: 1px solid #c2bba8;
+  padding: 2rem;
+}
+
+.sidebarTitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e5dfc5;
+  padding-bottom: 0.5rem;
+}
+
+.inputGroup {
+  margin-bottom: 1.5rem;
+}
+
+.inputGroup label {
+  display: block;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 0.75rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 1rem;
+  border: 1px solid #e5dfc5;
+  background-color: #faf9f5;
+}
+
+.inputGroup input:focus {
+  outline: none;
+  border-color: #1a1a1a;
+}
+
+.mainChartArea {
+  background: white;
+  border: 1px solid #c2bba8;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.summaryCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.summaryCard {
+  background-color: #f7f6f0;
+  border: 1px solid #e5dfc5;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.summaryLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+
+.summaryValue {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #1a1a1a;
+}
+.summaryValue.highlight {
+  color: #2e7d32;
+}
+
+.chartContainer {
+  flex-grow: 1;
+  min-height: 400px;
+}
+
+@media (max-width: 900px) {
+  .resultsDashboard {
+    grid-template-columns: 1fr;
+  }
+  .summaryCards {
+    grid-template-columns: 1fr;
+  }
+}

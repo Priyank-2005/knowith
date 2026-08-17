@@ -341,7 +341,7 @@ export default function Home() {
                 </div>
                 <div className={styles.infoItem}>
                   <h5>EMAIL</h5>
-                  <p>advisory@knowithcapital.demo</p>
+                  <p>info@knowithcapital.demo</p>
                 </div>
               </div>
             </motion.div>

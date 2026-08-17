@@ -19,8 +19,9 @@ const staggerContainer = {
 };
 
 const tools = [
+  { id: 'narrative-planner', title: 'Narrative Planner', desc: 'Don\'t worry about forms and fields. Just tell us your story, and we\'ll map out your future.', highlighted: true, path: '/calculators/narrative-planner' },
   { id: 'smart-sip', title: 'Smart SIP Calculator', desc: 'Plan your investment corpus, calculate exact wealth, and visualize the true cost of delaying your investments.', highlighted: false, path: '/calculators/smart-sip' },
-  { id: 'fire', title: 'F.I.R.E. Calculator', desc: 'Financial Independence, Retire Early. Calculate exactly how much money you need to retire comfortably.', highlighted: true, path: '/calculators/fire' },
+  { id: 'fire', title: 'F.I.R.E. Calculator', desc: 'Financial Independence, Retire Early. Calculate exactly how much money you need to retire comfortably.', highlighted: false, path: '/calculators/fire' },
   { id: 'stepup', title: 'Step Up SIP Calculator', desc: 'Plan for inflation with our advanced step-up calculator with annual increments to build exponential wealth.', highlighted: false, path: '/calculators/step-up-sip' },
   { id: 'lumpsum', title: 'LumpSum Calculator', desc: 'Calculate the potential long-term growth of your one-time investments (like bonuses or inheritances).', highlighted: false, path: '/calculators/lump-sum' },
   { id: 'emi', title: 'EMI Calculator', desc: 'Calculate your loan EMI, total interest paid, and see exactly where your monthly payments are going.', highlighted: false, path: '/calculators/emi' },
