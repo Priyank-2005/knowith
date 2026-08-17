@@ -21,7 +21,7 @@ export default function Navbar() {
 
           {/* Links */}
           <div className={styles.navLinks}>
-            <Link href="/#approach" style={{ color: pathname === '/#approach' ? 'var(--gold)' : '' }}>Approach</Link>
+            <Link href="/approach" style={{ color: pathname === '/approach' ? 'var(--gold)' : '' }}>Approach</Link>
             <Link href="/services" style={{ color: pathname === '/services' ? 'var(--gold)' : '' }}>Services</Link>
             <Link href="/#products" style={{ color: pathname === '/#products' ? 'var(--gold)' : '' }}>Products</Link>
             <Link href="/calculators" style={{ color: pathname === '/calculators' ? 'var(--gold)' : '' }}>Calculators</Link>
