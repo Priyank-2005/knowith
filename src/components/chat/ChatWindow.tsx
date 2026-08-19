@@ -23,9 +23,9 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ messages, isTyping }) =>
   return (
     <div 
       ref={scrollRef} 
-      className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 bg-transparent relative scroll-smooth"
+      className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 bg-transparent relative scroll-smooth w-full overflow-x-hidden"
     >
-      <div className="max-w-4xl mx-auto flex flex-col justify-end min-h-full pb-6">
+      <div className="w-full max-w-4xl mx-auto flex flex-col justify-end min-h-full pb-6 min-w-0">
         {messages.length === 0 ? (
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 

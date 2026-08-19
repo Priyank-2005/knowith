@@ -46,8 +46,8 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   };
 
   return (
-    <div className="px-6 py-4 bg-transparent relative z-20">
-      <form onSubmit={handleSubmit} className="relative max-w-4xl mx-auto flex items-end gap-2 bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#E8E2D2] p-1.5 transition-shadow focus-within:shadow-[0_8px_30px_rgb(0,0,0,0.08)] focus-within:border-[#D9B978]">
+    <div className="px-6 py-4 bg-transparent relative z-20 w-full overflow-hidden">
+      <form onSubmit={handleSubmit} className="relative w-full max-w-4xl mx-auto flex items-end gap-2 bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#E8E2D2] p-1.5 transition-shadow focus-within:shadow-[0_8px_30px_rgb(0,0,0,0.08)] focus-within:border-[#D9B978] min-w-0">
         <textarea
           ref={textareaRef}
           value={input}
@@ -55,7 +55,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           onKeyDown={handleKeyDown}
           disabled={disabled || isLoading}
           placeholder={disabled ? "Conversation locked." : placeholder}
-          className="flex-1 max-h-32 min-h-[44px] bg-transparent py-3 pl-4 pr-12 resize-none focus:outline-none disabled:opacity-50 transition-all text-[#0B2E33] placeholder:text-[#839F9D] font-medium"
+          className="flex-1 w-full min-w-0 max-h-32 min-h-[44px] bg-transparent py-3 pl-4 pr-12 resize-none focus:outline-none disabled:opacity-50 transition-all text-[#0B2E33] placeholder:text-[#839F9D] font-medium"
           rows={1}
         />
         

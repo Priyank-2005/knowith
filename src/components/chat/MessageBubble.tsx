@@ -21,9 +21,9 @@ export const MessageBubble: React.FC<MessageProps> = ({ role, content, cards, ti
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className={`flex w-full ${isBot ? 'justify-start' : 'justify-end'} mb-6 group`}
+      className={`flex w-full ${isBot ? 'justify-start' : 'justify-end'} mb-6 group min-w-0`}
     >
-      <div className={`flex max-w-[85%] ${isBot ? 'flex-row' : 'flex-row-reverse'} items-end gap-3`}>
+      <div className={`flex max-w-[85%] ${isBot ? 'flex-row' : 'flex-row-reverse'} items-end gap-3 min-w-0`}>
         
         {/* Avatar */}
         <div className={`flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center shadow-sm ${isBot ? 'bg-[#0B2E33] text-[#D9B978]' : 'bg-[#D9B978] text-[#0B2E33]'}`}>
@@ -31,12 +31,12 @@ export const MessageBubble: React.FC<MessageProps> = ({ role, content, cards, ti
         </div>
 
         {/* Bubble */}
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 min-w-0">
           <div 
-            className={`px-5 py-4 rounded-2xl shadow-sm border ${
+            className={`px-5 py-4 rounded-2xl shadow-sm border min-w-0 break-words ${
               isBot 
-                ? 'bg-white border-gray-200 text-gray-800 rounded-bl-none' 
-                : 'bg-[#0B2E33] border-[#0B2E33] text-white rounded-br-none'
+                ? 'bg-white border-[#E8E2D2] text-[#0B2E33] rounded-bl-none' 
+                : 'bg-[#0B2E33] border-[#0B2E33] text-[#F6F3EC] rounded-br-none'
             }`}
           >
             {content && (
