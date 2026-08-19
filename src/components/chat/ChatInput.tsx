@@ -46,8 +46,8 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   };
 
   return (
-    <div className="p-4 bg-white border-t border-gray-200">
-      <form onSubmit={handleSubmit} className="relative max-w-4xl mx-auto flex items-end gap-2">
+    <div className="px-6 py-4 bg-transparent relative z-20">
+      <form onSubmit={handleSubmit} className="relative max-w-4xl mx-auto flex items-end gap-2 bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#E8E2D2] p-1.5 transition-shadow focus-within:shadow-[0_8px_30px_rgb(0,0,0,0.08)] focus-within:border-[#D9B978]">
         <textarea
           ref={textareaRef}
           value={input}
@@ -55,28 +55,28 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           onKeyDown={handleKeyDown}
           disabled={disabled || isLoading}
           placeholder={disabled ? "Conversation locked." : placeholder}
-          className="flex-1 max-h-32 min-h-[44px] bg-[#FAFAFA] border border-gray-300 rounded-2xl py-3 pl-4 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[#D9B978] focus:border-transparent disabled:opacity-50 disabled:bg-gray-100 transition-all shadow-sm text-[#0B2E33] placeholder:text-gray-400"
+          className="flex-1 max-h-32 min-h-[44px] bg-transparent py-3 pl-4 pr-12 resize-none focus:outline-none disabled:opacity-50 transition-all text-[#0B2E33] placeholder:text-[#839F9D] font-medium"
           rows={1}
         />
         
         <button
           type="submit"
           disabled={!input.trim() || isLoading || disabled}
-          className={`absolute right-3 bottom-2.5 p-1.5 rounded-full flex items-center justify-center transition-all
+          className={`absolute right-2.5 bottom-2.5 p-2 rounded-xl flex items-center justify-center transition-all duration-300
             ${input.trim() && !isLoading && !disabled 
-              ? 'bg-[#0B2E33] text-[#D9B978] hover:bg-[#0F3A3F] shadow-sm' 
-              : 'bg-transparent text-gray-300'
+              ? 'bg-[#0B2E33] text-[#D9B978] shadow-md hover:scale-105' 
+              : 'bg-[#F6F3EC] text-[#839F9D]'
             }`}
         >
           {isLoading ? (
             <Loader2 size={18} className="animate-spin text-[#0B2E33]" />
           ) : (
-            <Send size={18} className={input.trim() && !isLoading && !disabled ? 'text-[#D9B978]' : ''} />
+            <Send size={18} className={input.trim() && !isLoading && !disabled ? 'text-[#D9B978] translate-x-0.5 -translate-y-0.5' : ''} />
           )}
         </button>
       </form>
-      <div className="max-w-4xl mx-auto text-center mt-2">
-        <span className="text-[10px] text-gray-400 font-mono tracking-widest uppercase">
+      <div className="max-w-4xl mx-auto text-center mt-3 mb-1">
+        <span className="text-[10px] text-[#839F9D] font-mono tracking-widest uppercase">
           Secured by Knowith Capital AI
         </span>
       </div>

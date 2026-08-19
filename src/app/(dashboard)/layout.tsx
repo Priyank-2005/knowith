@@ -1,8 +1,6 @@
 import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
 // @ts-ignore
-import FloatingButtons from "@/components/FloatingButtons";
-// @ts-ignore
 import AuthGuard from "@/components/AuthGuard";
 import "../(website)/website.css";
 
@@ -22,7 +20,6 @@ export default function DashboardLayout({
         <main className="flex-1 h-screen overflow-y-auto relative print:h-auto print:overflow-visible">
           {children}
         </main>
-        <FloatingButtons />
       </AuthGuard>
     </div>
   );
