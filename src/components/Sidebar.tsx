@@ -85,24 +85,24 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="flex h-screen w-[260px] flex-col bg-[#0A0A0A] border-r border-[#1F1F1F] text-white print:hidden shrink-0">
+    <div className="flex h-screen w-[260px] flex-col bg-[var(--ink)] border-r border-[rgba(217,185,120,0.1)] text-white print:hidden shrink-0">
       {/* Logo */}
       <div className="px-6 py-6">
-        <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500">
+        <h1 className="text-2xl font-normal text-[var(--marble)]" style={{ fontFamily: 'var(--font-display), serif' }}>
           {sidebarTitle}
         </h1>
-        <p className="text-[11px] text-gray-500 mt-1 tracking-wide uppercase">{sidebarSubtitle}</p>
+        <p className="text-[11px] text-[var(--gold)] mt-1 tracking-wider uppercase font-mono">{sidebarSubtitle}</p>
       </div>
 
       {/* Section Label */}
-      <div className="px-6 pb-2">
-        <p className="text-[10px] font-semibold text-gray-600 uppercase tracking-widest">
+      <div className="px-6 pb-2 mt-2">
+        <p className="text-[10px] font-semibold text-[var(--on-dark-soft)] uppercase tracking-widest font-mono">
           {userRole === 'ADMIN' ? 'Email Marketing' : 'AI Tools'}
         </p>
       </div>
 
       {/* Nav Items */}
-      <nav className="flex-1 space-y-0.5 px-3 overflow-y-auto">
+      <nav className="flex-1 space-y-1 px-3 overflow-y-auto mt-2">
         {navItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
           const Icon = item.icon;
@@ -111,13 +111,13 @@ export default function Sidebar() {
               key={item.name}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-200",
+                "flex items-center gap-3 px-4 py-3 rounded-lg text-[13.5px] font-medium transition-all duration-200",
                 isActive 
-                  ? "bg-[#1E1E2E] text-blue-400 border border-[#2E2E3E]" 
-                  : "text-gray-400 hover:text-white hover:bg-[#111118]"
+                  ? "bg-[var(--gold)] text-[var(--ink)] shadow-md" 
+                  : "text-[var(--marble)] hover:text-white hover:bg-[rgba(217,185,120,0.1)]"
               )}
             >
-              <Icon className={cn("w-[18px] h-[18px] shrink-0", isActive ? "text-blue-400" : "text-gray-600")} />
+              <Icon className={cn("w-[18px] h-[18px] shrink-0", isActive ? "text-[var(--ink)]" : "text-[var(--gold)]")} />
               <span className="truncate">{item.name}</span>
             </Link>
           );
@@ -125,25 +125,25 @@ export default function Sidebar() {
       </nav>
 
       {/* User Card + Logout */}
-      <div className="p-3 border-t border-[#1F1F1F] space-y-2">
-        <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#111118] border border-[#1A1A24]">
+      <div className="p-3 border-t border-[rgba(217,185,120,0.1)] space-y-2">
+        <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[rgba(217,185,120,0.05)] border border-[rgba(217,185,120,0.1)]">
           <div className={cn(
-            "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0",
+            "w-8 h-8 rounded flex items-center justify-center text-xs font-bold shrink-0 text-[var(--ink)]",
             userRole === 'ADMIN' 
-              ? "bg-gradient-to-br from-amber-500 to-orange-600" 
-              : "bg-gradient-to-br from-indigo-500 to-purple-600"
+              ? "bg-[var(--gold)]" 
+              : "bg-[var(--gold)]"
           )}>
             {userName ? userName.charAt(0).toUpperCase() : 'K'}
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-medium truncate">{userName || 'User'}</p>
-            <p className="text-[11px] text-gray-500 capitalize">{userRole?.replace('_', '-')?.toLowerCase() || 'Guest'}</p>
+            <p className="text-sm font-medium text-[var(--marble)] truncate">{userName || 'User'}</p>
+            <p className="text-[11px] text-[var(--on-dark-soft)] capitalize font-mono">{userRole?.replace('_', '-')?.toLowerCase() || 'Guest'}</p>
           </div>
         </div>
 
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] text-gray-500 hover:text-red-400 hover:bg-[#111118] transition-colors"
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-[12px] uppercase font-mono tracking-wide text-[var(--on-dark-soft)] hover:text-[#ef4444] hover:bg-[rgba(217,185,120,0.05)] transition-colors"
         >
           <LogOut className="w-4 h-4" />
           Sign Out

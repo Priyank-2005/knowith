@@ -4,6 +4,7 @@ import Sidebar from "@/components/Sidebar";
 import FloatingButtons from "@/components/FloatingButtons";
 // @ts-ignore
 import AuthGuard from "@/components/AuthGuard";
+import "../(website)/website.css";
 
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: '--font-playfair' });
@@ -15,11 +16,10 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} ${inter.className} bg-[#050505] text-white antialiased flex h-screen overflow-hidden`}>
+    <div className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} ${inter.className} bg-[var(--ink)] text-white antialiased flex h-screen overflow-hidden`}>
       <AuthGuard>
         <Sidebar />
         <main className="flex-1 h-screen overflow-y-auto relative print:h-auto print:overflow-visible">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(49,46,129,0.2),_#050505,_#050505)] -z-10 print:hidden" />
           {children}
         </main>
         <FloatingButtons />

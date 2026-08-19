@@ -26,21 +26,21 @@ export const MessageBubble: React.FC<MessageProps> = ({ role, content, cards, ti
       <div className={`flex max-w-[85%] ${isBot ? 'flex-row' : 'flex-row-reverse'} items-end gap-3`}>
         
         {/* Avatar */}
-        <div className={`flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center shadow-sm ${isBot ? 'bg-indigo-100 text-indigo-600' : 'bg-indigo-600 text-white'}`}>
+        <div className={`flex-shrink-0 h-8 w-8 rounded flex items-center justify-center shadow-sm ${isBot ? 'bg-[var(--gold)] text-[var(--ink)]' : 'bg-[var(--ink)] text-[var(--marble)]'}`}>
           {isBot ? <Bot size={18} /> : <User size={18} />}
         </div>
 
         {/* Bubble */}
         <div className="flex flex-col gap-1">
           <div 
-            className={`px-5 py-4 rounded-2xl shadow-sm border ${
+            className={`px-5 py-4 rounded-xl shadow-sm border ${
               isBot 
-                ? 'bg-slate-50/80 backdrop-blur-sm border-slate-200 text-slate-800 rounded-bl-none' 
-                : 'bg-indigo-600 border-indigo-600 text-white rounded-br-none'
+                ? 'bg-[var(--marble-2)] border-[rgba(11,46,51,0.1)] text-[var(--ink)] rounded-bl-none' 
+                : 'bg-[var(--ink)] border-[var(--ink)] text-[var(--marble)] rounded-br-none'
             }`}
           >
             {content && (
-              <div className={`prose prose-sm max-w-none ${!isBot ? 'prose-invert' : 'prose-slate prose-p:leading-relaxed prose-headings:text-indigo-900 font-medium'}`}>
+              <div className={`prose prose-sm max-w-none ${!isBot ? 'prose-invert text-[var(--marble)]' : 'prose-slate prose-p:leading-relaxed prose-headings:text-[var(--ink)] font-serif text-[15px]'}`}>
                 <ReactMarkdown>{content}</ReactMarkdown>
               </div>
             )}
@@ -53,7 +53,7 @@ export const MessageBubble: React.FC<MessageProps> = ({ role, content, cards, ti
           
           {/* Timestamp (Shows on hover for cleaner UI) */}
           {timestamp && (
-            <span className={`text-[10px] font-medium text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity ${isBot ? 'ml-2 text-left' : 'mr-2 text-right'}`}>
+            <span className={`text-[10px] font-mono tracking-widest uppercase text-[var(--slate-soft)] opacity-0 group-hover:opacity-100 transition-opacity ${isBot ? 'ml-2 text-left' : 'mr-2 text-right'}`}>
               {new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </span>
           )}
