@@ -85,7 +85,7 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="flex h-screen w-[260px] flex-col bg-[#0B2E33] border-r border-[#15464D] text-white print:hidden shrink-0">
+    <div className="fixed left-0 top-0 bottom-0 z-50 flex h-screen w-[260px] flex-col bg-[#0B2E33] border-r border-[#15464D] text-white print:hidden shrink-0">
       {/* Logo */}
       <div className="px-6 py-8">
         <h1 className="text-2xl font-serif text-[#F6F3EC] tracking-wide">
