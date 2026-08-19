@@ -20,6 +20,7 @@ const staggerContainer = {
 
 const tools = [
   { id: 'narrative-planner', title: 'Narrative Planner', desc: 'Don\'t worry about forms and fields. Just tell us your story, and we\'ll map out your future.', highlighted: true, path: '/calculators/narrative-planner' },
+  { id: 'narrative-valuation', title: 'Narrative & Numbers', desc: 'Paste a business story or pitch and let our system extract financial drivers to estimate intrinsic valuation.', highlighted: false, path: '/calculators/narrative-valuation' },
   { id: 'smart-sip', title: 'Smart SIP Calculator', desc: 'Plan your investment corpus, calculate exact wealth, and visualize the true cost of delaying your investments.', highlighted: false, path: '/calculators/smart-sip' },
   { id: 'fire', title: 'F.I.R.E. Calculator', desc: 'Financial Independence, Retire Early. Calculate exactly how much money you need to retire comfortably.', highlighted: false, path: '/calculators/fire' },
   { id: 'stepup', title: 'Step Up SIP Calculator', desc: 'Plan for inflation with our advanced step-up calculator with annual increments to build exponential wealth.', highlighted: false, path: '/calculators/step-up-sip' },
