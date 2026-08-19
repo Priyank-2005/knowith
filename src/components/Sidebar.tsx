@@ -85,18 +85,18 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="flex h-screen w-[260px] flex-col bg-[var(--ink)] border-r border-[rgba(217,185,120,0.1)] text-white print:hidden shrink-0">
+    <div className="flex h-screen w-[260px] flex-col bg-[#0B2E33] border-r border-[#15464D] text-white print:hidden shrink-0">
       {/* Logo */}
-      <div className="px-6 py-6">
-        <h1 className="text-2xl font-normal text-[var(--marble)]" style={{ fontFamily: 'var(--font-display), serif' }}>
+      <div className="px-6 py-8">
+        <h1 className="text-2xl font-serif text-[#F6F3EC] tracking-wide">
           {sidebarTitle}
         </h1>
-        <p className="text-[11px] text-[var(--gold)] mt-1 tracking-wider uppercase font-mono">{sidebarSubtitle}</p>
+        <p className="text-[10px] text-[#D9B978] mt-1 tracking-widest uppercase font-mono">{sidebarSubtitle}</p>
       </div>
 
       {/* Section Label */}
       <div className="px-6 pb-2 mt-2">
-        <p className="text-[10px] font-semibold text-[var(--on-dark-soft)] uppercase tracking-widest font-mono">
+        <p className="text-[10px] font-semibold text-[#839F9D] uppercase tracking-widest font-mono">
           {userRole === 'ADMIN' ? 'Email Marketing' : 'AI Tools'}
         </p>
       </div>
@@ -113,11 +113,11 @@ export default function Sidebar() {
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-lg text-[13.5px] font-medium transition-all duration-200",
                 isActive 
-                  ? "bg-[var(--gold)] text-[var(--ink)] shadow-md" 
-                  : "text-[var(--marble)] hover:text-white hover:bg-[rgba(217,185,120,0.1)]"
+                  ? "bg-[#0F3A3F] text-[#D9B978] shadow-inner border border-[#1A5C66]" 
+                  : "text-[#C4D1D0] hover:text-white hover:bg-[#0F3A3F]"
               )}
             >
-              <Icon className={cn("w-[18px] h-[18px] shrink-0", isActive ? "text-[var(--ink)]" : "text-[var(--gold)]")} />
+              <Icon className={cn("w-[18px] h-[18px] shrink-0", isActive ? "text-[#D9B978]" : "text-[#839F9D]")} />
               <span className="truncate">{item.name}</span>
             </Link>
           );
@@ -125,27 +125,27 @@ export default function Sidebar() {
       </nav>
 
       {/* User Card + Logout */}
-      <div className="p-3 border-t border-[rgba(217,185,120,0.1)] space-y-2">
-        <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[rgba(217,185,120,0.05)] border border-[rgba(217,185,120,0.1)]">
+      <div className="p-4 border-t border-[#15464D] space-y-3 bg-[#0B2E33] relative z-20">
+        <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[#0F3A3F] border border-[#1A5C66]">
           <div className={cn(
-            "w-8 h-8 rounded flex items-center justify-center text-xs font-bold shrink-0 text-[var(--ink)]",
+            "w-8 h-8 rounded flex items-center justify-center text-xs font-bold shrink-0 text-[#0B2E33] shadow-sm",
             userRole === 'ADMIN' 
-              ? "bg-[var(--gold)]" 
-              : "bg-[var(--gold)]"
+              ? "bg-[#D9B978]" 
+              : "bg-[#D9B978]"
           )}>
             {userName ? userName.charAt(0).toUpperCase() : 'K'}
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-medium text-[var(--marble)] truncate">{userName || 'User'}</p>
-            <p className="text-[11px] text-[var(--on-dark-soft)] capitalize font-mono">{userRole?.replace('_', '-')?.toLowerCase() || 'Guest'}</p>
+            <p className="text-sm font-medium text-[#F6F3EC] truncate">{userName || 'User'}</p>
+            <p className="text-[10px] text-[#D9B978] uppercase font-mono tracking-wider">{userRole?.replace('_', '-')?.toLowerCase() || 'Guest'}</p>
           </div>
         </div>
 
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-[12px] uppercase font-mono tracking-wide text-[var(--on-dark-soft)] hover:text-[#ef4444] hover:bg-[rgba(217,185,120,0.05)] transition-colors"
+          className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-[11px] uppercase font-mono tracking-widest text-[#839F9D] hover:text-[#ef4444] hover:bg-red-500/10 transition-colors"
         >
-          <LogOut className="w-4 h-4" />
+          <LogOut className="w-3.5 h-3.5" />
           Sign Out
         </button>
       </div>

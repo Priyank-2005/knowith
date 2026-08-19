@@ -46,7 +46,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   };
 
   return (
-    <div className="p-4 bg-white border-t border-slate-200">
+    <div className="p-4 bg-white border-t border-gray-200">
       <form onSubmit={handleSubmit} className="relative max-w-4xl mx-auto flex items-end gap-2">
         <textarea
           ref={textareaRef}
@@ -55,7 +55,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           onKeyDown={handleKeyDown}
           disabled={disabled || isLoading}
           placeholder={disabled ? "Conversation locked." : placeholder}
-          className="flex-1 max-h-32 min-h-[44px] bg-slate-50 border border-slate-300 rounded-2xl py-3 pl-4 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent disabled:opacity-50 disabled:bg-slate-100 transition-all shadow-sm text-slate-900 placeholder:text-slate-400"
+          className="flex-1 max-h-32 min-h-[44px] bg-[#FAFAFA] border border-gray-300 rounded-2xl py-3 pl-4 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[#D9B978] focus:border-transparent disabled:opacity-50 disabled:bg-gray-100 transition-all shadow-sm text-[#0B2E33] placeholder:text-gray-400"
           rows={1}
         />
         
@@ -64,20 +64,20 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           disabled={!input.trim() || isLoading || disabled}
           className={`absolute right-3 bottom-2.5 p-1.5 rounded-full flex items-center justify-center transition-all
             ${input.trim() && !isLoading && !disabled 
-              ? 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm' 
-              : 'bg-transparent text-slate-300'
+              ? 'bg-[#0B2E33] text-[#D9B978] hover:bg-[#0F3A3F] shadow-sm' 
+              : 'bg-transparent text-gray-300'
             }`}
         >
           {isLoading ? (
-            <Loader2 size={18} className="animate-spin text-indigo-600" />
+            <Loader2 size={18} className="animate-spin text-[#0B2E33]" />
           ) : (
-            <Send size={18} className={input.trim() && !isLoading && !disabled ? 'text-white' : ''} />
+            <Send size={18} className={input.trim() && !isLoading && !disabled ? 'text-[#D9B978]' : ''} />
           )}
         </button>
       </form>
       <div className="max-w-4xl mx-auto text-center mt-2">
-        <span className="text-[10px] text-slate-400 font-medium tracking-wide">
-          Secured by Knowith Capital AI • Built on Llama 3
+        <span className="text-[10px] text-gray-400 font-mono tracking-widest uppercase">
+          Secured by Knowith Capital AI
         </span>
       </div>
     </div>

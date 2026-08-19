@@ -23,19 +23,19 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ messages, isTyping }) =>
   return (
     <div 
       ref={scrollRef} 
-      className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 bg-[var(--marble)] relative scroll-smooth"
+      className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 bg-[#FAFAFA] relative scroll-smooth"
     >
       <div className="max-w-4xl mx-auto flex flex-col justify-end min-h-full">
         {messages.length === 0 ? (
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
-            className="flex-1 flex flex-col items-center justify-center text-[var(--slate-soft)] opacity-50 my-20"
+            className="flex-1 flex flex-col items-center justify-center text-gray-400 opacity-80 my-20"
           >
-            <div className="w-16 h-16 bg-[rgba(11,46,51,0.05)] rounded flex items-center justify-center mb-4">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-4 border border-gray-200">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D9B978" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
             </div>
-            <p className="text-sm font-mono uppercase tracking-widest">Start your digital wealth consultation.</p>
+            <p className="text-xs font-mono uppercase tracking-widest text-[#0B2E33]">Start your digital wealth consultation.</p>
           </motion.div>
         ) : (
           <AnimatePresence initial={false}>
@@ -60,26 +60,26 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ messages, isTyping }) =>
               className="flex w-full justify-start mb-6"
             >
               <div className="flex max-w-[85%] items-end gap-3">
-                <div className="flex-shrink-0 h-8 w-8 rounded bg-[var(--gold)] flex items-center justify-center shadow-sm">
+                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-[#0B2E33] flex items-center justify-center shadow-sm">
                   <span className="flex space-x-1.5">
                     <motion.span 
                       animate={{ y: [0, -4, 0] }} 
                       transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut", delay: 0 }}
-                      className="h-1.5 w-1.5 bg-[var(--ink)] rounded-full"
+                      className="h-1.5 w-1.5 bg-[#D9B978] rounded-full"
                     />
                     <motion.span 
                       animate={{ y: [0, -4, 0] }} 
                       transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-                      className="h-1.5 w-1.5 bg-[var(--ink)] rounded-full"
+                      className="h-1.5 w-1.5 bg-[#D9B978] rounded-full"
                     />
                     <motion.span 
                       animate={{ y: [0, -4, 0] }} 
                       transition={{ duration: 0.6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-                      className="h-1.5 w-1.5 bg-[var(--ink)] rounded-full"
+                      className="h-1.5 w-1.5 bg-[#D9B978] rounded-full"
                     />
                   </span>
                 </div>
-                <div className="px-4 py-3 rounded-2xl bg-[var(--marble-2)] border border-[rgba(11,46,51,0.1)] text-[var(--slate-soft)] font-mono uppercase tracking-widest text-[10px] rounded-bl-none shadow-sm">
+                <div className="px-4 py-3 rounded-2xl bg-white border border-gray-200 text-gray-500 font-mono uppercase tracking-widest text-[10px] rounded-bl-none shadow-sm">
                   Knowith AI is thinking...
                 </div>
               </div>

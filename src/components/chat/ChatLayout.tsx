@@ -18,27 +18,27 @@ export const ChatLayout: React.FC<ChatLayoutProps> = ({
   featureTitle 
 }) => {
   return (
-    <div className="flex flex-col h-screen bg-[var(--marble)] font-sans overflow-hidden print:h-auto print:overflow-visible print:bg-white">
+    <div className="flex flex-col h-screen bg-white font-sans overflow-hidden print:h-auto print:overflow-visible print:bg-white">
       
       {/* Top Navigation Bar */}
-      <header className="h-14 bg-[var(--marble-2)] border-b border-[rgba(11,46,51,0.1)] flex items-center justify-between px-4 lg:px-6 shrink-0 z-10 shadow-sm print:hidden">
+      <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-10 shadow-sm print:hidden">
         <div className="flex items-center gap-4">
-          <Link href="/" className="text-[var(--slate-soft)] hover:text-[var(--ink)] transition-colors">
+          <Link href="/" className="text-gray-400 hover:text-[#0B2E33] transition-colors bg-gray-50 hover:bg-gray-100 p-2 rounded-full">
             <ChevronLeft size={20} />
           </Link>
-          <div className="flex items-center gap-3">
-            <div className="bg-[var(--gold)] p-1.5 rounded text-[var(--ink)] shadow-sm">
+          <div className="flex items-center gap-3 pl-2 border-l border-gray-200">
+            <div className="bg-[#0B2E33] p-1.5 rounded text-[#D9B978] shadow-sm">
               <ShieldCheck size={16} />
             </div>
-            <h1 className="font-semibold text-[var(--ink)] hidden sm:block font-serif text-lg tracking-wide">Knowith Capital</h1>
-            <span className="text-[var(--slate-soft)] hidden sm:block">/</span>
-            <h2 className="font-medium text-[var(--gold)] tracking-wide">{featureTitle}</h2>
+            <h1 className="font-medium text-[#0B2E33] hidden sm:block font-serif text-lg tracking-wide">Knowith Capital</h1>
+            <span className="text-gray-300 hidden sm:block">/</span>
+            <h2 className="font-semibold text-[#D9B978] tracking-wider text-sm uppercase font-mono">{featureTitle}</h2>
           </div>
         </div>
       </header>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex overflow-hidden print:overflow-visible print:block">
+      <div className="flex-1 flex overflow-hidden print:overflow-visible print:block bg-[#FAFAFA]">
         
         {/* Main Chat View */}
         <main className="flex-1 flex flex-col relative h-full print:h-auto print:block">
@@ -47,7 +47,7 @@ export const ChatLayout: React.FC<ChatLayoutProps> = ({
 
         {/* Dynamic Sidebar (Hidden on mobile and print) */}
         {sidebarFields && sidebarFields.length > 0 && (
-          <div className="print:hidden border-l border-[rgba(11,46,51,0.1)]">
+          <div className="print:hidden border-l border-gray-200 shadow-xl z-10">
             <ProfileSidebar 
               fields={sidebarFields} 
               profileData={profileData} 
