@@ -14,10 +14,10 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} ${inter.className} bg-[var(--ink)] text-white antialiased flex h-screen overflow-hidden`}>
+    <div className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} ${inter.className} bg-[var(--ink)] text-white antialiased flex h-screen overflow-hidden min-w-0`}>
       <AuthGuard>
         <Sidebar />
-        <main className="flex-1 h-screen overflow-y-auto relative print:h-auto print:overflow-visible">
+        <main className="flex-1 h-screen overflow-hidden relative print:h-auto print:overflow-visible min-w-0">
           {children}
         </main>
       </AuthGuard>

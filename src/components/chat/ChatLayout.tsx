@@ -18,7 +18,7 @@ export const ChatLayout: React.FC<ChatLayoutProps> = ({
   featureTitle 
 }) => {
   return (
-    <div className="flex flex-col h-screen bg-[#F6F3EC] font-sans overflow-hidden print:h-auto print:overflow-visible print:bg-white">
+    <div className="flex flex-col h-screen bg-[#F6F3EC] font-sans overflow-hidden print:h-auto print:overflow-visible print:bg-white min-w-0">
       
       {/* Top Navigation Bar */}
       <header className="h-16 bg-white/60 backdrop-blur-md border-b border-[#E8E2D2] flex items-center justify-between px-6 shrink-0 z-20 print:hidden">
@@ -38,16 +38,16 @@ export const ChatLayout: React.FC<ChatLayoutProps> = ({
       </header>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex overflow-hidden print:overflow-visible print:block relative">
+      <div className="flex-1 flex overflow-hidden print:overflow-visible print:block relative min-w-0">
         
         {/* Main Chat View */}
-        <main className="flex-1 flex flex-col relative h-full print:h-auto print:block">
+        <main className="flex-1 flex flex-col relative h-full print:h-auto print:block min-w-0">
           {children}
         </main>
 
         {/* Dynamic Sidebar (Hidden on mobile and print) */}
         {sidebarFields && sidebarFields.length > 0 && (
-          <div className="print:hidden border-l border-[#E8E2D2] shadow-xl z-10 shrink-0">
+          <div className="print:hidden border-l border-[#E8E2D2] shadow-xl z-10 shrink-0 w-80">
             <ProfileSidebar 
               fields={sidebarFields} 
               profileData={profileData} 
