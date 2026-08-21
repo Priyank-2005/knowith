@@ -25,14 +25,26 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Invalid data' }, { status: 400 });
     }
 
-    const newScore = await prisma.gameScore.create({
-      data: {
-        playerName,
-        totalScore
-      }
+    const existingScore = await prisma.gameScore.findFirst({
+      where: { playerName }
     });
 
-    return NextResponse.json(newScore);
+    let result;
+    if (existingScore) {
+      result = await prisma.gameScore.update({
+        where: { id: existingScore.id },
+        data: { totalScore }
+      });
+    } else {
+      result = await prisma.gameScore.create({
+        data: {
+          playerName,
+          totalScore
+        }
+      });
+    }
+
+    return NextResponse.json(result);
   } catch (error) {
     console.error('Error saving score:', error);
     return NextResponse.json({ error: 'Failed to save score' }, { status: 500 });

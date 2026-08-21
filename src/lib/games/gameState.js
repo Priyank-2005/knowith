@@ -12,7 +12,8 @@ export function GameProvider({ children }) {
     chapter4: null,
     chapter5: null,
     chapter6: null,
-    chapter7: null
+    chapter7: null,
+    chapter8: null
   });
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -24,10 +25,34 @@ export function GameProvider({ children }) {
     setIsLoaded(true);
   }, []);
 
+  const getTotalScore = () => {
+    return Object.values(scores).reduce((acc, val) => acc + (val || 0), 0);
+  };
+
+  const submitLeaderboardScore = async (scoreValue, nameValue) => {
+    const name = nameValue || playerName;
+    if (!name) return;
+    const scoreToSubmit = scoreValue !== undefined ? scoreValue : getTotalScore();
+    try {
+      await fetch('/api/v1/games/leaderboard', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playerName: name, totalScore: scoreToSubmit })
+      });
+    } catch (e) {
+      console.error('Failed to submit score to leaderboard', e);
+    }
+  };
+
   const saveScore = (chapter, score) => {
     setScores(prev => {
       const newScores = { ...prev, [chapter]: score };
       sessionStorage.setItem('knowith_game_scores', JSON.stringify(newScores));
+      
+      // Auto-submit to leaderboard if name exists
+      const newTotal = Object.values(newScores).reduce((acc, val) => acc + (val || 0), 0);
+      submitLeaderboardScore(newTotal, playerName);
+      
       return newScores;
     });
   };
@@ -35,28 +60,13 @@ export function GameProvider({ children }) {
   const setAndSavePlayerName = (name) => {
     setPlayerName(name);
     sessionStorage.setItem('knowith_player_name', name);
-  };
-  
-  const getTotalScore = () => {
-    return Object.values(scores).reduce((acc, val) => acc + (val || 0), 0);
+    // Submit current total score when name is registered
+    submitLeaderboardScore(getTotalScore(), name);
   };
 
-  const submitLeaderboardScore = async (finalScoreValue) => {
-    if (!playerName) return;
-    const scoreToSubmit = finalScoreValue || getTotalScore();
-    try {
-      await fetch('/api/v1/games/leaderboard', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ playerName, totalScore: scoreToSubmit })
-      });
-    } catch (e) {
-      console.error('Failed to submit score to leaderboard', e);
-    }
-  };
 
   const resetGame = () => {
-    setScores({ chapter1: null, chapter2: null, chapter3: null, chapter4: null, chapter5: null, chapter6: null, chapter7: null });
+    setScores({ chapter1: null, chapter2: null, chapter3: null, chapter4: null, chapter5: null, chapter6: null, chapter7: null, chapter8: null });
     sessionStorage.removeItem('knowith_game_scores');
   };
 

@@ -74,12 +74,20 @@ const chapters = [
     desc: '20-year market memory game. Guess each year\'s winning cap and watch ₹1 lakh a year grow.',
     href: '/games/market-cap-challenge',
     color: '#9C27B0' // purple
+  },
+  {
+    id: 'chapter8',
+    num: '08',
+    title: 'Match the Performers',
+    desc: 'The past is on the left. Place your forecast on the right. Nine funds, nine returns, and one revealing lesson about repeatability.',
+    href: '/games/match-performers',
+    color: '#2e7d32' // green
   }
 ];
 
 function HubContent() {
   const { getTotalScore, scores, resetGame, playerName, setPlayerName } = useGameState();
-  const allCompleted = scores.chapter1 !== null && scores.chapter2 !== null && scores.chapter3 !== null && scores.chapter4 !== null && scores.chapter5 !== null && scores.chapter6 !== null && scores.chapter7 !== null;
+  const allCompleted = scores.chapter1 !== null && scores.chapter2 !== null && scores.chapter3 !== null && scores.chapter4 !== null && scores.chapter5 !== null && scores.chapter6 !== null && scores.chapter7 !== null && scores.chapter8 !== null;
 
   const [tempName, setTempName] = React.useState('');
 
