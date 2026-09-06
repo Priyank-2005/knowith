@@ -1,0 +1,752 @@
+{
+  "COUNTRY_DATA": {
+    "2000": {
+      "USA": -0.1254,
+      "UK": -0.1153,
+      "France": -0.0406,
+      "Germany": -0.1527,
+      "Japan": -0.2807,
+      "Hong Kong": -0.1474,
+      "Singapore": -0.2772,
+      "India": -0.2174,
+      "China": -0.3054,
+      "Korea": -0.4962,
+      "Taiwan": -0.449
+    },
+    "2001": {
+      "USA": -0.1203,
+      "UK": -0.1405,
+      "France": -0.2209,
+      "Germany": -0.2199,
+      "Japan": -0.2928,
+      "Hong Kong": -0.1861,
+      "Singapore": -0.2342,
+      "India": -0.1945,
+      "China": -0.247,
+      "Korea": 0.4871,
+      "Taiwan": 0.1047
+    },
+    "2002": {
+      "USA": -0.2271,
+      "UK": -0.1523,
+      "France": -0.2083,
+      "Germany": -0.329,
+      "Japan": -0.1011,
+      "Hong Kong": -0.1779,
+      "Singapore": -0.1105,
+      "India": 0.0837,
+      "China": -0.1405,
+      "Korea": 0.0862,
+      "Taiwan": -0.2445
+    },
+    "2003": {
+      "USA": 0.2911,
+      "UK": 0.3206,
+      "France": 0.4103,
+      "Germany": 0.6479,
+      "Japan": 0.3615,
+      "Hong Kong": 0.381,
+      "Singapore": 0.376,
+      "India": 0.7836,
+      "China": 0.8757,
+      "Korea": 0.3594,
+      "Taiwan": 0.4255
+    },
+    "2004": {
+      "USA": 0.1071,
+      "UK": 0.1957,
+      "France": 0.1922,
+      "Germany": 0.1666,
+      "Japan": 0.1595,
+      "Hong Kong": 0.2498,
+      "Singapore": 0.2227,
+      "India": 0.1911,
+      "China": 0.0189,
+      "Korea": 0.2286,
+      "Taiwan": 0.0983
+    },
+    "2005": {
+      "USA": 0.0572,
+      "UK": 0.0738,
+      "France": 0.1059,
+      "Germany": 0.1052,
+      "Japan": 0.2563,
+      "Hong Kong": 0.084,
+      "Singapore": 0.1438,
+      "India": 0.3757,
+      "China": 0.1977,
+      "Korea": 0.58,
+      "Taiwan": 0.0725
+    },
+    "2006": {
+      "USA": 0.1532,
+      "UK": 0.3066,
+      "France": 0.3542,
+      "Germany": 0.3679,
+      "Japan": 0.0633,
+      "Hong Kong": 0.3035,
+      "Singapore": 0.4673,
+      "India": 0.51,
+      "China": 0.8287,
+      "Korea": 0.1319,
+      "Taiwan": 0.209
+    },
+    "2007": {
+      "USA": 0.0603,
+      "UK": 0.0839,
+      "France": 0.1403,
+      "Germany": 0.3593,
+      "Japan": -0.0414,
+      "Hong Kong": 0.412,
+      "Singapore": 0.2838,
+      "India": 0.7311,
+      "China": 0.6623,
+      "Korea": 0.3258,
+      "Taiwan": 0.0913
+    },
+    "2008": {
+      "USA": -0.3714,
+      "UK": -0.4832,
+      "France": -0.4271,
+      "Germany": -0.455,
+      "Japan": -0.2911,
+      "Hong Kong": -0.5121,
+      "Singapore": -0.4734,
+      "India": -0.6463,
+      "China": -0.5083,
+      "Korea": -0.5507,
+      "Taiwan": -0.4588
+    },
+    "2009": {
+      "USA": 0.2714,
+      "UK": 0.4337,
+      "France": 0.3326,
+      "Germany": 0.2656,
+      "Japan": 0.0639,
+      "Hong Kong": 0.6015,
+      "Singapore": 0.74,
+      "India": 1.0281,
+      "China": 0.6263,
+      "Korea": 0.7206,
+      "Taiwan": 0.8025
+    },
+    "2010": {
+      "USA": 0.1545,
+      "UK": 0.088,
+      "France": -0.0323,
+      "Germany": 0.0932,
+      "Japan": 0.1559,
+      "Hong Kong": 0.2323,
+      "Singapore": 0.2216,
+      "India": 0.2095,
+      "China": 0.0483,
+      "Korea": 0.2715,
+      "Taiwan": 0.2273
+    },
+    "2011": {
+      "USA": 0.0199,
+      "UK": -0.0252,
+      "France": -0.16,
+      "Germany": -0.1745,
+      "Japan": -0.1419,
+      "Hong Kong": -0.1602,
+      "Singapore": -0.1791,
+      "India": -0.3717,
+      "China": -0.1824,
+      "Korea": -0.1176,
+      "Taiwan": -0.2015
+    },
+    "2012": {
+      "USA": 0.1613,
+      "UK": 0.153,
+      "France": 0.2282,
+      "Germany": 0.321,
+      "Japan": 0.0836,
+      "Hong Kong": 0.2827,
+      "Singapore": 0.3099,
+      "India": 0.2597,
+      "China": 0.231,
+      "Korea": 0.2148,
+      "Taiwan": 0.1766
+    },
+    "2013": {
+      "USA": 0.3261,
+      "UK": 0.2071,
+      "France": 0.2766,
+      "Germany": 0.324,
+      "Japan": 0.2735,
+      "Hong Kong": 0.1109,
+      "Singapore": 0.0172,
+      "India": -0.0383,
+      "China": 0.0396,
+      "Korea": 0.0418,
+      "Taiwan": 0.0977
+    },
+    "2014": {
+      "USA": 0.1336,
+      "UK": -0.0535,
+      "France": -0.0899,
+      "Germany": -0.0976,
+      "Japan": -0.0372,
+      "Hong Kong": 0.0507,
+      "Singapore": 0.0306,
+      "India": 0.2387,
+      "China": 0.0826,
+      "Korea": -0.107,
+      "Taiwan": 0.1005
+    },
+    "2015": {
+      "USA": 0.0132,
+      "UK": -0.0751,
+      "France": 0.0078,
+      "Germany": -0.0127,
+      "Japan": 0.099,
+      "Hong Kong": -0.0054,
+      "Singapore": -0.1768,
+      "India": -0.0612,
+      "China": -0.0762,
+      "Korea": -0.063,
+      "Taiwan": -0.1097
+    },
+    "2016": {
+      "USA": 0.1161,
+      "UK": -0.0004,
+      "France": 0.0602,
+      "Germany": 0.035,
+      "Japan": 0.0273,
+      "Hong Kong": 0.0227,
+      "Singapore": 0.0147,
+      "India": -0.0143,
+      "China": 0.0111,
+      "Korea": 0.0925,
+      "Taiwan": 0.1959
+    },
+    "2017": {
+      "USA": 0.219,
+      "UK": 0.2238,
+      "France": 0.299,
+      "Germany": 0.2849,
+      "Japan": 0.2439,
+      "Hong Kong": 0.3617,
+      "Singapore": 0.3563,
+      "India": 0.3876,
+      "China": 0.5433,
+      "Korea": 0.478,
+      "Taiwan": 0.2851
+    },
+    "2018": {
+      "USA": -0.045,
+      "UK": -0.141,
+      "France": -0.119,
+      "Germany": -0.2164,
+      "Japan": -0.1258,
+      "Hong Kong": -0.0783,
+      "Singapore": -0.0937,
+      "India": -0.073,
+      "China": -0.1875,
+      "Korea": -0.2046,
+      "Taiwan": -0.0816
+    },
+    "2019": {
+      "USA": 0.3164,
+      "UK": 0.2113,
+      "France": 0.2695,
+      "Germany": 0.2168,
+      "Japan": 0.2007,
+      "Hong Kong": 0.1034,
+      "Singapore": 0.1505,
+      "India": 0.0758,
+      "China": 0.2366,
+      "Korea": 0.131,
+      "Taiwan": 0.3769
+    },
+    "2020": {
+      "USA": 0.2137,
+      "UK": -0.1043,
+      "France": 0.047,
+      "Germany": 0.1229,
+      "Japan": 0.1491,
+      "Hong Kong": 0.0582,
+      "Singapore": -0.074,
+      "India": 0.159,
+      "China": 0.2967,
+      "Korea": 0.4521,
+      "Taiwan": 0.4202
+    },
+    "2021": {
+      "USA": 0.2697,
+      "UK": 0.1853,
+      "France": 0.2059,
+      "Germany": 0.059,
+      "Japan": 0.0204,
+      "Hong Kong": -0.0391,
+      "Singapore": 0.0572,
+      "India": 0.2666,
+      "China": -0.2164,
+      "Korea": -0.0792,
+      "Taiwan": 0.2682
+    },
+    "2022": {
+      "USA": -0.1946,
+      "UK": -0.0483,
+      "France": -0.1267,
+      "Germany": -0.2162,
+      "Japan": -0.1631,
+      "Hong Kong": -0.0471,
+      "Singapore": -0.1095,
+      "India": -0.0749,
+      "China": -0.218,
+      "Korea": -0.2894,
+      "Taiwan": -0.2913
+    },
+    "2023": {
+      "USA": 0.271,
+      "UK": 0.1411,
+      "France": 0.2228,
+      "Germany": 0.2397,
+      "Japan": 0.2077,
+      "Hong Kong": -0.1477,
+      "Singapore": 0.0533,
+      "India": 0.2129,
+      "China": -0.1104,
+      "Korea": 0.2359,
+      "Taiwan": 0.3133
+    },
+    "2024": {
+      "USA": 0.2508,
+      "UK": 0.0755,
+      "France": -0.046,
+      "Germany": 0.1103,
+      "Japan": 0.0868,
+      "Hong Kong": 0.0008,
+      "Singapore": 0.3232,
+      "India": 0.1241,
+      "China": 0.1967,
+      "Korea": -0.2309,
+      "Taiwan": 0.3507
+    },
+    "2025": {
+      "USA": 0.1775,
+      "UK": 0.3512,
+      "France": 0.295,
+      "Germany": 0.3708,
+      "Japan": 0.2505,
+      "Hong Kong": 0.3483,
+      "Singapore": 0.324,
+      "India": 0.0429,
+      "China": 0.3142,
+      "Korea": 1.0076,
+      "Taiwan": 0.3984
+    }
+  },
+  "COUNTRY_NAMES": [
+    "USA",
+    "UK",
+    "France",
+    "Germany",
+    "Japan",
+    "Hong Kong",
+    "Singapore",
+    "India",
+    "China",
+    "Korea",
+    "Taiwan"
+  ],
+  "GROUPS": [
+    {
+      "key": "India",
+      "label": "India",
+      "members": "India",
+      "constituents": [
+        "India"
+      ]
+    },
+    {
+      "key": "US",
+      "label": "US",
+      "members": "USA",
+      "constituents": [
+        "USA"
+      ]
+    },
+    {
+      "key": "DM ex USA",
+      "label": "DM ex USA",
+      "members": "UK · France · Germany · Japan · Singapore · Hong Kong",
+      "constituents": [
+        "UK",
+        "France",
+        "Germany",
+        "Japan",
+        "Singapore",
+        "Hong Kong"
+      ]
+    },
+    {
+      "key": "EM ex India",
+      "label": "EM ex India",
+      "members": "China · Taiwan · Korea",
+      "constituents": [
+        "China",
+        "Taiwan",
+        "Korea"
+      ]
+    }
+  ],
+  "SCENARIO_POOLS": [
+    {
+      "pool": "Momentum continuation",
+      "candidates": [
+        {
+          "id": "momentum-2007",
+          "targetYear": 2007,
+          "horizon": 5,
+          "emotion": "Euphoria",
+          "pressure": 93,
+          "mediaTitle": "The winning regions appear to have powerful structural momentum.",
+          "patternLabel": "Momentum continued",
+          "reality": "The recent leader won again. Momentum can persist—and successful continuation is what makes extrapolation emotionally sticky. The danger is assuming that one successful rule will remain reliable in the next regime.",
+          "lesson": "Continuation is not evidence of certainty. A process can acknowledge momentum without concentrating an investor’s entire decision on the belief that yesterday’s leader must remain tomorrow’s winner.",
+          "headlines": [
+            {
+              "display": "Emerging markets set for healthy returns in the coming year",
+              "exact": "Emerging markets set for healthy returns in 2007",
+              "outlet": "Reuters",
+              "date": "Reuters archive · 2007 outlook",
+              "url": "https://www.reuters.com/article/world/emerging-markets-set-for-healthy-returns-in-2007-idUSL27448508/"
+            },
+            {
+              "display": "A more modest bull run is still expected for world stocks",
+              "exact": "More modest bull run seen for world stocks",
+              "outlet": "Reuters",
+              "date": "Reuters archive · 2007 outlook",
+              "url": "https://www.reuters.com/article/world/us/more-modest-bull-run-seen-for-world-stocks-idUSL11799731/"
+            }
+          ]
+        },
+        {
+          "id": "momentum-2024",
+          "targetYear": 2024,
+          "horizon": 5,
+          "emotion": "Confidence",
+          "pressure": 86,
+          "mediaTitle": "U.S. leadership feels validated by earnings, AI enthusiasm and easing-rate expectations.",
+          "patternLabel": "Momentum continued",
+          "reality": "The recent leader stayed on top. This round rewards the obvious choice, reminding players that performance chasing is seductive because it does work in some periods—not because it is consistently dependable.",
+          "lesson": "The correct lesson is not “avoid winners.” It is “do not convert a plausible continuation into a certainty or an all-in allocation.”",
+          "headlines": [
+            {
+              "display": "Citi strategists upbeat on U.S. stocks in the coming year, fueled by earnings",
+              "exact": "Citi strategists upbeat on US stocks in 2024, fueled by earnings",
+              "outlet": "Reuters",
+              "date": "8 Dec 2023",
+              "url": "https://www.reuters.com/business/finance/citi-strategists-upbeat-us-stocks-2024-fueled-by-earnings-2023-12-08/"
+            },
+            {
+              "display": "Goldman Sachs lifts its S&P 500 target for the coming year",
+              "exact": "Goldman Sachs sees S&P 500 hitting 5100 in 2024, boosting forecast",
+              "outlet": "Reuters",
+              "date": "18 Dec 2023",
+              "url": "https://www.reuters.com/business/finance/goldman-sachs-sees-sp-500-hitting-5100-2024-boosting-forecast-2023-12-18/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "Broad shock",
+      "candidates": [
+        {
+          "id": "shock-2008",
+          "targetYear": 2008,
+          "horizon": 5,
+          "emotion": "Euphoria",
+          "pressure": 98,
+          "mediaTitle": "Records, rising confidence and years of strong returns make risk feel unusually manageable.",
+          "patternLabel": "The floor disappeared",
+          "reality": "Every basket lost money. The five-year leader fell to last place, while the “winner” was merely the region that lost the least. A ranking game can conceal the more important question: whether all risky assets are exposed to the same shock.",
+          "lesson": "When optimism is strongest, investors can mistake a relative ranking for an absolute margin of safety. Diversification cannot eliminate a global drawdown, but it can reduce dependence on the most crowded narrative.",
+          "headlines": [
+            {
+              "display": "New Year takes Sensex to a new high",
+              "exact": "New Year takes Sensex to a new high",
+              "outlet": "Financial Express",
+              "date": "Archive · Jan 2008",
+              "url": "https://www.financialexpress.com/archive/new-year-takes-sensex-to-a-new-high/258032/"
+            },
+            {
+              "display": "A look back at markets—not as bad as you thought",
+              "exact": "A look back at markets in 2007 — not as bad you thought",
+              "outlet": "Financial Times",
+              "date": "Archive · Jan 2008",
+              "url": "https://www.ft.com/content/32936ea8-f926-3733-bcfe-20a8ba87a9bf"
+            }
+          ]
+        },
+        {
+          "id": "shock-2022",
+          "targetYear": 2022,
+          "horizon": 4,
+          "emotion": "Complacency",
+          "pressure": 91,
+          "mediaTitle": "Strong trailing returns encourage forecasts of another positive year.",
+          "patternLabel": "Broad sell-off",
+          "reality": "All four baskets declined. The recent leader did not win; the least-bad result came from a different region. Forecasts framed around another year of gains could not neutralise inflation, rate and valuation shocks.",
+          "lesson": "A bullish consensus can be reasonable and still be wrong. Risk control begins by asking what happens if the shared premise fails, not by finding one more headline that confirms it.",
+          "headlines": [
+            {
+              "display": "Wall Street strategists see more gains in the coming year",
+              "exact": "Wall Street strategists see more gains in 2022",
+              "outlet": "Reuters",
+              "date": "1 Dec 2021",
+              "url": "https://www.reuters.com/markets/europe/wall-street-strategists-see-more-gains-2022-2021-12-01/"
+            },
+            {
+              "display": "Wall Street closes down, indexes still poised for big annual gains",
+              "exact": "Wall Street closes down, indexes still poised for big annual gains",
+              "outlet": "Reuters",
+              "date": "30 Dec 2021",
+              "url": "https://www.reuters.com/markets/europe/wall-street-closes-down-indexes-still-poised-big-annual-gains-2021-12-30/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "Laggard rebound",
+      "candidates": [
+        {
+          "id": "reversal-2014",
+          "targetYear": 2014,
+          "horizon": 3,
+          "emotion": "Fear",
+          "pressure": 92,
+          "mediaTitle": "India is framed as fragile while developed-market leadership appears safer.",
+          "patternLabel": "Laggard became leader",
+          "reality": "The trailing laggard became the next-year winner. The negative narrative described genuine vulnerabilities, but prices and future returns did not wait for the story to become comfortable.",
+          "lesson": "An unloved market can remain weak—or reprice sharply before the headlines improve. Contrarian investing is not automatically correct, but avoiding a region solely because its recent story feels frightening can be costly.",
+          "headlines": [
+            {
+              "display": "“Fragile five” countries face taper crunch",
+              "exact": "‘Fragile five’ countries face taper crunch",
+              "outlet": "Financial Times",
+              "date": "Dec 2013",
+              "url": "https://www.ft.com/content/407c42ac-6703-11e3-a5f9-00144feabdc0"
+            },
+            {
+              "display": "India in depth: Let rupee sink to save the economy",
+              "exact": "India in depth: Let rupee sink to save the economy",
+              "outlet": "Reuters Breakingviews",
+              "date": "Aug 2013",
+              "url": "https://www.reuters.com/article/idUS295961498/"
+            }
+          ]
+        },
+        {
+          "id": "reversal-2017",
+          "targetYear": 2017,
+          "horizon": 4,
+          "emotion": "Anxiety",
+          "pressure": 84,
+          "mediaTitle": "The established U.S. bull looks extendable; policy uncertainty clouds the rest of the world.",
+          "patternLabel": "Leadership reversed",
+          "reality": "EM ex India moved from the trailing laggard to the next-year winner, while the trailing leader finished last. A highly plausible U.S.-centric story did not identify the strongest regional return.",
+          "lesson": "Forecast confidence is often highest when the historical evidence looks clean. That is when a diversified allocation is most valuable: it owns outcomes the dominant narrative may be discounting.",
+          "headlines": [
+            {
+              "display": "Poll: U.S. bull market seen extending into the coming year—but politics is a wild card",
+              "exact": "Poll: U.S. bull market seen extending into 2017 but Trump a wild card",
+              "outlet": "Reuters",
+              "date": "2 Dec 2016",
+              "url": "https://www.reuters.com/article/business/poll-us-bull-market-seen-extending-into-2017-but-trump-a-wild-card-idUSKBN13W1UK/"
+            },
+            {
+              "display": "Wall Street thinks stocks will rise—what could go wrong?",
+              "exact": "Wall St. thinks stocks will rise in 2017 - What could go wrong?",
+              "outlet": "Reuters",
+              "date": "7 Dec 2016",
+              "url": "https://www.reuters.com/article/business/wall-st-thinks-stocks-will-rise-in-2017-what-could-go-wrong-idUSL1N1EG00R/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "Leader fade",
+      "candidates": [
+        {
+          "id": "fade-2011",
+          "targetYear": 2011,
+          "horizon": 5,
+          "emotion": "Euphoria",
+          "pressure": 89,
+          "mediaTitle": "India and emerging markets have delivered the most compelling multi-year wealth story.",
+          "patternLabel": "Leader fell to last",
+          "reality": "The five-year leader became the next-year laggard. The optimistic headlines were not irrational—they were anchored in a powerful run—but they encouraged investors to project a mature trend forward.",
+          "lesson": "A long winning history can increase both confidence and embedded expectations. The more popular the story, the more important it becomes to separate business fundamentals from the return already captured in price.",
+          "headlines": [
+            {
+              "display": "Indian shares end the year on a high; more gains seen",
+              "exact": "Indian shares end 2010 on a high; more gains seen",
+              "outlet": "Reuters",
+              "date": "31 Dec 2010",
+              "url": "https://www.reuters.com/article/markets/asia/indian-shares-end-2010-on-a-high-more-gains-seen-idUSSGE6BU065/"
+            },
+            {
+              "display": "Emerging markets: consensus—or crowded?",
+              "exact": "Emerging markets 2011: consensus or crowded",
+              "outlet": "Reuters",
+              "date": "17 Dec 2010",
+              "url": "https://www.reuters.com/article/world/emerging-markets-2011-consensus-or-crowded-idUSTRE6BG4TW/"
+            }
+          ]
+        },
+        {
+          "id": "fade-2021",
+          "targetYear": 2021,
+          "horizon": 2,
+          "emotion": "Confidence",
+          "pressure": 88,
+          "mediaTitle": "China and North Asia appear to have the strongest recovery momentum.",
+          "patternLabel": "Leader became laggard",
+          "reality": "The two-year leader finished last. The recovery headlines captured real economic strength, yet the next market return was shaped by policy, valuation and sector-specific developments that trailing performance could not summarise.",
+          "lesson": "Economic momentum and equity returns are related—but not interchangeable. Markets price expectations, and a strong macro story can coexist with disappointing subsequent returns.",
+          "headlines": [
+            {
+              "display": "China’s stunning export comeback has factories scrambling for workers",
+              "exact": "China’s stunning export comeback has factories scrambling for workers",
+              "outlet": "Reuters",
+              "date": "21 Dec 2020",
+              "url": "https://www.reuters.com/world/china/chinas-stunning-export-comeback-has-factories-scrambling-workers-2020-12-21/"
+            },
+            {
+              "display": "China’s factory activity likely sustained strong expansion",
+              "exact": "China’s factory activity likely sustained strong expansion in Dec",
+              "outlet": "Reuters",
+              "date": "29 Dec 2020",
+              "url": "https://www.reuters.com/business/finance/chinas-factory-activity-likely-sustained-strong-expansion-dec-2020-12-29/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "Leadership rotation",
+      "candidates": [
+        {
+          "id": "rotation-2020",
+          "targetYear": 2020,
+          "horizon": 3,
+          "emotion": "Confidence",
+          "pressure": 82,
+          "mediaTitle": "U.S. equities end near records, reinforcing a familiar leadership narrative.",
+          "patternLabel": "Leadership rotated",
+          "reality": "The trailing leader remained strong but did not finish first. EM ex India took the top spot. This is a subtler failure than a crash: the popular market can perform well while another region performs much better.",
+          "lesson": "Opportunity cost is hard to predict. Diversification is not only protection from losses; it also provides exposure to leadership that arrives outside the market receiving the most attention.",
+          "headlines": [
+            {
+              "display": "Global markets: Stocks end the year near record highs, dollar slides",
+              "exact": "Global Markets: Stocks end 2019 near record highs, dollar slides",
+              "outlet": "Reuters",
+              "date": "31 Dec 2019",
+              "url": "https://www.reuters.com/article/business/global-markets-stocks-end-2019-near-record-highs-dollar-slides-idUSKBN1Z01IB/"
+            },
+            {
+              "display": "Goldman Sachs predicts stocks will rise over the next two years",
+              "exact": "Goldman Sachs predicts stocks will rise in 2019 and 2020",
+              "outlet": "Axios",
+              "date": "9 Sep 2019",
+              "url": "https://www.axios.com/2019/09/09/goldman-sachs-predicts-stocks-will-rise-2019-and-2020"
+            }
+          ]
+        },
+        {
+          "id": "rotation-2012",
+          "targetYear": 2012,
+          "horizon": 5,
+          "emotion": "Anxiety",
+          "pressure": 87,
+          "mediaTitle": "A difficult year leaves investors expecting instability to dominate again.",
+          "patternLabel": "Fear did not pick the winner",
+          "reality": "All four baskets rose, but the five-year leader did not lead the rebound. The gloomy environment was understandable; it was not sufficient to rank the following year’s regional returns.",
+          "lesson": "After a difficult period, fear can make cash feel like the only rational forecast. Yet recovery may begin before uncertainty is resolved—and its geographic leadership may be different from the previous cycle.",
+          "headlines": [
+            {
+              "display": "You thought last year was tough?",
+              "exact": "You thought 2011 was tough?",
+              "outlet": "Reuters",
+              "date": "30 Dec 2011",
+              "url": "https://www.reuters.com/article/business/you-thought-2011-was-tough-idUSTRE7BT11S/"
+            },
+            {
+              "display": "Unsettled markets to dominate the coming year’s investment climate",
+              "exact": "Unsettled markets to dominate 2012 investment climate",
+              "outlet": "Reuters",
+              "date": "13 Dec 2011",
+              "url": "https://www.reuters.com/article/business/unsettled-markets-to-dominate-2012-investment-climate-idUSL5E7N7451/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pool": "Fear-to-recovery surprise",
+      "candidates": [
+        {
+          "id": "recovery-2009",
+          "targetYear": 2009,
+          "horizon": 2,
+          "emotion": "Panic",
+          "pressure": 100,
+          "mediaTitle": "Historic losses make another year of danger feel more probable than a violent recovery.",
+          "patternLabel": "Panic met a rebound",
+          "reality": "The trailing laggard became the winner and more than doubled. The headlines accurately described the damage investors had just experienced; they could not tell participants how much bad news was already reflected in prices.",
+          "lesson": "The point is not to buy every collapse blindly. It is to recognise that the emotional evidence is strongest near extremes, exactly when forward returns may stop resembling the recent past.",
+          "headlines": [
+            {
+              "display": "Quiet start seen for India shares after historic slump",
+              "exact": "Quiet start seen for India shares after 2008 slump",
+              "outlet": "Reuters",
+              "date": "31 Dec 2008",
+              "url": "https://www.reuters.com/article/world/quiet-start-seen-for-india-shares-after-2008-slump-idUSBOM404586/"
+            },
+            {
+              "display": "Worst yearly fall for Sensex; outlook muddy",
+              "exact": "Worst yearly fall for Sensex, outlook muddy",
+              "outlet": "The New Indian Express / Reuters",
+              "date": "Archive · Dec 2008",
+              "url": "https://www.newindianexpress.com/business/2008/Dec/31/worst-yearly-fall-for-sensex-outlook-muddy-14642.html"
+            }
+          ]
+        },
+        {
+          "id": "recovery-2023",
+          "targetYear": 2023,
+          "horizon": 2,
+          "emotion": "Fear",
+          "pressure": 94,
+          "mediaTitle": "Recession expectations and repeated market declines dominate the outlook.",
+          "patternLabel": "Recession fear, broad rebound",
+          "reality": "All four baskets advanced. The recent leader did not necessarily provide a clean forecasting edge, and the fearful consensus did not prevent a strong recovery in risk assets.",
+          "lesson": "Macro forecasts can be thoughtful and still fail as market-timing tools. Asset prices respond to the gap between expectations and outcomes—not simply to whether the news is good or bad.",
+          "headlines": [
+            {
+              "display": "Big banks see global economy slowing more, with likely U.S. recession",
+              "exact": "Big banks see global economy slowing more in 2023, with likely U.S. recession",
+              "outlet": "Reuters",
+              "date": "9 Dec 2022",
+              "url": "https://www.reuters.com/markets/world-banks-see-global-economy-slowing-more-2023-with-likely-us-recession-2022-11-21/"
+            },
+            {
+              "display": "S&P posts fourth straight decline as recession talk weighs on investors",
+              "exact": "S&P posts 4th straight decline as recession talk weighs on investors",
+              "outlet": "Reuters",
+              "date": "6 Dec 2022",
+              "url": "https://www.reuters.com/markets/us/futures-subdued-after-sharp-wall-st-selloff-fed-worries-2022-12-06/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

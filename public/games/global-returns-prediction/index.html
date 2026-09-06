@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="An interactive Knowith Capital investor education game about country-return momentum, reversals, media narratives and performance chasing." />
+<title>Knowith Capital — The Story of the Moment</title>
+<style>
+:root{
+  --navy: #0B2E33;
+  --navy2: #0F3A3F;
+  --blue: #B8873D;
+  --blue2: #D9B978;
+  --gold: #B8873D;
+  --ink: #0B2E33;
+  --muted: #637389;
+  --paper: #F6F3EC;
+  --white: #ffffff;
+  --green:#168a68;
+  --green-soft:#e6f6f0;
+  --red:#c64655;
+  --red-soft:#fdecef;
+  --amber:#a66a00;
+  --amber-soft:#fff4d9;
+  --line:#dce4ef;
+  --shadow:0 20px 55px rgba(3,21,43,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  color:var(--ink);
+  background: #F6F3EC;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.45}
+.shell{min-height:100vh;display:flex;flex-direction:column}
+.topbar{
+  display:none !important;
+}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.09em}
+.brand-mark{display:flex;align-items:center;gap:4px}
+.brand-mark i{display:block;width:11px;height:11px;border-radius:50%}
+.brand-mark i:nth-child(1){background:var(--gold)}
+.brand-mark i:nth-child(2){background:var(--blue2)}
+.brand-mark i:nth-child(3){background:#fff}
+.brand small{font-size:11px;opacity:.7;letter-spacing:.14em;font-weight:600;margin-left:4px}
+.top-actions{display:flex;gap:8px}
+.icon-btn{
+  color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+  border-radius:12px;padding:9px 12px;font-weight:700
+}
+.icon-btn:hover{background:rgba(255,255,255,.14)}
+main{width:min(1180px,calc(100% - 28px));margin:0 auto 32px;padding-top:20px;flex:1}
+.screen{display:none}
+.screen.active{display:block}
+.panel{
+  background:rgba(255,255,255,.975);border:1px solid #EFEAE0;
+  border-radius:26px;box-shadow:none;overflow:hidden
+}
+.hero{padding:clamp(28px,5vw,66px);position:relative;background:#F6F3EC;box-shadow:none;border:none}
+.hero:after{
+  content:"";position:absolute;width:360px;height:360px;border-radius:50%;
+  right:-150px;top:-170px;background:radial-gradient(circle,rgba(23,107,255,.18),transparent 67%)
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--blue);font-size:12px;font-weight:850;margin-bottom:14px
+}
+.eyebrow:before{content:"";width:28px;height:2px;background:var(--gold)}
+h1{font-size:clamp(38px,6vw,74px);line-height:.98;margin:0;max-width:790px;letter-spacing:-.045em}
+h1 span{color:var(--blue)}
+.hero-copy{font-size:clamp(17px,2vw,21px);line-height:1.55;max-width:780px;color:#4c6077;margin:24px 0 28px}
+.rule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:25px 0 26px}
+.rule{
+  border:1px solid var(--line);background:#ffffff;border-radius:17px;padding:16px;
+  min-height:102px
+}
+.rule strong{display:block;font-size:25px;color:var(--navy);margin-bottom:5px}
+.rule span{color:var(--muted);font-size:14px;line-height:1.4}
+.group-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0}
+.group-pill{border-radius:14px;padding:13px 14px;color:white;min-height:78px;background:linear-gradient(145deg,var(--navy2),#123b67)}
+.group-pill strong{display:block;font-size:15px;margin-bottom:5px}
+.group-pill small{opacity:.73;line-height:1.3}
+.start-row{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:28px}
+.seed-box{display:flex;flex-direction:column;gap:7px}
+.seed-box label{font-size:12px;color:var(--muted);font-weight:750;text-transform:uppercase;letter-spacing:.08em}
+.seed-input-wrap{display:flex;align-items:center;border:1px solid var(--line);border-radius:13px;background:#fff;overflow:hidden}
+.seed-input-wrap input{border:0;outline:0;padding:12px 13px;width:150px;color:var(--navy);font-weight:800;letter-spacing:.08em}
+.seed-random{border:0;border-left:1px solid var(--line);background:var(--paper);padding:12px}
+.primary{
+  border:0;background:linear-gradient(135deg,var(--blue),#0b54dc);color:#fff;
+  padding:13px 20px;border-radius:13px;font-weight:850;box-shadow:0 10px 24px rgba(23,107,255,.25)
+}
+.primary:hover{transform:translateY(-1px)}
+.secondary{
+  border:1px solid var(--line);background:#fff;color:var(--ink);padding:12px 17px;border-radius:13px;font-weight:800
+}
+.small-note{font-size:12px;color:var(--muted);line-height:1.45;margin-top:16px}
+.game-panel{padding:0}
+.game-head{
+  padding:18px clamp(18px,3vw,34px);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:linear-gradient(90deg,#fbfcff,#f3f7fd)
+}
+.progress-wrap{min-width:220px}
+.round-label{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:800}
+.progress{height:8px;background:#dfe7f2;border-radius:99px;margin-top:7px;overflow:hidden}
+.progress span{height:100%;display:block;background:linear-gradient(90deg,var(--blue),var(--blue2));transition:width .35s ease}
+.game-code{font-size:12px;color:var(--muted)} .game-code strong{color:var(--navy);letter-spacing:.08em}
+.stage{padding:clamp(20px,3.5vw,42px)}
+.prompt-row{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;margin-bottom:22px}
+.prompt-row h2{font-size:clamp(24px,3vw,36px);line-height:1.15;letter-spacing:-.025em;margin:0 0 9px}
+.prompt-row p{margin:0;color:var(--muted);line-height:1.5;max-width:800px}
+.stake{
+  flex:0 0 auto;background:var(--amber-soft);border:1px solid #f1d88f;color:#745009;
+  padding:11px 14px;border-radius:14px;text-align:center;min-width:132px
+}
+.stake small{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:800}
+.stake strong{display:block;font-size:20px;margin-top:2px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.group-card{
+  border:2px solid var(--line);background:#fff;border-radius:20px;padding:17px;min-width:0;
+  transition:.18s ease;position:relative;outline:0
+}
+.group-card:hover,.group-card:focus-visible{border-color:#98b9ef;transform:translateY(-2px);box-shadow:0 12px 26px rgba(13,48,87,.10)}
+.group-card.selected{border-color:var(--gold);box-shadow:0 0 0 4px rgba(215,179,95,.19),0 14px 30px rgba(13,48,87,.13)}
+.group-card.selected:after{
+  content:"YOUR BET";position:absolute;right:12px;top:12px;background:var(--gold);color:#3b2a00;
+  border-radius:999px;padding:5px 8px;font-size:9px;font-weight:900;letter-spacing:.08em
+}
+.card-index{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.08em}
+.group-card h3{font-size:20px;margin:5px 0 4px;color:var(--navy)}
+.members{font-size:11px;color:var(--muted);min-height:32px;line-height:1.35}
+.history{margin:15px 0 12px;border-top:1px solid #edf1f6;padding-top:10px}
+.h-row{display:grid;grid-template-columns:34px 1fr 58px;gap:8px;align-items:center;margin:8px 0}
+.h-label{font-size:10px;font-weight:800;color:#7b899a}
+.h-value{text-align:right;font-variant-numeric:tabular-nums;font-weight:800;font-size:12px}
+.mini-track{height:8px;background:#eef2f7;border-radius:99px;position:relative;overflow:hidden}
+.mini-track:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:#b8c4d3}
+.mini-bar{position:absolute;top:1px;height:6px;border-radius:99px;min-width:2px}
+.mini-bar.pos{background:var(--green)}
+.mini-bar.neg{background:var(--red)}
+.trailing{
+  background:var(--paper);border:1px solid #e7edf5;border-radius:13px;padding:10px 11px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px
+}
+.trailing span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:800}
+.trailing strong{font-size:16px;font-variant-numeric:tabular-nums}
+.rank-badge{font-size:10px!important;color:var(--blue)!important}
+.decision-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px}
+.keyboard-hint{font-size:12px;color:var(--muted)}
+.reveal{display:none}
+.reveal.active{display:block}
+.decision.hidden{display:none}
+.reveal-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;
+  padding-bottom:15px;border-bottom:1px solid var(--line)
+}
+.reveal-title h2{margin:0;font-size:clamp(25px,3vw,35px)}
+.reveal-title p{margin:5px 0 0;color:var(--muted)}
+.pattern{
+  border-radius:999px;padding:8px 12px;font-size:11px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;
+  background:var(--amber-soft);color:var(--amber);white-space:nowrap
+}
+.actual-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(250px,.65fr);gap:22px}
+.actual-chart{border:1px solid var(--line);border-radius:18px;padding:18px}
+.actual-row{display:grid;grid-template-columns:116px 1fr 70px;gap:10px;align-items:center;margin:15px 0}
+.actual-name{font-size:13px;font-weight:800}
+.actual-name small{display:block;color:var(--muted);font-weight:600;margin-top:2px}
+.actual-track{height:18px;background:#edf1f6;border-radius:6px;position:relative;overflow:hidden}
+.actual-track:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:#9aabba;z-index:2}
+.actual-bar{position:absolute;top:2px;height:14px;border-radius:4px}
+.actual-bar.pos{background:linear-gradient(90deg,#23a77e,#77d3b5)}
+.actual-bar.neg{background:linear-gradient(90deg,#e47783,#c64655)}
+.actual-row.chosen{background:#fff8e8;border-radius:12px;padding:8px;margin-left:-8px;margin-right:-8px}
+.actual-row.winner .actual-name:before{content:"★ ";color:var(--gold)}
+.actual-value{text-align:right;font-weight:900;font-variant-numeric:tabular-nums}
+.outcome-card{background:linear-gradient(145deg,var(--navy),#123b67);color:#fff;border-radius:18px;padding:20px}
+.outcome-card h3{margin:0 0 13px;font-size:18px}
+.outcome-metric{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-top:1px solid rgba(255,255,255,.13)}
+.outcome-metric:first-of-type{border-top:0}
+.outcome-metric span{font-size:12px;opacity:.72}
+.outcome-metric strong{text-align:right}
+.lesson{
+  margin-top:16px;padding:15px;border-radius:15px;background:#f4f7fb;border-left:4px solid var(--blue);
+  line-height:1.48;color:#445871
+}
+.reveal-actions{display:flex;justify-content:flex-end;margin-top:20px}
+.results-panel{padding:clamp(24px,4vw,48px)}
+.result-hero{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:22px}
+.result-hero h2{font-size:clamp(30px,4vw,50px);letter-spacing:-.035em;line-height:1.05;margin:0 0 10px}
+.result-hero p{margin:0;color:var(--muted);max-width:720px;line-height:1.5}
+.hit-ring{
+  width:130px;height:130px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+  background:conic-gradient(var(--blue) var(--score-angle),#e6edf6 0);position:relative
+}
+.hit-ring:after{content:"";position:absolute;inset:12px;background:#fff;border-radius:50%}
+.hit-ring div{position:relative;z-index:2;text-align:center}
+.hit-ring strong{display:block;font-size:32px;color:var(--navy)}
+.hit-ring small{color:var(--muted);font-weight:800}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 24px}
+.kpi{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff}
+.kpi span{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:800}
+.kpi strong{display:block;font-size:22px;margin-top:6px;color:var(--navy)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.box{border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff}
+.box h3{margin:0 0 12px;font-size:18px}
+.full-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{background:var(--paper);border-radius:13px;padding:12px}
+.stat strong{font-size:21px;display:block;color:var(--blue)}
+.stat span{font-size:12px;color:var(--muted);line-height:1.35}
+.score-table{width:100%;border-collapse:collapse;font-size:12px}
+.score-table th{text-align:left;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.06em;padding:9px 8px;border-bottom:1px solid var(--line)}
+.score-table td{padding:10px 8px;border-bottom:1px solid #edf1f6}
+.score-table td.num{text-align:right;font-variant-numeric:tabular-nums}
+.takeaways{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:19px}
+.takeaway{border-radius:15px;padding:15px;background:linear-gradient(145deg,#f4f7fb,#fff);border:1px solid var(--line)}
+.takeaway b{display:block;color:var(--navy);margin-bottom:6px}
+.takeaway span{font-size:12px;color:var(--muted);line-height:1.45}
+.result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.footer{
+  width:min(1180px,calc(100% - 28px));margin:0 auto 20px;color:rgba(255,255,255,.66);
+  font-size:10px;line-height:1.5
+}
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(1,11,24,.72);z-index:100;display:none;align-items:center;justify-content:center;padding:18px
+}
+.modal-backdrop.active{display:flex}
+.modal{
+  width:min(780px,100%);max-height:88vh;overflow:auto;background:#fff;border-radius:22px;padding:26px;box-shadow:var(--shadow)
+}
+.modal h2{margin-top:0}
+.modal h3{font-size:15px;margin-bottom:6px}
+.modal p,.modal li{color:#52657a;line-height:1.55;font-size:14px}
+.modal-close{float:right;border:0;background:var(--paper);border-radius:10px;padding:8px 10px;font-weight:800}
+.tooltip{border-bottom:1px dotted currentColor}
+@media(max-width:920px){
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .actual-grid,.compare{grid-template-columns:1fr}
+  .kpis,.takeaways{grid-template-columns:repeat(2,1fr)}
+  .group-strip{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  main{width:min(100% - 16px,1180px);margin-top:12px}
+  .topbar{padding:12px}.brand small{display:none}.top-actions .hide-mobile{display:none}
+  .hero,.stage,.results-panel{padding:20px}
+  .rule-grid{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .prompt-row,.result-hero{flex-direction:column}
+  .stake{align-self:stretch}
+  .kpis,.takeaways,.full-stats{grid-template-columns:1fr}
+  .actual-row{grid-template-columns:94px 1fr 58px}
+  h1{font-size:42px}
+}
+@media print{
+  body{background:#fff}.topbar,.footer,.result-actions,#welcome,#game{display:none!important}
+  main{width:100%;margin:0}.panel{box-shadow:none;border:0}.results-panel{padding:10px}
+  #results{display:block!important}.takeaways{grid-template-columns:repeat(2,1fr)}
+}
+
+
+/* Version 2: variable evidence windows, media pressure and full data reveal */
+:root{--purple:#7654d6;--purple-soft:#f0ebff;--cyan:#008aa8;--cyan-soft:#e7f8fb}
+.rule-grid{grid-template-columns:repeat(3,1fr)}
+.window-chip{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:999px;background:var(--cyan-soft);color:#056c82;font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;border:1px solid #bfe9f1}
+.media-panel{border:1px solid #d9e2ee;border-radius:20px;margin:0 0 20px;overflow:hidden;background:linear-gradient(145deg,#fff,#f6f8fc);box-shadow:0 10px 30px rgba(7,25,47,.07)}
+.media-top{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:20px;padding:18px 20px 15px;border-bottom:1px solid #e4eaf2}
+.media-kicker{display:flex;align-items:center;gap:9px;color:#66778d;font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;margin-bottom:8px}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 5px rgba(198,70,85,.12)}
+.media-title{margin:0;font-size:20px;color:var(--navy);line-height:1.2}
+.media-sub{margin:6px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
+.emotion-box{background:var(--navy);color:#fff;border-radius:15px;padding:13px 15px;align-self:start}
+.emotion-box small{display:block;text-transform:uppercase;letter-spacing:.11em;font-size:9px;opacity:.65;font-weight:850}
+.emotion-box strong{display:block;font-size:22px;margin:4px 0 8px}
+.pressure-label{display:flex;justify-content:space-between;font-size:9px;opacity:.7;margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+.pressure-track{height:7px;border-radius:99px;background:rgba(255,255,255,.16);overflow:hidden}.pressure-track span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--blue2),var(--gold));transition:width .6s ease}
+.headline-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;padding:15px 20px}
+.headline-card{border:1px solid #e0e7f0;background:#fff;border-radius:15px;padding:13px 14px;position:relative;min-height:104px}
+.headline-card:before{content:'“';position:absolute;right:11px;top:5px;font-family:Georgia,serif;font-size:39px;color:#e4e9f1}
+.headline-card h4{position:relative;margin:0 22px 11px 0;font-size:14px;line-height:1.38;color:#1c324f}
+.headline-meta{display:flex;gap:7px;align-items:center;flex-wrap:wrap;color:#738297;font-size:10px;font-weight:750}
+.source-badge{border-radius:999px;padding:4px 7px;background:#eef3f9;color:#39536e}
+.mood-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:0 20px 17px}.mood-row span{font-size:11px;color:var(--muted);font-weight:750;margin-right:3px}.mood-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:800;color:#52657a}.mood-btn:hover,.mood-btn.selected{background:var(--purple-soft);border-color:#bdaef1;color:#5639b3}
+.cards.variable-history{align-items:stretch}.group-card{display:flex;flex-direction:column}.history{flex:1}.aggregate-box{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.aggregate-item{border:1px solid #e7edf5;border-radius:11px;background:var(--paper);padding:8px}.aggregate-item span{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:850}.aggregate-item strong{display:block;margin-top:3px;font-size:14px;color:var(--navy);font-variant-numeric:tabular-nums}
+.narrative-reveal{margin-top:18px;border:1px solid #e0e7f0;border-radius:17px;overflow:hidden;background:#fff}.narrative-reveal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(90deg,#f7f9fc,#eef4fb);padding:12px 15px;border-bottom:1px solid #e0e7f0}.narrative-reveal-head strong{font-size:13px;color:var(--navy)}.narrative-reveal-head span{font-size:10px;color:var(--muted)}.revealed-headlines{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:13px}.revealed-headline{border-left:3px solid var(--gold);padding:7px 10px}.revealed-headline a{font-weight:800;color:#1b58a7;text-decoration:none;font-size:12px;line-height:1.4}.revealed-headline a:hover{text-decoration:underline}.revealed-headline small{display:block;color:var(--muted);margin-top:5px}.reality-check{margin:0 13px 13px;padding:12px 13px;border-radius:12px;background:#f4f7fb;color:#445871;font-size:12px;line-height:1.48}
+.horizon-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.horizon-card{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--paper)}.horizon-card h4{margin:0 0 8px;font-size:13px;color:var(--navy)}.horizon-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.horizon-mini{background:#fff;border-radius:9px;padding:7px;text-align:center}.horizon-mini strong{display:block;color:var(--blue);font-size:17px}.horizon-mini span{display:block;color:var(--muted);font-size:8px;line-height:1.25;margin-top:2px}
+.dataset-section{margin-top:24px;border-top:1px solid var(--line);padding-top:24px}.dataset-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}.dataset-head h3{font-size:25px;margin:0 0 8px}.dataset-head p{margin:0;color:var(--muted);font-size:13px;line-height:1.5;max-width:760px}.dataset-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.dataset-summary{margin:15px 0;border:1px solid #dce5ef;border-radius:15px;padding:13px 15px;background:linear-gradient(135deg,#f8fbff,#fff);min-height:72px}.dataset-summary strong{color:var(--navy)}.dataset-summary p{margin:4px 0 0;color:var(--muted);font-size:12px}.heatmap-wrap{overflow:auto;max-height:610px;border:1px solid var(--line);border-radius:16px;background:#fff}.heatmap{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-size:10px;font-variant-numeric:tabular-nums}.heatmap th,.heatmap td{padding:8px 9px;text-align:right;border-right:1px solid rgba(255,255,255,.25);border-bottom:1px solid rgba(221,229,239,.7);white-space:nowrap}.heatmap thead th{position:sticky;top:0;z-index:4;background:var(--navy);color:#fff;text-align:center;cursor:pointer}.heatmap thead th:hover{background:#154d80}.heatmap th:first-child,.heatmap td:first-child{position:sticky;left:0;z-index:3}.heatmap thead th:first-child{z-index:6;background:#04152a}.heatmap tbody td:first-child{background:#f0f4f9;color:var(--navy);font-weight:900;text-align:center}.heatmap .col-highlight{outline:2px solid var(--gold);outline-offset:-2px}.legend{display:flex;align-items:center;gap:8px;margin-top:9px;color:var(--muted);font-size:10px}.legend-gradient{height:10px;width:190px;border-radius:99px;background:linear-gradient(90deg,#b73144,#fff 50%,#0f936c)}
+.data-flash{position:fixed;inset:0;background:radial-gradient(circle at center, #0F3A3F 0, #0B2E33 58%, #051517 100%);z-index:500;display:none;color:#fff;align-items:center;justify-content:center;padding:24px}.data-flash.active{display:flex}.flash-inner{width:min(1080px,100%);text-align:center}.flash-eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:var(--gold);font-weight:900}.flash-title{font-size:clamp(30px,6vw,70px);line-height:1;margin:10px 0 8px;letter-spacing:-.045em}.flash-sub{color:rgba(255,255,255,.65);margin-bottom:24px}.flash-year{font-size:clamp(60px,12vw,140px);font-weight:950;line-height:.8;letter-spacing:-.06em;margin-bottom:23px}.flash-grid{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:7px}.flash-cell{border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:9px 5px;background:rgba(255,255,255,.07);min-width:0}.flash-cell b{display:block;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(255,255,255,.65)}.flash-cell strong{display:block;margin-top:4px;font-size:13px}.flash-progress{height:4px;background:rgba(255,255,255,.12);border-radius:99px;margin:23px auto 0;overflow:hidden;max-width:720px}.flash-progress span{display:block;height:100%;background:linear-gradient(90deg,var(--blue2),var(--gold));transition:width .08s linear}.flash-skip{position:absolute;right:24px;top:22px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:11px;padding:9px 12px;font-weight:800}.flash-caption{margin-top:16px;font-size:13px;color:rgba(255,255,255,.74)}
+.story-chip{display:inline-flex;align-items:center;border-radius:999px;padding:6px 9px;background:var(--purple-soft);color:#5c42b9;font-size:9px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;margin-left:6px}
+@media(max-width:920px){.media-top{grid-template-columns:1fr}.emotion-box{width:100%}.headline-list,.revealed-headlines{grid-template-columns:1fr}.dataset-head{flex-direction:column}.dataset-actions{justify-content:flex-start}.flash-grid{grid-template-columns:repeat(4,1fr)}.horizon-stats{grid-template-columns:1fr}}
+@media(max-width:600px){.media-top,.headline-list,.mood-row{padding-left:14px;padding-right:14px}.flash-grid{grid-template-columns:repeat(3,1fr)}.flash-cell:nth-child(n+10){display:none}.aggregate-box{grid-template-columns:1fr}.horizon-card-grid{grid-template-columns:1fr 1fr 1fr}.dataset-actions .secondary{padding:9px 10px;font-size:11px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}.data-flash .flash-progress span{transition:none}}
+</style>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+.topbar { display: none !important; } 
+main { margin-top: 0; padding-top: 20px; }
+:root {
+  --navy: #0B2E33 !important;
+  --navy2: #0F3A3F !important;
+  --blue: #B8873D !important;
+  --blue2: #D9B978 !important;
+  --gold: #B8873D !important;
+  --ink: #0B2E33 !important;
+  --paper: #F6F3EC !important;
+}
+body, button, input {
+  font-family: 'Manrope', sans-serif !important;
+}
+body {
+  background: var(--marble, #F6F3EC) !important;
+  color: var(--ink) !important;
+}
+.hero {
+  background: #F6F3EC !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+h1 span {
+  color: var(--gold) !important;
+}
+.eyebrow {
+  color: var(--gold) !important;
+}
+.rule {
+  background: #fff !important;
+}
+.group-pill {
+  background: var(--ink) !important;
+}
+.panel {
+  box-shadow: none !important;
+  border-color: #EFEAE0 !important;
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      KNOWITH CAPITAL <small>INVESTOR LEARNING LAB</small>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn hide-mobile" id="methodBtn">Methodology</button>
+      <button class="icon-btn" id="fullBtn">Full screen</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="welcome" class="screen active">
+      <div class="panel hero">
+        <div class="eyebrow">Global returns prediction game · media edition</div>
+        <h1>Can you resist the <span>story of the moment?</span></h1>
+        <p class="hero-copy">
+          Six historical decisions. Each round gives you a different evidence window—two, three, four or five years—plus
+          contemporaneous media narratives that made continuation or collapse feel persuasive. Place ₹10 lakh on one basket,
+          then discover whether momentum continued, faded, reversed or simply rotated elsewhere.
+        </p>
+        <div class="rule-grid">
+          <div class="rule"><strong>6</strong><span>rounds only, selected across distinct market regimes and shuffled by game code</span></div>
+          <div class="rule"><strong>2–5 years</strong><span>the lookback changes, testing how easily a convincing pattern can be manufactured</span></div>
+          <div class="rule"><strong>Real headlines</strong><span>contemporaneous coverage adds the fear, confidence and euphoria investors actually experience</span></div>
+        </div>
+        <div class="group-strip">
+          <div class="group-pill"><strong>1 · India</strong><small>MSCI India country return</small></div>
+          <div class="group-pill"><strong>2 · US</strong><small>MSCI USA country return</small></div>
+          <div class="group-pill"><strong>3 · DM ex USA</strong><small>UK, France, Germany, Japan, Singapore, Hong Kong</small></div>
+          <div class="group-pill"><strong>4 · EM ex India</strong><small>China, Taiwan, Korea</small></div>
+        </div>
+        <div class="start-row">
+          <div class="seed-box">
+            <label for="seedInput">Game code</label>
+            <div class="seed-input-wrap">
+              <input id="seedInput" maxlength="8" inputmode="numeric" aria-label="Game code" />
+              <button class="seed-random" id="randomSeed" title="Generate a new code">↻</button>
+            </div>
+          </div>
+          <button class="primary" id="startBtn" disabled>Loading game data...</button>
+          <button class="secondary" id="methodBtn2">How the game works</button>
+        </div>
+        <p class="small-note">
+          Share the same game code with a group to receive the same six rounds in the same order. Publication years and dates
+          are withheld until each bet is locked so the headlines cannot reveal the hidden market year.
+        </p>
+      </div>
+    </section>
+
+    <section id="game" class="screen">
+      <div class="panel game-panel">
+        <div class="game-head">
+          <div class="progress-wrap">
+            <div class="round-label" id="roundLabel">Round 1 of 6</div>
+            <div class="progress"><span id="progressBar"></span></div>
+          </div>
+          <div class="game-code">Game code: <strong id="gameCode"></strong></div>
+        </div>
+        <div class="stage">
+          <div id="decision" class="decision">
+            <div class="prompt-row">
+              <div>
+                <div class="window-chip" id="windowChip">Evidence lens · 5 years</div>
+                <h2 id="roundPrompt">Where would you place your money for the next year?</h2>
+                <p id="roundInstruction"></p>
+              </div>
+              <div class="stake"><small>Virtual stake</small><strong>₹10 lakh</strong></div>
+            </div>
+
+            <section class="media-panel" id="mediaPanel" aria-label="Contemporaneous media narrative">
+              <div class="media-top">
+                <div>
+                  <div class="media-kicker"><span class="live-dot"></span> Newsroom sentiment at the decision point</div>
+                  <h3 class="media-title" id="mediaTitle"></h3>
+                  <p class="media-sub">Headline wording may be lightly redacted before the reveal to protect the hidden calendar year. Sources are shown; dates and links unlock after your decision.</p>
+                </div>
+                <div class="emotion-box">
+                  <small>Dominant market emotion</small>
+                  <strong id="emotionLabel">Euphoria</strong>
+                  <div class="pressure-label"><span>Narrative pressure</span><span id="pressureValue">90/100</span></div>
+                  <div class="pressure-track"><span id="pressureBar" style="width:90%"></span></div>
+                </div>
+              </div>
+              <div class="headline-list" id="headlineList"></div>
+              <div class="mood-row" id="moodRow">
+                <span>What did the evidence and headlines make you feel?</span>
+                <button class="mood-btn" data-mood="Fearful">Fearful</button>
+                <button class="mood-btn" data-mood="Cautious">Cautious</button>
+                <button class="mood-btn" data-mood="Confident">Confident</button>
+                <button class="mood-btn" data-mood="Excited">Excited</button>
+                <button class="mood-btn" data-mood="Euphoric">Euphoric</button>
+              </div>
+            </section>
+
+            <div class="cards variable-history" id="cards"></div>
+            <div class="decision-actions">
+              <div class="keyboard-hint">Keyboard: press 1–4 to choose, then Enter to lock. Emotion selection is optional.</div>
+              <button class="primary" id="lockBtn" disabled>Lock my bet</button>
+            </div>
+          </div>
+
+          <div id="reveal" class="reveal" aria-live="polite">
+            <div class="reveal-head">
+              <div class="reveal-title">
+                <h2 id="revealYear">The hidden year was 20XX</h2>
+                <p id="revealWindow"></p>
+              </div>
+              <div class="pattern" id="patternTag"></div>
+            </div>
+            <div class="actual-grid">
+              <div class="actual-chart" id="actualChart"></div>
+              <aside class="outcome-card" id="outcomeCard"></aside>
+            </div>
+            <section class="narrative-reveal" id="narrativeReveal"></section>
+            <div class="lesson" id="lesson"></div>
+            <div class="reveal-actions">
+              <button class="primary" id="nextBtn">Next round</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="screen">
+      <div class="panel results-panel">
+        <div class="result-hero">
+          <div>
+            <div class="eyebrow">Your six-round scorecard</div>
+            <h2 id="resultHeadline">Harder than it looked.</h2>
+            <p id="resultNarrative"></p>
+          </div>
+          <div class="hit-ring" id="hitRing"><div><strong id="hitCount">0/6</strong><small>winners picked</small></div></div>
+        </div>
+        <div class="kpis" id="kpis"></div>
+        <div class="compare">
+          <div class="box">
+            <h3>Your decisions, round by round</h3>
+            <div style="overflow:auto"><table class="score-table" id="scoreTable"></table></div>
+          </div>
+          <div class="box">
+            <h3>Does a recent leader keep winning?</h3>
+            <div class="horizon-stats" id="horizonStats"></div>
+            <p class="small-note" style="margin-bottom:0">
+              Each lens tests every eligible target year in 2000–2025. “Leader” and “laggard” refer to compounded performance over the stated lookback window.
+            </p>
+          </div>
+        </div>
+        <div class="takeaways">
+          <div class="takeaway"><b>Momentum sometimes persists.</b><span>That is precisely why chasing it can feel intelligent—until the regime changes.</span></div>
+          <div class="takeaway"><b>Longer charts are not crystal balls.</b><span>A five-year pattern may look more authoritative, but it still ends at today’s price.</span></div>
+          <div class="takeaway"><b>Headlines amplify recency.</b><span>Stories explain what has already happened and can make one extrapolation feel emotionally inevitable.</span></div>
+          <div class="takeaway"><b>Process reduces prediction dependence.</b><span>Diversification, rebalancing and suitability matter more than repeatedly naming the next country winner.</span></div>
+        </div>
+
+        <section class="dataset-section" id="datasetSection">
+          <div class="dataset-head">
+            <div>
+              <div class="eyebrow">The full record · USD gross returns</div>
+              <h3>Every country. Every year. 2000–2025.</h3>
+              <p>
+                The heatmap below reveals all 286 annual country-return observations used in the workbook. Click any country header to highlight its complete history and view summary statistics.
+              </p>
+            </div>
+            <div class="dataset-actions">
+              <button class="secondary" id="flashBtn">Replay the data flash</button>
+              <button class="secondary" id="datasetCsvBtn">Download full dataset CSV</button>
+            </div>
+          </div>
+          <div class="dataset-summary" id="datasetSummary"><strong>Select a country header.</strong><p>The full table remains visible so leadership changes can be inspected rather than remembered selectively.</p></div>
+          <div class="heatmap-wrap"><table class="heatmap" id="heatmap"></table></div>
+          <div class="legend"><span>Lower return</span><span class="legend-gradient"></span><span>Higher return</span><span>· Values are calendar-year percentages in USD.</span></div>
+        </section>
+
+        <div class="result-actions">
+          <button class="primary" id="newGameBtn">Play another random game</button>
+          <button class="secondary" id="sameGameBtn">Replay same game</button>
+          <button class="secondary" id="printBtn">Print / save scorecard</button>
+          <button class="secondary" id="csvBtn">Download game results CSV</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Source: MSCI country-index annual total returns (USD, gross), 2000–2025, as contained in the verified workbook
+    “MSCI_Country_Returns_2000_2025_Audited.xlsx”. Multi-country group returns are equal-weighted arithmetic averages
+    of constituent country returns for each calendar year; 2–5 year figures are compounded from annual basket returns.
+    Media headlines are contemporaneous narrative cues and are not treated as causal evidence or investment signals.
+    These baskets are analytical proxies, not investable indices. No fees, taxes, transaction costs or INR/USD currency
+    translation are included. Educational illustration only; not investment advice or a recommendation. Mutual Fund
+    investments are subject to market risks; read all scheme-related documents carefully. Knowith Capital — Abhinav Mehta,
+    AMFI registered MFD (ARN 46498).
+  </footer>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">Close</button>
+    <h2 id="modalTitle">Methodology and interpretation</h2>
+    <h3>Exactly six rounds</h3>
+    <p>Each game selects one scenario from each of six curated regime pools and then shuffles the order. The game code makes that selection reproducible.</p>
+    <h3>Mixed evidence windows</h3>
+    <p>Rounds use two-, three-, four- or five-year lookbacks. Every game contains at least one two-year and one five-year lens, plus at least one additional horizon. The displayed cumulative return compounds the annual basket returns; CAGR annualises that cumulative result.</p>
+    <h3>Four analytical baskets</h3>
+    <ul>
+      <li><b>India:</b> India.</li>
+      <li><b>US:</b> USA.</li>
+      <li><b>DM ex USA:</b> UK, France, Germany, Japan, Singapore and Hong Kong.</li>
+      <li><b>EM ex India:</b> China, Taiwan and Korea.</li>
+    </ul>
+    <h3>Media narratives</h3>
+    <p>Published headlines are included to recreate the emotional decision environment. Before the bet, calendar-year references may be lightly redacted and publication details are hidden. After the bet, the exact headline, outlet, source link and publication or archive context are revealed. Headlines are context—not a backtested signal.</p>
+    <h3>Full data reveal</h3>
+    <p>After the sixth round, an animated sequence flashes every year and every country return, followed by a persistent heatmap of all 286 observations. The purpose is to expose how easy it is to remember a compelling episode while overlooking the full distribution of outcomes.</p>
+  </div>
+</div>
+
+<div class="data-flash" id="dataFlash" aria-hidden="true">
+  <button class="flash-skip" id="flashSkip">Skip</button>
+  <div class="flash-inner">
+    <div class="flash-eyebrow">The entire historical record</div>
+    <div class="flash-title">No country owns the next year.</div>
+    <div class="flash-sub">26 calendar years · 11 countries · 286 return observations</div>
+    <div class="flash-year" id="flashYear">2000</div>
+    <div class="flash-grid" id="flashGrid"></div>
+    <div class="flash-progress"><span id="flashProgress"></span></div>
+    <div class="flash-caption" id="flashCaption">Watch leadership rotate.</div>
+  </div>
+</div>
+
+<script>
+"use strict";
+let COUNTRY_DATA, COUNTRY_NAMES, GROUPS, SCENARIO_POOLS;
+const STAKE_LAKH = 10;
+let YEARS, DATA;
+let state = {seed:"",rng:null,rounds:[],current:0,selected:null,mood:null,records:[],flashShown:false,flashTimer:null};
+
+async function loadGameData() {
+  try {
+    const res = await fetch('/games/global-returns-prediction/data.json');
+    const data = await res.json();
+    COUNTRY_DATA = data.COUNTRY_DATA;
+    COUNTRY_NAMES = data.COUNTRY_NAMES;
+    GROUPS = data.GROUPS;
+    SCENARIO_POOLS = data.SCENARIO_POOLS;
+    
+    YEARS = Object.keys(COUNTRY_DATA).map(Number).sort((a,b)=>a-b);
+    DATA = Object.fromEntries(YEARS.map(year=>[String(year),Object.fromEntries(GROUPS.map(group=>[
+      group.key, group.constituents.reduce((sum,c)=>sum+COUNTRY_DATA[String(year)][c],0)/group.constituents.length
+    ]))]));
+    
+    document.getElementById('startBtn').disabled = false;
+    document.getElementById('startBtn').textContent = 'Start the six rounds';
+  } catch (err) {
+    console.error("Failed to load game data:", err);
+    alert("Could not load game data.");
+  }
+}
+loadGameData();
+
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const screens = ["welcome","game","results"];
+function showScreen(id){screens.forEach(x=>document.getElementById(x).classList.toggle("active",x===id));window.scrollTo({top:0,behavior:"smooth"})}
+function hashString(str){let h=2166136261>>>0;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+function shuffle(arr,rng){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function randomSeed(){const n=Math.floor(100000+Math.random()*900000);$("#seedInput").value=String(n)}
+function pct(x,d=1){const v=(x*100).toFixed(d);return `${x>0?"+":""}${v.replace("-","−")}%`}
+function lakh(x){return `₹${x.toFixed(2)} lakh`}
+function compound(vals){return vals.reduce((a,r)=>a*(1+r),1)-1}
+function cagr(total,years){return Math.pow(1+total,1/years)-1}
+function mean(vals){return vals.reduce((a,b)=>a+b,0)/vals.length}
+function rankMap(obj){const order=Object.keys(obj).sort((a,b)=>obj[b]-obj[a]);const map={};order.forEach((g,i)=>map[g]=i+1);return{order,map}}
+function miniBarStyle(r){const w=Math.min(Math.abs(r)/0.80,1)*50;return r>=0?`left:50%;width:${w}%`:`left:${50-w}%;width:${w}%`}
+function groupMeta(key){return GROUPS.find(g=>g.key===key)}
+function escapeHTML(s){return String(s).replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]))}
+function buildRounds(seed){
+  const rng=mulberry32(hashString(seed));
+  const chosen=SCENARIO_POOLS.map(pool=>{
+    const pick=pool.candidates[Math.floor(rng()*pool.candidates.length)];
+    return {...pick,pool:pool.pool};
+  });
+  const rounds=shuffle(chosen,rng).map((scenario,index)=>{
+    const histYears=Array.from({length:scenario.horizon},(_,i)=>scenario.targetYear-scenario.horizon+i);
+    const history={};const trailing={};const trailingCagr={};
+    GROUPS.forEach(g=>{history[g.key]=histYears.map(y=>DATA[String(y)][g.key]);trailing[g.key]=compound(history[g.key]);trailingCagr[g.key]=cagr(trailing[g.key],scenario.horizon)});
+    const target={...DATA[String(scenario.targetYear)]};
+    return {...scenario,index:index+1,histYears,history,trailing,trailingCagr,trailingRanks:rankMap(trailing),target,targetRanks:rankMap(target)};
+  });
+  return rounds;
+}
+function startGame(same=false){
+  let seed=$("#seedInput").value.trim();if(!/^\d{3,8}$/.test(seed)){randomSeed();seed=$("#seedInput").value}
+  state={seed,rng:mulberry32(hashString(seed)),rounds:buildRounds(seed),current:0,selected:null,mood:null,records:[],flashShown:false,flashTimer:null};
+  $("#gameCode").textContent=seed;renderRound();showScreen("game");
+}
+function renderRound(){
+  const r=state.rounds[state.current];state.selected=null;state.mood=null;
+  $("#roundLabel").textContent=`Round ${state.current+1} of 6`;
+  $("#progressBar").style.width=`${(state.current/6)*100}%`;
+  $("#windowChip").textContent=`Evidence lens · ${r.horizon} years`;
+  $("#roundPrompt").textContent=`You have ${r.horizon} years of evidence. Where would you place ₹10 lakh for the next year?`;
+  $("#roundInstruction").textContent=`The ${r.horizon} calendar years and the target year are hidden. Compare annual paths, cumulative return, CAGR and the surrounding narrative—then commit to one basket.`;
+  $("#mediaTitle").textContent=r.mediaTitle;
+  $("#emotionLabel").textContent=r.emotion;
+  $("#pressureValue").textContent=`${r.pressure}/100`;
+  $("#pressureBar").style.width=`${r.pressure}%`;
+  $("#headlineList").innerHTML=r.headlines.map(h=>`<article class="headline-card"><h4>${escapeHTML(h.display)}</h4><div class="headline-meta"><span class="source-badge">${escapeHTML(h.outlet)}</span><span>Date hidden until reveal</span></div></article>`).join("");
+  $$(".mood-btn").forEach(b=>b.classList.remove("selected"));
+  $("#cards").innerHTML=GROUPS.map((g,idx)=>{
+    const annual=r.history[g.key].map((v,i)=>`<div class="h-row"><div class="h-label">T−${r.horizon-i}</div><div class="mini-track"><span class="mini-bar ${v>=0?"pos":"neg"}" style="${miniBarStyle(v)}"></span></div><div class="h-value">${pct(v)}</div></div>`).join("");
+    return `<button class="group-card" data-group="${g.key}" aria-label="Choose ${g.label}">
+      <div class="card-index">OPTION ${idx+1}</div><h3>${g.label}</h3><div class="members">${g.members}</div>
+      <div class="history">${annual}</div>
+      <div class="aggregate-box">
+        <div class="aggregate-item"><span>${r.horizon}-year cumulative</span><strong>${pct(r.trailing[g.key])}</strong></div>
+        <div class="aggregate-item"><span>Annualised CAGR</span><strong>${pct(r.trailingCagr[g.key])}</strong></div>
+      </div>
+      <div class="trailing" style="margin-top:8px"><span>Recent rank</span><strong class="rank-badge">#${r.trailingRanks.map[g.key]} of 4</strong></div>
+    </button>`;
+  }).join("");
+  $$(".group-card").forEach(card=>card.addEventListener("click",()=>selectGroup(card.dataset.group)));
+  $("#lockBtn").disabled=true;$("#decision").classList.remove("hidden");$("#reveal").classList.remove("active");
+}
+function selectGroup(key){state.selected=key;$$(".group-card").forEach(c=>c.classList.toggle("selected",c.dataset.group===key));$("#lockBtn").disabled=false}
+function selectMood(mood){state.mood=mood;$$(".mood-btn").forEach(b=>b.classList.toggle("selected",b.dataset.mood===mood))}
+function revealRound(){
+  if(!state.selected)return;
+  const r=state.rounds[state.current];const targetRanks=r.targetRanks;const winner=targetRanks.order[0];const bestReturn=r.target[winner];const selectedReturn=r.target[state.selected];const equalReturn=mean(Object.values(r.target));
+  const record={round:state.current+1,scenario:r.id,pool:r.pool,horizon:r.horizon,histYears:r.histYears,targetYear:r.targetYear,selected:state.selected,mood:state.mood||"Not recorded",selectedReturn,selectedRank:targetRanks.map[state.selected],winner,bestReturn,equalReturn,trailingLeader:r.trailingRanks.order[0],trailingLaggard:r.trailingRanks.order[3],pattern:r.patternLabel};
+  state.records.push(record);
+  $("#decision").classList.add("hidden");$("#reveal").classList.add("active");$("#progressBar").style.width=`${((state.current+1)/6)*100}%`;
+  $("#revealYear").textContent=`The hidden target year was ${r.targetYear}`;
+  $("#revealWindow").textContent=`Evidence shown: ${r.histYears[0]}–${r.histYears[r.histYears.length-1]} (${r.horizon} years).`;
+  $("#patternTag").textContent=r.patternLabel;
+  renderActualChart(r,targetRanks,state.selected);
+  const selectedEnd=STAKE_LAKH*(1+selectedReturn),equalEnd=STAKE_LAKH*(1+equalReturn);
+  $("#outcomeCard").innerHTML=`<h3>${state.selected===winner?"You picked the winner ★":"Your bet finished #"+targetRanks.map[state.selected]}</h3>
+    <div class="outcome-metric"><span>Your basket</span><strong>${state.selected}<br>${pct(selectedReturn)}</strong></div>
+    <div class="outcome-metric"><span>₹10 lakh became</span><strong>${lakh(selectedEnd)}</strong></div>
+    <div class="outcome-metric"><span>25% in each basket</span><strong>${pct(equalReturn)}<br>${lakh(equalEnd)}</strong></div>
+    <div class="outcome-metric"><span>Best possible choice</span><strong>${winner}<br>${pct(bestReturn)}</strong></div>`;
+  $("#narrativeReveal").innerHTML=`<div class="narrative-reveal-head"><strong>Headline reality check</strong><span>Source and archive details now revealed</span></div>
+    <div class="revealed-headlines">${r.headlines.map(h=>`<div class="revealed-headline"><a href="${escapeHTML(h.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(h.exact)}</a><small>${escapeHTML(h.outlet)} · ${escapeHTML(h.date)}</small></div>`).join("")}</div>
+    <p class="reality-check">${escapeHTML(r.reality)}</p>`;
+  $("#lesson").innerHTML=`<b>Investment lesson:</b> ${escapeHTML(r.lesson)}${state.mood?` <span class="story-chip">You felt ${escapeHTML(state.mood)}</span>`:""}`;
+  $("#nextBtn").textContent=state.current===5?"Reveal my scorecard":"Next round";
+}
+function renderActualChart(r,ranks,selected){
+  const vals=Object.values(r.target),maxAbs=Math.max(.10,...vals.map(Math.abs));
+  $("#actualChart").innerHTML=ranks.order.map(key=>{const val=r.target[key],width=Math.min(Math.abs(val)/maxAbs,1)*50,style=val>=0?`left:50%;width:${width}%`:`left:${50-width}%;width:${width}%`,meta=groupMeta(key);return `<div class="actual-row ${key===selected?"chosen":""} ${ranks.map[key]===1?"winner":""}"><div class="actual-name">${meta.label}<small>Rank #${ranks.map[key]}</small></div><div class="actual-track"><span class="actual-bar ${val>=0?"pos":"neg"}" style="${style}"></span></div><div class="actual-value">${pct(val)}</div></div>`}).join("");
+}
+function nextRound(){if(state.current<5){state.current++;renderRound();window.scrollTo({top:0,behavior:"smooth"})}else{renderResults();showScreen("results");setTimeout(()=>triggerDataFlash(true),650)}}
+function computeHorizonStats(horizon){
+  let leaderWins=0,leaderLast=0,laggardWins=0,n=0;
+  for(let target=YEARS[0]+horizon;target<=YEARS[YEARS.length-1];target++){
+    const trailing={};GROUPS.forEach(g=>trailing[g.key]=compound(Array.from({length:horizon},(_,i)=>DATA[String(target-horizon+i)][g.key])));
+    const tr=rankMap(trailing),next=rankMap(DATA[String(target)]);n++;
+    if(tr.order[0]===next.order[0])leaderWins++;
+    if(next.map[tr.order[0]]===4)leaderLast++;
+    if(tr.order[3]===next.order[0])laggardWins++;
+  }
+  return{horizon,n,leaderWins,leaderLast,laggardWins};
+}
+function renderResults(){
+  const n=state.records.length,hits=state.records.filter(r=>r.selected===r.winner).length;
+  const selectedTotal=state.records.reduce((s,r)=>s+STAKE_LAKH*(1+r.selectedReturn),0),equalTotal=state.records.reduce((s,r)=>s+STAKE_LAKH*(1+r.equalReturn),0),perfectTotal=state.records.reduce((s,r)=>s+STAKE_LAKH*(1+r.bestReturn),0);
+  const chaseCount=state.records.filter(r=>r.selected===r.trailingLeader).length,contrarianCount=state.records.filter(r=>r.selected===r.trailingLaggard).length,moods=state.records.filter(r=>r.mood!=="Not recorded");
+  $("#hitRing").style.setProperty("--score-angle",`${(hits/n)*360}deg`);$("#hitCount").textContent=`${hits}/${n}`;
+  const messages=[
+    [1,"The market kept its secrets.","The historical leaders and the most persuasive narratives changed roles faster than a simple recent-performance rule could anticipate."],
+    [2,"Harder than it looked.","A few calls worked, but most target years rotated away from the selection that felt easiest to justify."],
+    [3,"A mixed signal—not a forecasting system.","Half the calls worked. That can feel persuasive, yet six rounds cannot establish a repeatable prediction rule."],
+    [4,"A strong run, still not a rule.","You navigated this sample well. A different game code can quickly test whether the apparent skill survives another sequence."],
+    [6,"Exceptional result—now distrust the certainty.","A high hit rate in six historical rounds can happen. A robust process should not depend on repeating one favourable sequence."]
+  ];
+  const m=messages.find(([limit])=>hits<=limit)||messages[messages.length-1];$("#resultHeadline").textContent=m[1];
+  const gap=selectedTotal-equalTotal;
+  $("#resultNarrative").textContent=`Across six separate ₹10 lakh decisions, your ending value was ${lakh(selectedTotal)}. The equal four-way basket ended at ${lakh(equalTotal)}—${Math.abs(gap).toFixed(2)} lakh ${gap>=0?"below":"above"} your selections. ${m[2]}`;
+  $("#kpis").innerHTML=`<div class="kpi"><span>Winners selected</span><strong>${hits}/6</strong></div><div class="kpi"><span>Your ending value</span><strong>${lakh(selectedTotal)}</strong></div><div class="kpi"><span>Equal four-way basket</span><strong>${lakh(equalTotal)}</strong></div><div class="kpi"><span>Chased / chose laggard</span><strong>${chaseCount} / ${contrarianCount}</strong></div>`;
+  $("#scoreTable").innerHTML=`<thead><tr><th>Round</th><th>Lens</th><th>Target</th><th>Your bet</th><th>Return</th><th>Rank</th><th>Winner</th><th>Feeling</th></tr></thead><tbody>${state.records.map(r=>`<tr><td>${r.round}</td><td>${r.horizon}Y</td><td>${r.targetYear}</td><td>${r.selected}</td><td class="num">${pct(r.selectedReturn)}</td><td class="num">#${r.selectedRank}</td><td>${r.winner}</td><td>${r.mood}</td></tr>`).join("")}</tbody>`;
+  $("#horizonStats").innerHTML=[2,3,4,5].map(h=>{const s=computeHorizonStats(h);return `<div class="horizon-card"><h4>${h}-year evidence lens · ${s.n} tests</h4><div class="horizon-card-grid"><div class="horizon-mini"><strong>${Math.round(s.leaderWins/s.n*100)}%</strong><span>leader won next year</span></div><div class="horizon-mini"><strong>${s.leaderLast}</strong><span>leader fell to last</span></div><div class="horizon-mini"><strong>${s.laggardWins}</strong><span>laggard became winner</span></div></div></div>`}).join("");
+  renderCountryDataset();
+}
+function heatStyle(v){
+  const maxPos=1.05,maxNeg=.66;if(Math.abs(v)<.0005)return{bg:"#f4f6f9",fg:"#5d6d82"};
+  const positive=v>0,intensity=Math.min(Math.abs(v)/(positive?maxPos:maxNeg),1),alpha=.12+.76*Math.pow(intensity,.72);
+  return{bg:positive?`rgba(15,147,108,${alpha})`:`rgba(183,49,68,${alpha})`,fg:alpha>.53?"#fff":"#18324f"};
+}
+function renderCountryDataset(){
+  $("#heatmap").innerHTML=`<thead><tr><th data-country="">Year</th>${COUNTRY_NAMES.map(c=>`<th data-country="${c}" title="Highlight ${c}">${c}</th>`).join("")}</tr></thead><tbody>${YEARS.map(y=>`<tr><td>${y}</td>${COUNTRY_NAMES.map(c=>{const v=COUNTRY_DATA[String(y)][c],s=heatStyle(v);return `<td data-country="${c}" style="background:${s.bg};color:${s.fg}">${pct(v,1)}</td>`}).join("")}</tr>`).join("")}</tbody>`;
+  $$("#heatmap thead th[data-country]").forEach(th=>{if(th.dataset.country)th.addEventListener("click",()=>highlightCountry(th.dataset.country))});
+}
+function highlightCountry(country){
+  $$("#heatmap .col-highlight").forEach(el=>el.classList.remove("col-highlight"));$$(`#heatmap [data-country="${CSS.escape(country)}"]`).forEach(el=>el.classList.add("col-highlight"));
+  const vals=YEARS.map(y=>({year:y,value:COUNTRY_DATA[String(y)][country]})),best=vals.reduce((a,b)=>b.value>a.value?b:a),worst=vals.reduce((a,b)=>b.value<a.value?b:a),total=compound(vals.map(x=>x.value)),geo=cagr(total,vals.length),positive=vals.filter(x=>x.value>0).length;
+  $("#datasetSummary").innerHTML=`<strong>${country}: ${pct(geo)} annualised across 2000–2025.</strong><p>Best year ${best.year}: ${pct(best.value)} · Worst year ${worst.year}: ${pct(worst.value)} · Positive years: ${positive}/${vals.length} · Compounded growth of $100: $${(100*(1+total)).toFixed(0)}.</p>`;
+}
+function triggerDataFlash(auto=false){
+  if(auto&&state.flashShown)return;state.flashShown=true;clearInterval(state.flashTimer);
+  const overlay=$("#dataFlash");overlay.classList.add("active");overlay.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";
+  let i=0;const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function frame(){const y=YEARS[i],row=COUNTRY_DATA[String(y)];$("#flashYear").textContent=y;$("#flashGrid").innerHTML=COUNTRY_NAMES.map(c=>`<div class="flash-cell"><b>${c}</b><strong>${pct(row[c],1)}</strong></div>`).join("");$("#flashProgress").style.width=`${((i+1)/YEARS.length)*100}%`;$("#flashCaption").textContent=i===0?"The record begins in a global bear market.":i===YEARS.length-1?"The latest year changes the ranking again.":"Leadership rotates; certainty arrives only in hindsight.";i++;if(i>=YEARS.length){clearInterval(state.flashTimer);setTimeout(closeDataFlash,reduce?1200:900)}}
+  frame();state.flashTimer=setInterval(frame,reduce?360:95);
+}
+function closeDataFlash(){clearInterval(state.flashTimer);$("#dataFlash").classList.remove("active");$("#dataFlash").setAttribute("aria-hidden","true");document.body.style.overflow="";setTimeout(()=>$("#datasetSection").scrollIntoView({behavior:"smooth",block:"start"}),120)}
+function downloadGameCSV(){
+  const rows=[["Game code",state.seed],[],["Round","Scenario","Evidence years","Horizon","Target year","Selected basket","Selected return","Selected rank","Winning basket","Winning return","Equal basket return","Feeling"]];
+  state.records.forEach(r=>rows.push([r.round,r.pool,`${r.histYears[0]}-${r.histYears[r.histYears.length-1]}`,r.horizon,r.targetYear,r.selected,(r.selectedReturn*100).toFixed(2)+"%",r.selectedRank,r.winner,(r.bestReturn*100).toFixed(2)+"%",(r.equalReturn*100).toFixed(2)+"%",r.mood]));downloadRows(rows,`Knowith_Returns_Game_${state.seed}.csv`)
+}
+function downloadDatasetCSV(){const rows=[["Year",...COUNTRY_NAMES],...YEARS.map(y=>[y,...COUNTRY_NAMES.map(c=>(COUNTRY_DATA[String(y)][c]*100).toFixed(2)+"%")])];downloadRows(rows,"MSCI_Country_Returns_USD_2000_2025.csv")}
+function downloadRows(rows,name){const csv=rows.map(row=>row.map(v=>`"${String(v??"").replaceAll('"','""')}"`).join(",")).join("\n"),blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+function openModal(){$("#modalBackdrop").classList.add("active")}
+function closeModal(){$("#modalBackdrop").classList.remove("active")}
+
+$("#randomSeed").addEventListener("click",randomSeed);$("#startBtn").addEventListener("click",()=>startGame());$("#lockBtn").addEventListener("click",revealRound);$("#nextBtn").addEventListener("click",nextRound);$("#newGameBtn").addEventListener("click",()=>{randomSeed();startGame()});$("#sameGameBtn").addEventListener("click",()=>startGame(true));$("#printBtn").addEventListener("click",()=>window.print());$("#csvBtn").addEventListener("click",downloadGameCSV);$("#datasetCsvBtn").addEventListener("click",downloadDatasetCSV);$("#flashBtn").addEventListener("click",()=>triggerDataFlash(false));$("#flashSkip").addEventListener("click",closeDataFlash);
+$("#methodBtn").addEventListener("click",openModal);$("#methodBtn2").addEventListener("click",openModal);$("#modalClose").addEventListener("click",closeModal);$("#modalBackdrop").addEventListener("click",e=>{if(e.target.id==="modalBackdrop")closeModal()});
+$("#fullBtn").addEventListener("click",()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()});
+$$(".mood-btn").forEach(b=>b.addEventListener("click",()=>selectMood(b.dataset.mood)));
+document.addEventListener("keydown",e=>{if($("#dataFlash").classList.contains("active")){if(e.key==="Escape"||e.key==="Enter")closeDataFlash();return}if($("#game").classList.contains("active")&&!$("#decision").classList.contains("hidden")){if(["1","2","3","4"].includes(e.key)){const card=$$(".group-card")[Number(e.key)-1];if(card)selectGroup(card.dataset.group)}else if(e.key==="Enter"&&state.selected)revealRound()}else if($("#game").classList.contains("active")&&$("#reveal").classList.contains("active")&&e.key==="Enter")nextRound();if(e.key==="Escape")closeModal()});
+randomSeed();
+</script>
+</body>
+</html>
