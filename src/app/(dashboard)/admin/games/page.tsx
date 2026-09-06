@@ -11,7 +11,8 @@ const ALL_GAMES = [
   { id: 'chapter5', title: 'The Contrarian Signal' },
   { id: 'chapter6', title: 'Freedom Stack' },
   { id: 'chapter7', title: 'The Market Cap Challenge' },
-  { id: 'chapter8', title: 'Match the Performers' }
+  { id: 'chapter8', title: 'Match the Performers' },
+  { id: 'global-returns', title: 'Global Returns Prediction' }
 ];
 
 export default function GameConfigPage() {

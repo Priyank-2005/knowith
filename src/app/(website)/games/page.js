@@ -82,6 +82,14 @@ const chapters = [
     desc: 'The past is on the left. Place your forecast on the right. Nine funds, nine returns, and one revealing lesson about repeatability.',
     href: '/games/match-performers',
     color: '#2e7d32' // green
+  },
+  {
+    id: 'global-returns',
+    num: '09',
+    title: 'Global Returns Prediction',
+    desc: 'Test your ability to predict global market returns across different asset classes and geographies.',
+    href: '/games/global-returns',
+    color: '#0ea5e9' // sky blue
   }
 ];
 
