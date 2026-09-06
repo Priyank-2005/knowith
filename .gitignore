@@ -50,3 +50,6 @@ next-env.d.ts
 
 # Local dev subfolder (all code lives at root)
 /ai_features/
+
+# Uploads
+/public/uploads/
