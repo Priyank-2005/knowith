@@ -276,3 +276,9 @@ model Insight {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+model AppConfig {
+  id          String   @id @default("default")
+  activeGames String[] // Array of active game IDs
+  updatedAt   DateTime @updatedAt
+}
