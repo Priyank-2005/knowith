@@ -16,7 +16,8 @@ import {
   Users,
   LayoutTemplate,
   LogOut,
-  Globe
+  Globe,
+  PlayCircle
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -35,13 +36,14 @@ const aiFeatureItems = [
   { name: 'Market News', href: '/market', icon: Newspaper },
 ];
 
-// Email Marketing & Admin Tools — visible to ADMIN only
 const adminItems = [
   { name: 'Campaigns', href: '/admin/campaigns', icon: Mail },
   { name: 'Email Templates', href: '/admin/campaigns/templates', icon: LayoutTemplate },
   { name: 'Audience', href: '/admin/campaigns/contacts', icon: Users },
   { name: 'Chat Logs', href: '/admin/chats', icon: Headphones },
   { name: 'Market Data', href: '/admin/market-data', icon: Globe },
+  { name: 'Insights', href: '/admin/insights', icon: Newspaper },
+  { name: 'Games config', href: '/admin/games', icon: PlayCircle },
 ];
 
 export default function Sidebar() {
@@ -85,7 +87,7 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="fixed left-0 top-0 bottom-0 z-50 flex h-screen w-[260px] flex-col bg-[#0B2E33] border-r border-[#15464D] text-white print:hidden shrink-0">
+    <div className="fixed top-0 left-0 bottom-0 z-50 flex w-[260px] flex-col bg-[#0B2E33] border-r border-[#15464D] text-white print:hidden">
       {/* Logo */}
       <div className="px-6 py-8">
         <h1 className="text-2xl font-serif text-[#F6F3EC] tracking-wide">

@@ -23,9 +23,9 @@ export default function Navbar() {
           <div className={styles.navLinks}>
             <Link href="/approach" style={{ color: pathname === '/approach' ? 'var(--gold)' : '' }}>Approach</Link>
             <Link href="/services" style={{ color: pathname === '/services' ? 'var(--gold)' : '' }}>Services</Link>
-            <Link href="/#products" style={{ color: pathname === '/#products' ? 'var(--gold)' : '' }}>Products</Link>
+            <Link href="/products" style={{ color: pathname === '/products' ? 'var(--gold)' : '' }}>Products</Link>
             <Link href="/calculators" style={{ color: pathname === '/calculators' ? 'var(--gold)' : '' }}>Calculators</Link>
-            <Link href="/games" style={{ color: pathname?.startsWith('/games') ? 'var(--gold)' : '' }}>Games</Link>
+            <Link href="/games" style={{ color: pathname?.startsWith('/games') ? 'var(--gold)' : '' }}>Education</Link>
             <Link href="/market-concentration" style={{ color: pathname === '/market-concentration' ? 'var(--gold)' : '' }}>Markets</Link>
             <Link href="/insights" style={{ color: pathname === '/insights' ? 'var(--gold)' : '' }}>Insights</Link>
             <Link href="/contact" style={{ color: pathname === '/contact' ? 'var(--gold)' : '' }}>Contact</Link>

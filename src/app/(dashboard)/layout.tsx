@@ -17,7 +17,7 @@ export default function DashboardLayout({
     <div className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} ${inter.className} bg-[var(--ink)] text-white antialiased min-h-screen relative`}>
       <AuthGuard>
         <Sidebar />
-        <main className="ml-[260px] h-screen overflow-hidden relative print:h-auto print:overflow-visible print:ml-0">
+        <main className="ml-[260px] min-h-screen bg-[#050505] print:ml-0 print:bg-white">
           {children}
         </main>
       </AuthGuard>

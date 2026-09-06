@@ -105,11 +105,17 @@ export default function SWPCalculator() {
               </div>
 
               <div className={styles.totalRow}>
-                <span className={styles.totalLabel} style={{color: isDepleted ? '#ef4444' : 'var(--gold)'}}>
-                  {isDepleted ? 'Corpus Depletes Before End' : 'Final Balance Remaining'}
+                <span className={styles.totalLabel} style={{color: 'var(--gold)'}}>
+                  Final Balance Remaining
                 </span>
                 <div className={styles.totalValue}>{formatCurrency(finalBalance)}</div>
               </div>
+
+              {isDepleted && (
+                <div style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid #ef4444', borderRadius: '8px', color: '#ef4444', textAlign: 'center', fontWeight: 'bold' }}>
+                  ⚠️ Warning: Your corpus will be fully depleted before the {years}-year period ends! Consider lowering your withdrawal amount.
+                </div>
+              )}
 
               <div className={styles.chartContainer}>
                 <div className={styles.barRow}>

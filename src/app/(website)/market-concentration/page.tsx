@@ -55,7 +55,10 @@ export default function MarketConcentrationPage() {
         <div className={styles.header}>
           <h1 className={styles.title}>{data?.title || 'Global Market Concentration'}</h1>
           <p className={styles.subtitle}>Analysis of top-heavy equity markets across developed and emerging economies.</p>
-          {data && <div className={styles.badge}>Data as of {data.month}</div>}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', justifyContent: 'center' }}>
+            {data && <div className={styles.badge}>Data as of {data.month}</div>}
+            <span style={{ fontSize: '0.85rem', color: 'var(--slate)', fontStyle: 'italic' }}>* Updated once every day</span>
+          </div>
         </div>
 
         <div className={styles.controls}>

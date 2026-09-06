@@ -18,7 +18,7 @@ export const ChatLayout: React.FC<ChatLayoutProps> = ({
   featureTitle 
 }) => {
   return (
-    <div className="flex flex-col h-screen bg-[#F6F3EC] font-sans overflow-hidden print:h-auto print:overflow-visible print:bg-white min-w-0">
+    <div className="flex flex-col h-full bg-[#F6F3EC] font-sans overflow-hidden print:h-auto print:overflow-visible print:bg-white min-w-0">
       
       {/* Top Navigation Bar */}
       <header className="h-16 bg-white/60 backdrop-blur-md border-b border-[#E8E2D2] flex items-center justify-between px-6 shrink-0 z-20 print:hidden">

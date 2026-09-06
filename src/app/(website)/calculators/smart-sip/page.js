@@ -50,18 +50,26 @@ export default function SmartSIPCalculator() {
 
             <div className={styles.calcForm}>
               <div className={styles.formGroup}>
-                <label>Monthly Investment <span>{formatCurrency(monthlyInvest)}</span></label>
-                <input type="range" min="1000" max="200000" step="1000" value={monthlyInvest} onChange={(e) => setMonthlyInvest(Number(e.target.value))} />
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <label style={{ margin: 0 }}>Monthly Investment</label>
+                  <input 
+                    type="number" 
+                    value={monthlyInvest} 
+                    onChange={(e) => setMonthlyInvest(Number(e.target.value))}
+                    style={{ padding: '4px 8px', width: '120px', borderRadius: '4px', border: '1px solid var(--border-light)' }}
+                  />
+                </div>
+                <input type="range" min="1000" max={Math.max(200000, monthlyInvest)} step="1000" value={monthlyInvest} onChange={(e) => setMonthlyInvest(Number(e.target.value))} />
               </div>
               
               <div className={styles.formGroup}>
                 <label>Expected Return (p.a) <span>{returnRate}%</span></label>
-                <input type="range" min="5" max="25" step="0.5" value={returnRate} onChange={(e) => setReturnRate(Number(e.target.value))} />
+                <input type="range" min="1" max="25" step="0.5" value={returnRate} onChange={(e) => setReturnRate(Number(e.target.value))} />
               </div>
               
               <div className={styles.formGroup}>
                 <label>Investment Horizon <span>{years} Years</span></label>
-                <input type="range" min="5" max="40" step="1" value={years} onChange={(e) => setYears(Number(e.target.value))} />
+                <input type="range" min="1" max="40" step="1" value={years} onChange={(e) => setYears(Number(e.target.value))} />
               </div>
 
               <div className={styles.formGroup} style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid var(--border-light)'}}>

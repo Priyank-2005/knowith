@@ -87,7 +87,21 @@ const chapters = [
 
 function HubContent() {
   const { getTotalScore, scores, resetGame, playerName, setPlayerName } = useGameState();
-  const allCompleted = scores.chapter1 !== null && scores.chapter2 !== null && scores.chapter3 !== null && scores.chapter4 !== null && scores.chapter5 !== null && scores.chapter6 !== null && scores.chapter7 !== null && scores.chapter8 !== null;
+  const [activeChapters, setActiveChapters] = React.useState(chapters);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    fetch('/api/v1/games/config')
+      .then(res => res.json())
+      .then(data => {
+        if (data.activeGames && data.activeGames.length > 0) {
+          setActiveChapters(chapters.filter(c => data.activeGames.includes(c.id)));
+        }
+        setLoading(false);
+      });
+  }, []);
+
+  const allCompleted = activeChapters.every(chapter => scores[chapter.id] !== null);
 
   const [tempName, setTempName] = React.useState('');
 
@@ -161,7 +175,7 @@ function HubContent() {
 
         <section className={styles.chaptersSection}>
           <div className={styles.chaptersGrid}>
-            {chapters.map((chapter, i) => {
+            {loading ? <p>Loading games...</p> : activeChapters.map((chapter, i) => {
               const isComplete = scores[chapter.id] !== null;
               const score = scores[chapter.id];
 

@@ -39,6 +39,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.11",
+    "fast-check": "^4.9.0",
     "prisma": "^6.19.2",
     "tailwindcss": "^4",
     "typescript": "^5"

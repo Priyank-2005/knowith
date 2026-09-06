@@ -261,3 +261,17 @@ model GameScore {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Insight {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  type        String   @default("ARTICLE")
+  contentUrl  String?
+  contentBody String?
+  publishedAt DateTime?
+  isActive    Boolean  @default(true)
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

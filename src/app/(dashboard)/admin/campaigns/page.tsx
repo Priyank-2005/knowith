@@ -77,7 +77,7 @@ export default function CampaignsPage() {
 
   return (
     <div className="min-h-screen bg-[#050505] text-white p-8">
-      <div className="max-w-6xl mx-auto space-y-8">
+      <div className="max-w-6xl mx-auto flex flex-col gap-8">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500">
@@ -94,7 +94,7 @@ export default function CampaignsPage() {
           </Link>
         </div>
 
-        <div className="bg-[#151515]/60 backdrop-blur-xl border border-[#2E2E3E]/50 rounded-2xl shadow-2xl overflow-hidden p-6 space-y-6">
+        <div className="bg-[#151515]/60 backdrop-blur-xl border border-[#2E2E3E]/50 rounded-2xl shadow-2xl overflow-hidden p-6 flex flex-col gap-6">
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
             <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 hide-scrollbar w-full sm:w-auto">
               {TABS.map((tab) => (

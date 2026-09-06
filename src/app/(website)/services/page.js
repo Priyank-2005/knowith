@@ -1,5 +1,6 @@
 "use client";
 
+import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -27,6 +28,19 @@ const services = [
 ];
 
 export default function Services() {
+  const [activeService, setActiveService] = React.useState(null);
+
+  // Close modal when Escape key is pressed
+  React.useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setActiveService(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -41,7 +55,7 @@ export default function Services() {
           </motion.div>
         </section>
 
-        <section className="section-light-2">
+        <section className="section-light-2 relative">
           <div className="container">
             <motion.div 
               className={`hairline-grid hairline-grid-light ${styles.servicesGrid}`}
@@ -50,20 +64,85 @@ export default function Services() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              {services.map((service, i) => (
-                <motion.div key={i} variants={fadeUp} className={`hairline-cell-light ${styles.serviceCard}`}>
-                  <div className={styles.iconWrapper}>
-                    {service.icon}
-                  </div>
-                  <h3>{service.title}</h3>
-                  <p>{service.desc}</p>
-                </motion.div>
-              ))}
+              {services.map((service, i) => {
+                return (
+                  <motion.div 
+                    key={i} 
+                    variants={fadeUp} 
+                    className={`hairline-cell-light ${styles.serviceCard} group cursor-pointer hover:bg-[#EFEAE0]/50 transition-colors`}
+                    onClick={() => setActiveService(service)}
+                  >
+                    <div className={styles.iconWrapper}>
+                      {service.icon}
+                    </div>
+                    <h3>{service.title}</h3>
+                    <p>{service.desc}</p>
+                    
+                    <div className="mt-4 text-[var(--gold)] text-[0.9rem] font-bold opacity-80 group-hover:opacity-100 transition-opacity">
+                      Read Details &rarr;
+                    </div>
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </div>
         </section>
+
       </main>
       <Footer />
+
+      {/* Modal Popup */}
+      {activeService && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer" 
+            onClick={() => setActiveService(null)}
+          ></div>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="relative bg-[var(--marble)] rounded-2xl p-8 md:p-12 max-w-2xl w-full shadow-2xl z-10 text-center"
+          >
+            <button 
+              onClick={() => setActiveService(null)}
+              className="absolute top-4 right-4 p-2 text-[var(--slate)] hover:text-[var(--ink)] transition-colors"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            
+            <div className="flex justify-center mb-6 text-[var(--gold)]">
+              {React.cloneElement(activeService.icon, { width: 48, height: 48 })}
+            </div>
+            
+            <h2 className="text-3xl font-serif text-[var(--ink)] mb-4">
+              {activeService.title}
+            </h2>
+            
+            <p className="text-[var(--slate-soft)] text-lg mb-8">
+              {activeService.desc}
+            </p>
+            
+            <div className="border-t border-[var(--border-light)] pt-8 text-left space-y-4">
+              <p className="text-[var(--slate)]">
+                This service provides institutional-level frameworks tailored specifically to your unique goals. We employ data-driven strategies to maximize returns while managing downside risk effectively.
+              </p>
+              <p className="text-[var(--slate)]">
+                Our approach involves a rigorous quantitative process coupled with qualitative insights to adapt to evolving market dynamics, ensuring your wealth distribution stays perfectly aligned with your long-term aspirations.
+              </p>
+            </div>
+            
+            <div className="mt-10 flex justify-center">
+              <button 
+                onClick={() => setActiveService(null)}
+                className="px-8 py-3 border border-[var(--gold)] text-[var(--gold)] font-bold text-sm tracking-widest uppercase hover:bg-[var(--gold)] hover:text-[var(--ink)] transition-all rounded"
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </>
   );
 }
