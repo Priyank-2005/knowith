@@ -109,7 +109,7 @@ function HubContent() {
       });
   }, []);
 
-  const allCompleted = activeChapters.every(chapter => scores[chapter.id] !== null);
+  const allCompleted = activeChapters.every(chapter => scores[chapter.id] != null);
 
   const [tempName, setTempName] = React.useState('');
 
@@ -184,8 +184,8 @@ function HubContent() {
         <section className={styles.chaptersSection}>
           <div className={styles.chaptersGrid}>
             {loading ? <p>Loading games...</p> : activeChapters.map((chapter, i) => {
-              const isComplete = scores[chapter.id] !== null;
               const score = scores[chapter.id];
+              const isComplete = score !== null && score !== undefined;
 
               return (
                 <motion.div 
