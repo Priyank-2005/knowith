@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
 import styles from './FloatingButtons.module.css';
 
 export default function FloatingButtons() {
@@ -13,6 +14,7 @@ export default function FloatingButtons() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState('Analyzing query...');
   const messagesEndRef = useRef(null);
 
   const [sessionId, setSessionId] = useState(null);
@@ -24,7 +26,21 @@ export default function FloatingButtons() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isTyping]);
+  }, [messages, isTyping, loadingMessage]);
+
+  useEffect(() => {
+    let interval;
+    if (isTyping) {
+      const msgs = ['Analyzing query...', 'Reviewing markets...', 'Generating insights...'];
+      let i = 0;
+      setLoadingMessage(msgs[0]);
+      interval = setInterval(() => {
+        i = (i + 1) % msgs.length;
+        setLoadingMessage(msgs[i]);
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+  }, [isTyping]);
 
   if (pathname?.startsWith('/games')) return null;
 
@@ -110,14 +126,17 @@ export default function FloatingButtons() {
             <div className={styles.chatBody}>
               {messages.map(msg => (
                 <div key={msg.id} className={`${styles.message} ${styles[msg.sender]}`}>
-                  {msg.text}
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
                 </div>
               ))}
               {isTyping && (
-                <div className={styles.typingIndicator}>
-                  <div className={styles.dot}></div>
-                  <div className={styles.dot}></div>
-                  <div className={styles.dot}></div>
+                <div className={`${styles.message} ${styles.ai}`} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div className={styles.typingIndicator}>
+                    <div className={styles.dot}></div>
+                    <div className={styles.dot}></div>
+                    <div className={styles.dot}></div>
+                  </div>
+                  <span style={{ fontSize: '11px', opacity: 0.7 }}>{loadingMessage}</span>
                 </div>
               )}
               <div ref={messagesEndRef} />

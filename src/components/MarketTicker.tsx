@@ -55,6 +55,14 @@ export default function MarketTicker() {
   if (pathname?.startsWith('/games')) return null;
   if (loading || items.length === 0) return null;
 
+  const getCurrencySymbol = (indexName: string) => {
+    const rupees = ['Sensex', 'Nifty 50', 'Bank Nifty', 'USD/INR'];
+    const dollars = ['Nasdaq', 'S&P 500', 'Bitcoin', 'Ethereum'];
+    if (rupees.includes(indexName)) return '₹';
+    if (dollars.includes(indexName)) return '$';
+    return '';
+  };
+
   return (
     <div style={{ width: '100%', backgroundColor: '#1b433a', padding: '8px 0', overflow: 'hidden', borderBottom: '1px solid #13302a', display: 'block' }}>
       <div className="animate-marquee" style={{ display: 'inline-flex', flexWrap: 'nowrap', width: 'fit-content' }}>
@@ -62,7 +70,7 @@ export default function MarketTicker() {
           <div key={`${item.indexName}-${i}`} style={{ display: 'inline-flex', alignItems: 'center', fontSize: '12px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
             <span style={{ color: '#84a39b', fontWeight: 600, letterSpacing: '0.025em', marginRight: '8px' }}>{item.indexName}</span>
             <span style={{ color: 'white', fontWeight: 700, marginRight: '8px' }}>
-              {item.currentValue != null ? item.currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 'N/A'}
+              {getCurrencySymbol(item.indexName)}{item.currentValue != null ? item.currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 'N/A'}
             </span>
             <span style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px', color: item.changeAmount >= 0 ? '#34d399' : '#f87171' }}>
               {item.changeAmount >= 0 ? '▲' : '▼'} {Math.abs(item.changePercentage || 0).toFixed(2)}%

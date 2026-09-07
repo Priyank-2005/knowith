@@ -127,6 +127,24 @@
   letter-spacing: 0.2px;
 }
 
+.message p {
+  margin: 0 0 0.75rem 0;
+}
+.message p:last-child {
+  margin: 0;
+}
+.message ul, .message ol {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+.message li {
+  margin-bottom: 0.25rem;
+}
+.message strong {
+  font-weight: 700;
+  color: inherit;
+}
+
 .message.ai {
   background: white;
   color: #334155;

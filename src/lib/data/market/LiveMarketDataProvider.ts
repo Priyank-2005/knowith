@@ -53,12 +53,14 @@ export class LiveMarketDataProvider implements MarketDataProvider {
 
   async getMarketSnapshot(): Promise<MarketSnapshotData[]> {
     const indices = [
-      { symbol: '^NSEI', name: 'Nifty 50' },
       { symbol: '^BSESN', name: 'Sensex' },
+      { symbol: '^NSEI', name: 'Nifty 50' },
       { symbol: '^NSEBANK', name: 'Bank Nifty' },
       { symbol: 'INR=X', name: 'USD/INR' },
-      { symbol: 'GC=F', name: 'Gold (Global)' },
-      { symbol: 'BZ=F', name: 'Crude Oil (Brent)' }
+      { symbol: '^IXIC', name: 'Nasdaq' },
+      { symbol: '^GSPC', name: 'S&P 500' },
+      { symbol: 'BTC-USD', name: 'Bitcoin' },
+      { symbol: 'ETH-USD', name: 'Ethereum' }
     ];
 
     const promises = indices.map(async (idx) => {
