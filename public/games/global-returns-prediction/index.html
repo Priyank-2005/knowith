@@ -4,18 +4,18 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="An interactive Knowith Capital investor education game about country-return momentum, reversals, media narratives and performance chasing." />
-<title>Knowith Capital — The Story of the Moment</title>
+<title>Knowith Capital — Global Allocator Game</title>
 <style>
 :root{
-  --navy: #0B2E33;
-  --navy2: #0F3A3F;
-  --blue: #B8873D;
-  --blue2: #D9B978;
-  --gold: #B8873D;
-  --ink: #0B2E33;
-  --muted: #637389;
-  --paper: #F6F3EC;
-  --white: #ffffff;
+  --navy:#07192f;
+  --navy2:#0b2747;
+  --blue:#176bff;
+  --blue2:#4db7ff;
+  --gold:#d7b35f;
+  --ink:#10233d;
+  --muted:#637389;
+  --paper:#f7f9fc;
+  --white:#ffffff;
   --green:#168a68;
   --green-soft:#e6f6f0;
   --red:#c64655;
@@ -32,14 +32,19 @@ body{
   min-height:100vh;
   font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
   color:var(--ink);
-  background: #F6F3EC;
+  background:
+    radial-gradient(circle at 8% 8%, rgba(77,183,255,.16), transparent 31%),
+    radial-gradient(circle at 88% 4%, rgba(215,179,95,.12), transparent 28%),
+    linear-gradient(135deg,var(--navy),#0b3158 58%,#0a203d);
 }
 button,input{font:inherit}
 button{cursor:pointer}
 button:disabled{cursor:not-allowed;opacity:.45}
 .shell{min-height:100vh;display:flex;flex-direction:column}
 .topbar{
-  display:none !important;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px clamp(18px,4vw,56px);color:white;border-bottom:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(12px);background:rgba(4,18,35,.34);position:sticky;top:0;z-index:20;
 }
 .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.09em}
 .brand-mark{display:flex;align-items:center;gap:4px}
@@ -54,14 +59,14 @@ button:disabled{cursor:not-allowed;opacity:.45}
   border-radius:12px;padding:9px 12px;font-weight:700
 }
 .icon-btn:hover{background:rgba(255,255,255,.14)}
-main{width:min(1180px,calc(100% - 28px));margin:0 auto 32px;padding-top:20px;flex:1}
+main{width:min(1180px,calc(100% - 28px));margin:26px auto 32px;flex:1}
 .screen{display:none}
 .screen.active{display:block}
 .panel{
-  background:rgba(255,255,255,.975);border:1px solid #EFEAE0;
-  border-radius:26px;box-shadow:none;overflow:hidden
+  background:rgba(255,255,255,.975);border:1px solid rgba(255,255,255,.7);
+  border-radius:26px;box-shadow:var(--shadow);overflow:hidden
 }
-.hero{padding:clamp(28px,5vw,66px);position:relative;background:#F6F3EC;box-shadow:none;border:none}
+.hero{padding:clamp(28px,5vw,66px);position:relative}
 .hero:after{
   content:"";position:absolute;width:360px;height:360px;border-radius:50%;
   right:-150px;top:-170px;background:radial-gradient(circle,rgba(23,107,255,.18),transparent 67%)
@@ -76,7 +81,7 @@ h1 span{color:var(--blue)}
 .hero-copy{font-size:clamp(17px,2vw,21px);line-height:1.55;max-width:780px;color:#4c6077;margin:24px 0 28px}
 .rule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:25px 0 26px}
 .rule{
-  border:1px solid var(--line);background:#ffffff;border-radius:17px;padding:16px;
+  border:1px solid var(--line);background:var(--paper);border-radius:17px;padding:16px;
   min-height:102px
 }
 .rule strong{display:block;font-size:25px;color:var(--navy);margin-bottom:5px}
@@ -288,17 +293,378 @@ h1 span{color:var(--blue)}
 .narrative-reveal{margin-top:18px;border:1px solid #e0e7f0;border-radius:17px;overflow:hidden;background:#fff}.narrative-reveal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(90deg,#f7f9fc,#eef4fb);padding:12px 15px;border-bottom:1px solid #e0e7f0}.narrative-reveal-head strong{font-size:13px;color:var(--navy)}.narrative-reveal-head span{font-size:10px;color:var(--muted)}.revealed-headlines{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:13px}.revealed-headline{border-left:3px solid var(--gold);padding:7px 10px}.revealed-headline a{font-weight:800;color:#1b58a7;text-decoration:none;font-size:12px;line-height:1.4}.revealed-headline a:hover{text-decoration:underline}.revealed-headline small{display:block;color:var(--muted);margin-top:5px}.reality-check{margin:0 13px 13px;padding:12px 13px;border-radius:12px;background:#f4f7fb;color:#445871;font-size:12px;line-height:1.48}
 .horizon-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.horizon-card{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--paper)}.horizon-card h4{margin:0 0 8px;font-size:13px;color:var(--navy)}.horizon-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.horizon-mini{background:#fff;border-radius:9px;padding:7px;text-align:center}.horizon-mini strong{display:block;color:var(--blue);font-size:17px}.horizon-mini span{display:block;color:var(--muted);font-size:8px;line-height:1.25;margin-top:2px}
 .dataset-section{margin-top:24px;border-top:1px solid var(--line);padding-top:24px}.dataset-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}.dataset-head h3{font-size:25px;margin:0 0 8px}.dataset-head p{margin:0;color:var(--muted);font-size:13px;line-height:1.5;max-width:760px}.dataset-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.dataset-summary{margin:15px 0;border:1px solid #dce5ef;border-radius:15px;padding:13px 15px;background:linear-gradient(135deg,#f8fbff,#fff);min-height:72px}.dataset-summary strong{color:var(--navy)}.dataset-summary p{margin:4px 0 0;color:var(--muted);font-size:12px}.heatmap-wrap{overflow:auto;max-height:610px;border:1px solid var(--line);border-radius:16px;background:#fff}.heatmap{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-size:10px;font-variant-numeric:tabular-nums}.heatmap th,.heatmap td{padding:8px 9px;text-align:right;border-right:1px solid rgba(255,255,255,.25);border-bottom:1px solid rgba(221,229,239,.7);white-space:nowrap}.heatmap thead th{position:sticky;top:0;z-index:4;background:var(--navy);color:#fff;text-align:center;cursor:pointer}.heatmap thead th:hover{background:#154d80}.heatmap th:first-child,.heatmap td:first-child{position:sticky;left:0;z-index:3}.heatmap thead th:first-child{z-index:6;background:#04152a}.heatmap tbody td:first-child{background:#f0f4f9;color:var(--navy);font-weight:900;text-align:center}.heatmap .col-highlight{outline:2px solid var(--gold);outline-offset:-2px}.legend{display:flex;align-items:center;gap:8px;margin-top:9px;color:var(--muted);font-size:10px}.legend-gradient{height:10px;width:190px;border-radius:99px;background:linear-gradient(90deg,#b73144,#fff 50%,#0f936c)}
-.data-flash{position:fixed;inset:0;background:radial-gradient(circle at center, #0F3A3F 0, #0B2E33 58%, #051517 100%);z-index:500;display:none;color:#fff;align-items:center;justify-content:center;padding:24px}.data-flash.active{display:flex}.flash-inner{width:min(1080px,100%);text-align:center}.flash-eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:var(--gold);font-weight:900}.flash-title{font-size:clamp(30px,6vw,70px);line-height:1;margin:10px 0 8px;letter-spacing:-.045em}.flash-sub{color:rgba(255,255,255,.65);margin-bottom:24px}.flash-year{font-size:clamp(60px,12vw,140px);font-weight:950;line-height:.8;letter-spacing:-.06em;margin-bottom:23px}.flash-grid{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:7px}.flash-cell{border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:9px 5px;background:rgba(255,255,255,.07);min-width:0}.flash-cell b{display:block;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(255,255,255,.65)}.flash-cell strong{display:block;margin-top:4px;font-size:13px}.flash-progress{height:4px;background:rgba(255,255,255,.12);border-radius:99px;margin:23px auto 0;overflow:hidden;max-width:720px}.flash-progress span{display:block;height:100%;background:linear-gradient(90deg,var(--blue2),var(--gold));transition:width .08s linear}.flash-skip{position:absolute;right:24px;top:22px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:11px;padding:9px 12px;font-weight:800}.flash-caption{margin-top:16px;font-size:13px;color:rgba(255,255,255,.74)}
+.data-flash{position:fixed;inset:0;background:radial-gradient(circle at center,#133b67 0,#061426 58%,#020912 100%);z-index:500;display:none;color:#fff;align-items:center;justify-content:center;padding:24px}.data-flash.active{display:flex}.flash-inner{width:min(1080px,100%);text-align:center}.flash-eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:var(--gold);font-weight:900}.flash-title{font-size:clamp(30px,6vw,70px);line-height:1;margin:10px 0 8px;letter-spacing:-.045em}.flash-sub{color:rgba(255,255,255,.65);margin-bottom:24px}.flash-year{font-size:clamp(60px,12vw,140px);font-weight:950;line-height:.8;letter-spacing:-.06em;margin-bottom:23px}.flash-grid{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:7px}.flash-cell{border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:9px 5px;background:rgba(255,255,255,.07);min-width:0}.flash-cell b{display:block;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(255,255,255,.65)}.flash-cell strong{display:block;margin-top:4px;font-size:13px}.flash-progress{height:4px;background:rgba(255,255,255,.12);border-radius:99px;margin:23px auto 0;overflow:hidden;max-width:720px}.flash-progress span{display:block;height:100%;background:linear-gradient(90deg,var(--blue2),var(--gold));transition:width .08s linear}.flash-skip{position:absolute;right:24px;top:22px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:11px;padding:9px 12px;font-weight:800}.flash-caption{margin-top:16px;font-size:13px;color:rgba(255,255,255,.74)}
 .story-chip{display:inline-flex;align-items:center;border-radius:999px;padding:6px 9px;background:var(--purple-soft);color:#5c42b9;font-size:9px;font-weight:900;letter-spacing:.07em;text-transform:uppercase;margin-left:6px}
 @media(max-width:920px){.media-top{grid-template-columns:1fr}.emotion-box{width:100%}.headline-list,.revealed-headlines{grid-template-columns:1fr}.dataset-head{flex-direction:column}.dataset-actions{justify-content:flex-start}.flash-grid{grid-template-columns:repeat(4,1fr)}.horizon-stats{grid-template-columns:1fr}}
 @media(max-width:600px){.media-top,.headline-list,.mood-row{padding-left:14px;padding-right:14px}.flash-grid{grid-template-columns:repeat(3,1fr)}.flash-cell:nth-child(n+10){display:none}.aggregate-box{grid-template-columns:1fr}.horizon-card-grid{grid-template-columns:1fr 1fr 1fr}.dataset-actions .secondary{padding:9px 10px;font-size:11px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}.data-flash .flash-progress span{transition:none}}
-</style>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
-.topbar { display: none !important; } 
-main { margin-top: 0; padding-top: 20px; }
+/* --- Knowith Capital integrated editorial theme overrides --- */
+body{
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(86,147,214,.16), transparent 26%),
+    radial-gradient(circle at 88% 7%, rgba(220,180,96,.14), transparent 24%),
+    linear-gradient(180deg,#07182c 0%, #0b2746 42%, #081a2f 100%);
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background:linear-gradient(to top, rgba(0,0,0,.35), transparent 40%), radial-gradient(circle at center, transparent 0, rgba(0,0,0,.18) 100%);
+}
+main{width:min(1320px,calc(100% - 30px));position:relative;z-index:1}
+.topbar{
+  backdrop-filter: blur(10px);
+  background:rgba(6,20,36,.74);
+  border-bottom:1px solid rgba(233,220,191,.16);
+  box-shadow:0 10px 34px rgba(0,0,0,.18);
+}
+.brand{gap:14px;font-weight:700;letter-spacing:.02em}
+.brand-logo{display:block;width:180px;max-width:44vw;height:auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.15))}
+.brand-copy{display:flex;flex-direction:column;gap:2px}
+.brand-copy strong{font-family:Georgia,"Times New Roman",serif;font-size:19px;letter-spacing:.02em;color:#fff}
+.brand-copy small{margin:0;color:rgba(255,255,255,.74);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.icon-btn{
+  border-radius:999px;padding:10px 14px;background:rgba(255,255,255,.06);
+  border:1px solid rgba(231,219,189,.16);color:#f6f2e8;
+}
+.panel{background:linear-gradient(180deg, rgba(249,246,239,.98), rgba(255,255,255,.98)); border:1px solid rgba(232,223,206,.95); box-shadow:0 30px 75px rgba(1,8,20,.28)}
+.hero{padding:clamp(28px,4vw,54px)}
+.welcome-grid{display:grid;grid-template-columns:minmax(0,1.5fr) 320px;gap:24px;align-items:start}
+.welcome-main h1,.prompt-row h2,.reveal-title h2,.result-hero h2,.dataset-head h3,.modal h2,.box h3,.actual-chart h3,.outcome-card h3{font-family:Georgia,"Times New Roman",serif;color:#f8f3e8}
+.welcome-main h1{color:#fff;font-size:clamp(46px,6vw,82px);line-height:.95;letter-spacing:-.04em;max-width:none}
+.welcome-hero{
+  color:#fff;
+  background:
+    linear-gradient(135deg,rgba(7,25,46,.98),rgba(7,30,56,.95) 56%,rgba(10,37,64,.95)),
+    radial-gradient(circle at 78% 20%, rgba(255,214,119,.08), transparent 18%);
+}
+.welcome-hero:after{display:none}
+.eyebrow{color:#dcb15a}
+.eyebrow:before{background:#dcb15a}
+.welcome-sub{font-family:Georgia,"Times New Roman",serif;font-size:clamp(23px,3.1vw,44px);line-height:1.1;margin:8px 0 14px;color:#f3eadb}
+.hero-copy{max-width:900px;color:rgba(247,243,232,.84);font-size:19px;line-height:1.65;margin:18px 0 24px}
+.welcome-steps{display:flex;gap:14px;flex-wrap:wrap;margin:26px 0 22px}
+.welcome-steps .step{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:68px;color:rgba(255,255,255,.82)}
+.welcome-steps .step span{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.38);background:rgba(255,255,255,.04);font-weight:800}
+.welcome-steps .step.active span{background:linear-gradient(135deg,#ddc080,#b98a35);color:#1f2330;border-color:#f4d79f;box-shadow:0 0 0 4px rgba(221,192,128,.18)}
+.welcome-steps .step small{font-size:12px;letter-spacing:.03em}
+.welcome-showcase,.feature-band{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.showcase-card,.feature-card{
+  border-radius:18px;padding:16px 16px 15px;border:1px solid rgba(232,223,206,.78);
+  background:linear-gradient(180deg,rgba(252,248,241,.97),rgba(245,240,230,.97));
+  color:#17314e; box-shadow:0 8px 20px rgba(4,17,34,.12);
+}
+.showcase-card h3,.feature-card strong{font-family:Georgia,"Times New Roman",serif;font-size:20px;color:#17314e;margin:0 0 6px}
+.showcase-card p,.feature-card span{margin:0;color:#43566e;line-height:1.45;font-size:13px}
+.showcase-card span{display:inline-flex;margin-top:12px;padding:6px 10px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:#efe5cf;color:#755315}
+.showcase-card.us span{background:#dfe9f8;color:#294d7b}.showcase-card.dm span{background:#e2efe9;color:#335d4f}.showcase-card.em span{background:#f2e0e0;color:#8f4550}
+.feature-band{margin-top:14px}
+.start-row{margin-top:22px}
+.seed-box label,.small-note{color:rgba(247,243,232,.72)}
+.seed-input-wrap{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
+.seed-input-wrap input{background:transparent;color:#fff}
+.seed-random{background:rgba(255,255,255,.06);color:#fff;border-left:1px solid rgba(255,255,255,.15)}
+.primary{background:linear-gradient(180deg,#b98a35,#9d7124);box-shadow:0 12px 28px rgba(157,113,36,.32);border:1px solid rgba(255,224,167,.3);font-weight:800}
+.primary:hover{transform:translateY(-1px);filter:brightness(1.03)}
+.secondary{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff}
+.welcome-aside{display:flex;justify-content:flex-end}
+.welcome-paper,.headline-card,.revealed-headline{
+  background:linear-gradient(180deg,#f4ecdf,#fffdf7 78%);
+  border:1px solid #d9c6a1;border-radius:6px; box-shadow:0 16px 28px rgba(0,0,0,.17);
+  color:#1a2840; position:relative; overflow:hidden;
+}
+.welcome-paper{padding:18px; max-width:300px; transform:rotate(2deg)}
+.welcome-paper h3,.headline-card h4,.revealed-headline h4{font-family:Georgia,"Times New Roman",serif;line-height:1.06;letter-spacing:-.02em;color:#141f32}
+.welcome-paper h3{font-size:28px;margin:12px 0 8px}.welcome-paper h4{font-family:Georgia,"Times New Roman",serif;font-size:17px;margin:16px 0 8px;color:#1a2840}
+.welcome-paper p,.welcome-paper li{font-size:13px;line-height:1.5;color:#49596f}.welcome-paper ul{margin:8px 0 0 18px;padding:0}
+.paper-banner{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(20,31,50,.18);padding-bottom:8px;margin-bottom:8px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:#5a697d}
+.paper-name{font-family:Georgia,"Times New Roman",serif;font-size:16px;letter-spacing:.02em;text-transform:none;color:#15253d;font-weight:700}
+.paper-section{font-size:10px}
+.paper-date{font-size:10px;color:#78879a;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.paper-divider{height:1px;background:linear-gradient(90deg, rgba(20,31,50,.3), transparent);margin:14px 0}
+.game-head{background:linear-gradient(180deg,rgba(249,246,239,.96),rgba(241,235,222,.96));border-bottom:1px solid #e6ddcf}
+.round-label,.game-code{color:#536378}.game-code strong{color:#17314e}
+.progress{background:#ded7c8;height:10px}.progress span{background:linear-gradient(90deg,#c39a47,#d8c07b)}
+.stage,.results-panel{background:linear-gradient(180deg,#fcfaf5,#f5f0e6)}
+.window-chip{background:#f1e8d5;color:#795317;border-color:#e2d0a8}
+.prompt-row h2{color:#11243d;font-size:clamp(30px,3.4vw,48px)}
+.prompt-row p{color:#5c6d80;max-width:900px}
+.stake{background:#f5ebd7;border-color:#e6cf9f;color:#6d4d11}
+.media-panel{border:1px solid #e5dccb;background:linear-gradient(180deg,#fbf8f2,#f3eee5);box-shadow:0 12px 28px rgba(7,25,47,.06)}
+.media-kicker{color:#67788d}.live-dot{background:#b04252;box-shadow:0 0 0 5px rgba(176,66,82,.1)}
+.media-title{font-family:Georgia,"Times New Roman",serif;font-size:28px;line-height:1.18;color:#11243d}
+.media-sub{color:#66778c;font-size:12px}
+.emotion-box{background:linear-gradient(180deg,#0f2742,#12395f);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+.headline-list{align-items:start}
+.headline-card{padding:14px 14px 12px;min-height:234px}
+.headline-card:nth-child(odd){transform:rotate(-1.15deg)}
+.headline-card:nth-child(even){transform:rotate(1.15deg)}
+.headline-card:before{content:"";position:absolute;left:10px;right:10px;top:0;height:7px;background:repeating-linear-gradient(90deg,rgba(0,0,0,.03) 0 2px,transparent 2px 4px)}
+.headline-card h4{font-size:30px;margin:10px 0 10px}
+.headline-card .paper-note{margin:0 0 12px;font-size:13px;line-height:1.55;color:#516174}
+.headline-meta{font-size:11px;color:#67778d}.source-badge{background:#efe4cb;color:#714f19;border:1px solid #e3d0a6}
+.mood-row{padding-top:6px}.mood-btn{background:#fffaf0;border-color:#dfd1b2}.mood-btn:hover,.mood-btn.selected{background:#efe4cb;border-color:#d2b472;color:#5d4519}
+.cards.variable-history{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.group-card{border:1px solid #e2d9ca;border-radius:22px;background:linear-gradient(180deg,#fffdf8,#faf4e9);padding:16px 16px 14px;box-shadow:0 10px 20px rgba(11,39,70,.08)}
+.group-card:hover,.group-card:focus-visible{border-color:#caa65a;box-shadow:0 14px 26px rgba(17,36,61,.12)}
+.group-card.selected{border-color:#bb8a31;box-shadow:0 0 0 4px rgba(187,138,49,.17),0 16px 32px rgba(17,36,61,.14)}
+.group-card.selected:after{background:#bb8a31;color:#fff7e8}
+.group-hero{height:72px;border-radius:16px;display:flex;align-items:flex-end;justify-content:flex-start;padding:12px 14px;margin-bottom:10px;position:relative;overflow:hidden;background:linear-gradient(135deg,#e7d6b3,#b68b41)}
+.group-hero span{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.75);font-weight:900;color:#15314d;box-shadow:0 6px 10px rgba(0,0,0,.08)}
+.group-india .group-hero{background:linear-gradient(135deg,#f2c88d,#c08530)}
+.group-us .group-hero{background:linear-gradient(135deg,#b7d1ef,#4a7cb6)}
+.group-dm-ex-usa .group-hero{background:linear-gradient(135deg,#dfe9e4,#84aa9b)}
+.group-em-ex-india .group-hero{background:linear-gradient(135deg,#edc7c7,#b76c75)}
+.card-index{color:#81683c;font-size:10px;text-transform:uppercase;letter-spacing:.13em}
+.group-card h3{font-family:Georgia,"Times New Roman",serif;font-size:30px;color:#11243d;margin:5px 0 2px}
+.group-tagline{color:#42556e;font-size:14px;margin-bottom:4px;min-height:34px}
+.members{font-size:12px;color:#637389;min-height:38px}
+.history{margin-top:12px;border-top:1px solid #eee3cf;padding-top:11px}
+.h-label{color:#857a6a}.mini-track{background:#efe8db}.mini-track:before{background:#cbb99a}.mini-bar.pos{background:#749cc6}.mini-bar.neg{background:#cb6171}.trailing,.aggregate-item{background:#f7f2e9;border-color:#e7dcc8}
+.aggregate-item strong,.trailing strong{color:#17314e}.rank-badge{color:#8a6422!important}.select-hint{margin-top:10px;font-weight:800;color:#9d7124;font-size:12px}
+.decision-actions{margin-top:24px;padding-top:4px}
+.keyboard-hint{color:#6c7a89}
+.reveal-head{border-bottom:1px solid #e7dcc8}.reveal-title h2{color:#11243d;font-size:clamp(32px,3.6vw,54px)}.reveal-title p{color:#5e7085}.pattern{background:#efe4cb;color:#7a5516}
+.actual-chart{background:#fffdf8;border-color:#e4d9c8}.actual-name{color:#15314d}.actual-name small{color:#7b8a9a}.actual-track{background:#f1eadf}.actual-track:before{background:#c8b18d}.actual-bar.pos{background:linear-gradient(90deg,#82a9cf,#436e9d)}.actual-bar.neg{background:linear-gradient(90deg,#df7e8c,#bd5365)}
+.outcome-card{background:linear-gradient(180deg,#0d2742,#163c60)}
+.narrative-reveal{border-color:#e4d9c8;background:#fffdf9}.narrative-reveal-head{background:linear-gradient(180deg,#f8f3e8,#efe6d7);border-bottom-color:#e4d9c8}
+.revealed-headline{padding:12px;border-left:none;transform:none;display:flex;flex-direction:column;gap:8px}
+.revealed-headline h4{font-size:22px;margin:0}
+.revealed-headline a{font-weight:800;color:#8a6422;text-decoration:none}
+.revealed-headline a:hover{text-decoration:underline}
+.reality-check,.lesson{background:#f5f0e6;border-left-color:#bb8a31;color:#4a5e74}
+.result-hero h2{color:#11243d;font-size:clamp(42px,5vw,76px)}.result-hero p{color:#55677d}
+.hit-ring{background:conic-gradient(#bc8f3a var(--score-angle), #e7dece 0)}.hit-ring:after{background:#fffdf8}
+.hit-ring strong{color:#17314e}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.kpi,.box,.dataset-summary,.horizon-card,.takeaway{background:linear-gradient(180deg,#fffdf8,#faf5eb);border-color:#e4d9c8}
+.kpi strong,.box h3,.dataset-head h3,.horizon-card h4,.takeaway b{color:#17314e}
+.kpi span,.stat span,.dataset-head p,.dataset-summary p,.legend,.takeaway span,.score-table th,.score-table td,.small-note{color:#5f7186}
+.score-table th{border-bottom-color:#e4d9c8}.score-table td{border-bottom-color:#efe7d9}
+.dataset-summary strong{color:#17314e}.heatmap-wrap{border-color:#d8cbb4;border-radius:18px}.heatmap thead th{background:#15314d}.heatmap thead th:first-child{background:#11243d}.heatmap tbody td:first-child{background:#f5efe4}
+.result-actions{margin-top:24px}
+.footer{position:relative;z-index:1;width:min(1320px,calc(100% - 30px));color:rgba(247,243,232,.74);font-size:11px;line-height:1.65}
+.modal{background:linear-gradient(180deg,#fffdf8,#f6f0e3)}.modal h2,.modal h3{font-family:Georgia,"Times New Roman",serif;color:#17314e}.modal p,.modal li{color:#54677d}
+.data-flash{background:radial-gradient(circle at center,#173a60 0,#0a1d34 58%,#020912 100%)}
+@media(max-width:1100px){.welcome-grid{grid-template-columns:1fr}.welcome-aside{justify-content:flex-start}.welcome-paper{max-width:none;transform:none}.welcome-showcase,.feature-band,.cards.variable-history{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.brand-copy{display:none}.brand-logo{width:140px}.welcome-showcase,.feature-band,.cards.variable-history{grid-template-columns:1fr}.headline-card,.revealed-headline{transform:none!important}.headline-card h4{font-size:22px}.group-card h3{font-size:26px}.welcome-sub{font-size:28px}.top-actions{gap:6px}}
+
+
+/* ============================================================
+   Stable play layout — all four baskets remain visible
+   ============================================================ */
+.flash-cell.flash-best{
+  background:linear-gradient(180deg,rgba(231,201,127,.98),rgba(181,130,36,.98));
+  border-color:#ffeab7;
+  box-shadow:0 0 0 3px rgba(255,234,183,.28),0 12px 24px rgba(0,0,0,.24);
+  transform:translateY(-3px) scale(1.035);
+}
+.flash-cell.flash-best b,.flash-cell.flash-best strong{color:#182231}
+.flash-cell.flash-best strong:after{content:" ★";font-size:11px}
+
+body[data-screen="game"]{overflow:hidden}
+body[data-screen="game"] .shell{height:100dvh;min-height:0}
+body[data-screen="game"] .footer{display:none}
+body[data-screen="game"] .topbar{
+  position:relative;flex:0 0 auto;min-height:0;
+  padding:4px clamp(16px,2vw,26px);
+}
+body[data-screen="game"] .brand-logo{width:92px}
+body[data-screen="game"] .brand-copy{display:none}
+body[data-screen="game"] .icon-btn{padding:7px 11px;font-size:12px}
+body[data-screen="game"] main{
+  flex:1 1 auto;min-height:0;height:auto;
+  margin:6px auto 8px;
+}
+body[data-screen="game"] #game.active,
+body[data-screen="game"] .game-panel{height:100%;min-height:0}
+body[data-screen="game"] .game-panel{display:flex;flex-direction:column;overflow:hidden}
+body[data-screen="game"] .game-head{flex:0 0 auto;padding:7px 16px}
+body[data-screen="game"] .progress{height:7px;margin-top:4px}
+body[data-screen="game"] .stage{
+  flex:1 1 auto;min-height:0;overflow:auto;
+  padding:8px 13px 10px;
+  scrollbar-width:thin;
+}
+
+@media (min-width:980px) and (min-height:680px){
+  body[data-screen="game"] #decision{
+    display:grid;
+    grid-template-areas:
+      "prompt"
+      "media"
+      "cards"
+      "actions";
+    grid-template-rows:auto auto auto auto;
+    gap:7px;
+    align-content:start;
+    min-height:0;
+  }
+  body[data-screen="game"] #decision .prompt-row{grid-area:prompt;margin:0;align-items:flex-start}
+  body[data-screen="game"] #decision #mediaPanel{grid-area:media;margin:0}
+  body[data-screen="game"] #decision #cards{grid-area:cards;margin:0}
+  body[data-screen="game"] #decision .decision-actions{grid-area:actions;margin:0;padding:0}
+
+  body[data-screen="game"] .window-chip{padding:4px 8px;margin:0 0 3px;font-size:8px}
+  body[data-screen="game"] .prompt-row h2{font-size:clamp(22px,2.05vw,31px);line-height:1.03;margin:0 0 3px}
+  body[data-screen="game"] .prompt-row p{font-size:10px;line-height:1.25;max-width:980px}
+  body[data-screen="game"] .stake{padding:5px 8px;min-width:100px;border-radius:10px}
+  body[data-screen="game"] .stake small{font-size:7px}
+  body[data-screen="game"] .stake strong{font-size:15px}
+
+  body[data-screen="game"] .media-panel{
+    display:grid;
+    grid-template-columns:250px minmax(0,1fr);
+    grid-template-areas:
+      "mediaTop headlines"
+      "mood mood";
+    border-radius:14px;
+    overflow:hidden;
+  }
+  body[data-screen="game"] .media-top{
+    grid-area:mediaTop;display:block;
+    padding:8px 9px 6px;border-bottom:0;border-right:1px solid #e4dac8;
+  }
+  body[data-screen="game"] .media-kicker{font-size:7px;margin-bottom:3px;letter-spacing:.09em}
+  body[data-screen="game"] .live-dot{width:6px;height:6px;box-shadow:0 0 0 3px rgba(176,66,82,.1)}
+  body[data-screen="game"] .media-title{font-size:15px;line-height:1.07;margin:0}
+  body[data-screen="game"] .media-sub{display:none}
+  body[data-screen="game"] .emotion-box{margin-top:6px;padding:6px 8px;border-radius:9px}
+  body[data-screen="game"] .emotion-box small{font-size:6px}
+  body[data-screen="game"] .emotion-box strong{font-size:13px;margin:1px 0 4px}
+  body[data-screen="game"] .pressure-label{font-size:6px;margin-bottom:3px}
+  body[data-screen="game"] .pressure-track{height:4px}
+
+  body[data-screen="game"] .headline-list{
+    grid-area:headlines;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;padding:7px 8px;
+  }
+  body[data-screen="game"] .headline-card{
+    min-height:0;padding:7px 8px 6px;
+    transform:none!important;border-radius:4px;
+    box-shadow:0 5px 12px rgba(0,0,0,.08);
+  }
+  body[data-screen="game"] .headline-card:before{height:3px}
+  body[data-screen="game"] .headline-card .paper-banner{padding-bottom:3px;margin-bottom:3px}
+  body[data-screen="game"] .headline-card .paper-name{font-size:10px}
+  body[data-screen="game"] .headline-card .paper-section{font-size:6px}
+  body[data-screen="game"] .headline-card .paper-date{font-size:6px;margin-bottom:3px}
+  body[data-screen="game"] .headline-card h4{font-size:13px;line-height:1.04;margin:3px 0 4px}
+  body[data-screen="game"] .headline-card .paper-note{display:none}
+  body[data-screen="game"] .headline-meta{font-size:7px;gap:4px}
+  body[data-screen="game"] .source-badge{padding:2px 4px}
+
+  body[data-screen="game"] .mood-row{
+    grid-area:mood;padding:4px 8px 6px;gap:4px;border-top:1px solid #e8dfcf;
+  }
+  body[data-screen="game"] .mood-row span{font-size:7px;margin-right:3px}
+  body[data-screen="game"] .mood-btn{padding:3px 6px;font-size:7px}
+
+  body[data-screen="game"] .cards.variable-history{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:9px;align-items:start;
+  }
+  body[data-screen="game"] .group-card{
+    align-self:start;height:auto;min-width:0;
+    padding:7px 8px 7px;border-radius:14px;
+  }
+  body[data-screen="game"] .group-hero{display:none}
+  body[data-screen="game"] .card-index{font-size:7px;letter-spacing:.09em}
+  body[data-screen="game"] .group-card h3{font-size:19px;line-height:1;margin:2px 0 2px}
+  body[data-screen="game"] .group-tagline{font-size:8px;line-height:1.12;min-height:18px;margin-bottom:1px}
+  body[data-screen="game"] .members{font-size:7px;line-height:1.12;min-height:22px}
+  body[data-screen="game"] .history{flex:none;margin:4px 0;padding-top:4px}
+  body[data-screen="game"] .h-row{grid-template-columns:23px 1fr 43px;gap:4px;margin:2px 0}
+  body[data-screen="game"] .h-label{font-size:7px}
+  body[data-screen="game"] .h-value{font-size:9px}
+  body[data-screen="game"] .mini-track{height:6px}
+  body[data-screen="game"] .mini-bar{top:1px;height:4px}
+  body[data-screen="game"] .aggregate-box{gap:4px;margin-top:4px}
+  body[data-screen="game"] .aggregate-item{padding:4px 4px;border-radius:7px}
+  body[data-screen="game"] .aggregate-item span{font-size:6px;line-height:1.1}
+  body[data-screen="game"] .aggregate-item strong{font-size:10px;margin-top:1px}
+  body[data-screen="game"] .trailing{padding:4px 5px;border-radius:7px;margin-top:4px!important}
+  body[data-screen="game"] .trailing span{font-size:6px}
+  body[data-screen="game"] .rank-badge{font-size:8px!important}
+  body[data-screen="game"] .select-hint{margin-top:3px;font-size:7px}
+  body[data-screen="game"] .group-card.selected:after{right:5px;top:5px;font-size:6px;padding:2px 4px}
+  body[data-screen="game"] .keyboard-hint{font-size:8px}
+  body[data-screen="game"] .decision-actions .primary{padding:6px 10px;font-size:10px}
+
+  body[data-screen="game"] #reveal.active{
+    display:grid;
+    grid-template-columns:minmax(0,1.16fr) minmax(290px,.84fr);
+    grid-template-areas:
+      "head head"
+      "chart chart"
+      "narrative lesson"
+      "actions actions";
+    gap:7px 10px;align-content:start;
+  }
+  body[data-screen="game"] #reveal .reveal-head{grid-area:head;margin:0;padding-bottom:6px}
+  body[data-screen="game"] #reveal .actual-grid{grid-area:chart;grid-template-columns:minmax(0,1.15fr) minmax(275px,.85fr);gap:10px}
+  body[data-screen="game"] #reveal #narrativeReveal{grid-area:narrative;margin:0}
+  body[data-screen="game"] #reveal #lesson{grid-area:lesson;margin:0}
+  body[data-screen="game"] #reveal .reveal-actions{grid-area:actions;margin:0}
+  body[data-screen="game"] .reveal-title h2{font-size:25px}
+  body[data-screen="game"] .reveal-title p{font-size:9px}
+  body[data-screen="game"] .pattern{font-size:7px;padding:5px 8px}
+  body[data-screen="game"] .actual-chart{padding:9px}
+  body[data-screen="game"] .actual-row{grid-template-columns:88px 1fr 54px;gap:6px;margin:6px 0}
+  body[data-screen="game"] .actual-name{font-size:9px}
+  body[data-screen="game"] .actual-name small{font-size:7px}
+  body[data-screen="game"] .actual-track{height:12px}
+  body[data-screen="game"] .actual-bar{height:8px}
+  body[data-screen="game"] .actual-value{font-size:9px}
+  body[data-screen="game"] .outcome-card{padding:10px}
+  body[data-screen="game"] .outcome-card h3{font-size:13px;margin-bottom:5px}
+  body[data-screen="game"] .outcome-metric{padding:5px 0}
+  body[data-screen="game"] .outcome-metric span,body[data-screen="game"] .outcome-metric strong{font-size:8px}
+  body[data-screen="game"] .narrative-reveal-head{padding:7px 9px}
+  body[data-screen="game"] .narrative-reveal-head strong{font-size:9px}
+  body[data-screen="game"] .narrative-reveal-head span{font-size:7px}
+  body[data-screen="game"] .revealed-headlines{padding:7px;gap:5px}
+  body[data-screen="game"] .revealed-headline{padding:6px}
+  body[data-screen="game"] .revealed-headline .paper-banner{padding-bottom:3px;margin-bottom:2px}
+  body[data-screen="game"] .revealed-headline .paper-name{font-size:9px}
+  body[data-screen="game"] .revealed-headline h4{font-size:11px;line-height:1.04}
+  body[data-screen="game"] .revealed-headline .headline-meta,body[data-screen="game"] .revealed-headline a{font-size:7px}
+  body[data-screen="game"] .reality-check,body[data-screen="game"] .lesson{padding:7px 8px;font-size:8px;line-height:1.25}
+  body[data-screen="game"] .reveal-actions .primary{padding:6px 10px;font-size:10px}
+}
+
+/* Small-screen fallback: scrolling is enabled, and no option can be clipped. */
+@media (max-width:979px), (max-height:679px){
+  body[data-screen="game"]{overflow-y:auto}
+  body[data-screen="game"] .shell{height:auto;min-height:100vh}
+  body[data-screen="game"] .topbar{position:sticky}
+  body[data-screen="game"] main{height:auto;flex:1;margin:8px auto 14px}
+  body[data-screen="game"] #game.active,
+  body[data-screen="game"] .game-panel{height:auto;overflow:visible}
+  body[data-screen="game"] .stage{overflow:visible}
+  body[data-screen="game"] #decision{display:block}
+  body[data-screen="game"] #decision #cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+  body[data-screen="game"] #decision .decision-actions{
+    position:sticky;bottom:0;z-index:8;margin-top:14px;
+    padding:8px 10px;background:rgba(248,244,235,.97);
+    border:1px solid #e2d8c6;border-radius:14px;
+    box-shadow:0 -8px 20px rgba(7,25,47,.08);
+  }
+}
+@media (max-width:620px){body[data-screen="game"] #decision #cards{grid-template-columns:1fr}}
+
+
+/* Visibility guard: never render decision and reveal at the same time. */
+body[data-screen="game"] #decision.hidden{display:none!important}
+body[data-screen="game"] #reveal:not(.active){display:none!important}
+
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Knowith Brand Light Theme Overrides (Matching previous version) */
 :root {
   --navy: #0B2E33 !important;
   --navy2: #0F3A3F !important;
@@ -308,33 +674,109 @@ main { margin-top: 0; padding-top: 20px; }
   --ink: #0B2E33 !important;
   --paper: #F6F3EC !important;
 }
-body, button, input {
+.topbar { display: none !important; } 
+main { margin-top: 0; padding-top: 20px; }
+
+body, button, input, textarea, select {
   font-family: 'Manrope', sans-serif !important;
 }
+
 body {
-  background: var(--marble, #F6F3EC) !important;
+  background: var(--paper) !important;
   color: var(--ink) !important;
 }
-.hero {
-  background: #F6F3EC !important;
+
+/* Force dark hero elements to be light paper elements */
+.welcome-hero, .hero {
+  background: var(--paper) !important;
   box-shadow: none !important;
   border: none !important;
+  color: var(--ink) !important;
 }
-h1 span {
-  color: var(--gold) !important;
+
+/* Typography Overrides */
+.welcome-main h1, 
+.welcome-sub, 
+.hero-copy, 
+.brand-copy strong, 
+.prompt-row h2, 
+.reveal-title h2, 
+.result-hero h2, 
+.dataset-head h3, 
+.modal h2, 
+.box h3, 
+.actual-chart h3, 
+.outcome-card h3,
+.paper-name,
+.headline-card:before,
+.showcase-card h3,
+.feature-card strong,
+.welcome-paper h3,
+.headline-card h4,
+.revealed-headline h4,
+.welcome-meta,
+.small-note,
+.seed-box label {
+  font-family: 'Manrope', sans-serif !important;
+  color: var(--ink) !important;
 }
+
+/* Specific text color fixes */
 .eyebrow {
   color: var(--gold) !important;
 }
-.rule {
-  background: #fff !important;
+.eyebrow:before {
+  background: var(--gold) !important;
 }
-.group-pill {
-  background: var(--ink) !important;
+.welcome-main h1 span {
+  color: var(--gold) !important;
 }
-.panel {
-  box-shadow: none !important;
-  border-color: #EFEAE0 !important;
+
+/* Make secondary buttons visible */
+.secondary {
+  background: transparent !important;
+  border-color: rgba(11, 46, 51, 0.2) !important;
+  color: var(--ink) !important;
+}
+
+/* Steps indicators */
+.welcome-steps .step {
+  color: var(--ink) !important;
+}
+.welcome-steps .step span {
+  border-color: rgba(11, 46, 51, 0.2) !important;
+  color: var(--ink) !important;
+  background: transparent !important;
+}
+.welcome-steps .step.active span {
+  background: linear-gradient(135deg, #ddc080, #b98a35) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+}
+
+/* Misc overrides to match old styling */
+.rule { background: #fff !important; }
+.group-pill { background: var(--ink) !important; color: #fff !important; }
+.panel { box-shadow: none !important; border-color: #EFEAE0 !important; }
+.feature-card { background: #fff !important; border-color: #EFEAE0 !important; }
+
+/* Force cards to always display in 4 columns to prevent scrolling */
+.cards, .cards.variable-history {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+/* Save vertical space so it fits on one screen */
+.stage {
+  padding: 15px !important;
+}
+.prompt-row {
+  margin-bottom: 15px !important;
+}
+.media-panel {
+  margin: 0 0 15px !important;
+}
+body[data-screen="game"] main {
+  padding-bottom: 80px !important;
 }
 </style>
 </head>
@@ -343,8 +785,11 @@ h1 span {
 <div class="shell">
   <header class="topbar">
     <div class="brand">
-      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
-      KNOWITH CAPITAL <small>INVESTOR LEARNING LAB</small>
+      <img class="brand-logo" src="data:image/png;base64,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" alt="Knowith Capital logo" />
+      <div class="brand-copy">
+        <strong>Global Allocator Game</strong>
+        <small>Knowith Capital · Investor Learning Lab</small>
+      </div>
     </div>
     <div class="top-actions">
       <button class="icon-btn hide-mobile" id="methodBtn">Methodology</button>
@@ -353,26 +798,42 @@ h1 span {
   </header>
 
   <main>
-    <section id="welcome" class="screen active">
-      <div class="panel hero">
-        <div class="eyebrow">Global returns prediction game · media edition</div>
-        <h1>Can you resist the <span>story of the moment?</span></h1>
+    
+<section id="welcome" class="screen active">
+  <div class="panel hero welcome-hero">
+    <div class="welcome-grid">
+      <div class="welcome-main">
+        <div class="eyebrow">An educational investing experience</div>
+        <h1>Global Allocator Game</h1>
+        <p class="welcome-sub">Can you really predict next year’s winning market?</p>
         <p class="hero-copy">
-          Six historical decisions. Each round gives you a different evidence window—two, three, four or five years—plus
-          contemporaneous media narratives that made continuation or collapse feel persuasive. Place ₹10 lakh on one basket,
-          then discover whether momentum continued, faded, reversed or simply rotated elsewhere.
+          Each round, you will review recent country returns, absorb period-style market narratives, and place a virtual ₹10 lakh bet across four global investment baskets.
+          Six rounds only. Some trends continue. Some fade. Some reverse violently. Some simply refuse to obey the story.
         </p>
-        <div class="rule-grid">
-          <div class="rule"><strong>6</strong><span>rounds only, selected across distinct market regimes and shuffled by game code</span></div>
-          <div class="rule"><strong>2–5 years</strong><span>the lookback changes, testing how easily a convincing pattern can be manufactured</span></div>
-          <div class="rule"><strong>Real headlines</strong><span>contemporaneous coverage adds the fear, confidence and euphoria investors actually experience</span></div>
+
+        <div class="welcome-steps" aria-label="Six rounds overview">
+          <div class="step active"><span>1</span><small>Round 1</small></div>
+          <div class="step"><span>2</span><small>Round 2</small></div>
+          <div class="step"><span>3</span><small>Round 3</small></div>
+          <div class="step"><span>4</span><small>Round 4</small></div>
+          <div class="step"><span>5</span><small>Round 5</small></div>
+          <div class="step"><span>6</span><small>Round 6</small></div>
         </div>
-        <div class="group-strip">
-          <div class="group-pill"><strong>1 · India</strong><small>MSCI India country return</small></div>
-          <div class="group-pill"><strong>2 · US</strong><small>MSCI USA country return</small></div>
-          <div class="group-pill"><strong>3 · DM ex USA</strong><small>UK, France, Germany, Japan, Singapore, Hong Kong</small></div>
-          <div class="group-pill"><strong>4 · EM ex India</strong><small>China, Taiwan, Korea</small></div>
+
+        <div class="welcome-showcase">
+          <div class="showcase-card india"><h3>India</h3><p>One nation. Many opportunities.</p><span>MSCI India</span></div>
+          <div class="showcase-card us"><h3>US</h3><p>Innovation. Scale. Influence.</p><span>MSCI USA</span></div>
+          <div class="showcase-card dm"><h3>DM ex USA</h3><p>UK, France, Germany, Japan, Singapore, Hong Kong.</p><span>Equal-weighted basket</span></div>
+          <div class="showcase-card em"><h3>EM ex India</h3><p>China, Taiwan, Korea.</p><span>Equal-weighted basket</span></div>
         </div>
+
+        <div class="feature-band">
+          <div class="feature-card"><strong>Mixed lookback windows</strong><span>2Y to 5Y evidence lenses.</span></div>
+          <div class="feature-card"><strong>Newspaper-style media cues</strong><span>Feel fear, confidence, anxiety and euphoria.</span></div>
+          <div class="feature-card"><strong>Uncertain outcomes</strong><span>Momentum, fade, reversal and randomness.</span></div>
+          <div class="feature-card"><strong>Full dataset finale</strong><span>All 286 country-year observations revealed.</span></div>
+        </div>
+
         <div class="start-row">
           <div class="seed-box">
             <label for="seedInput">Game code</label>
@@ -381,15 +842,36 @@ h1 span {
               <button class="seed-random" id="randomSeed" title="Generate a new code">↻</button>
             </div>
           </div>
-          <button class="primary" id="startBtn" disabled>Loading game data...</button>
+          <button class="primary" id="startBtn">Start Game</button>
           <button class="secondary" id="methodBtn2">How the game works</button>
         </div>
         <p class="small-note">
-          Share the same game code with a group to receive the same six rounds in the same order. Publication years and dates
-          are withheld until each bet is locked so the headlines cannot reveal the hidden market year.
+          Use the same game code across a group to generate the same six historical decisions in the same order.
+          Calendar years remain hidden until each selection is locked.
         </p>
       </div>
-    </section>
+      <aside class="welcome-aside">
+        <article class="welcome-paper">
+          <div class="paper-banner">
+            <span class="paper-name">Global Market Journal</span>
+            <span class="paper-section">World Markets</span>
+          </div>
+          <h3>Markets move people forward</h3>
+          <p>A more informed world builds a brighter tomorrow.</p>
+          <div class="paper-divider"></div>
+          <h4>The investor’s challenge</h4>
+          <ul>
+            <li>Read recent return patterns.</li>
+            <li>Absorb narrative pressure.</li>
+            <li>Make one all-in call.</li>
+            <li>Discover whether the story held.</li>
+          </ul>
+        </article>
+      </aside>
+    </div>
+  </div>
+</section>
+
 
     <section id="game" class="screen">
       <div class="panel game-panel">
@@ -526,7 +1008,7 @@ h1 span {
   </main>
 
   <footer class="footer">
-    Source: MSCI country-index annual total returns (USD, gross), 2000–2025, as contained in the verified workbook
+    Source data: MSCI country-index annual total returns (USD, gross), 2000–2025, as contained in the verified workbook
     “MSCI_Country_Returns_2000_2025_Audited.xlsx”. Multi-country group returns are equal-weighted arithmetic averages
     of constituent country returns for each calendar year; 2–5 year figures are compounded from annual basket returns.
     Media headlines are contemporaneous narrative cues and are not treated as causal evidence or investment signals.
@@ -574,39 +1056,26 @@ h1 span {
 
 <script>
 "use strict";
-let COUNTRY_DATA, COUNTRY_NAMES, GROUPS, SCENARIO_POOLS;
+const COUNTRY_DATA = {"2000":{"USA":-0.1254,"UK":-0.1153,"France":-0.0406,"Germany":-0.1527,"Japan":-0.2807,"Hong Kong":-0.1474,"Singapore":-0.2772,"India":-0.2174,"China":-0.3054,"Korea":-0.4962,"Taiwan":-0.449},"2001":{"USA":-0.1203,"UK":-0.1405,"France":-0.2209,"Germany":-0.2199,"Japan":-0.2928,"Hong Kong":-0.1861,"Singapore":-0.2342,"India":-0.1945,"China":-0.247,"Korea":0.4871,"Taiwan":0.1047},"2002":{"USA":-0.2271,"UK":-0.1523,"France":-0.2083,"Germany":-0.329,"Japan":-0.1011,"Hong Kong":-0.1779,"Singapore":-0.1105,"India":0.0837,"China":-0.1405,"Korea":0.0862,"Taiwan":-0.2445},"2003":{"USA":0.2911,"UK":0.3206,"France":0.4103,"Germany":0.6479,"Japan":0.3615,"Hong Kong":0.381,"Singapore":0.376,"India":0.7836,"China":0.8757,"Korea":0.3594,"Taiwan":0.4255},"2004":{"USA":0.1071,"UK":0.1957,"France":0.1922,"Germany":0.1666,"Japan":0.1595,"Hong Kong":0.2498,"Singapore":0.2227,"India":0.1911,"China":0.0189,"Korea":0.2286,"Taiwan":0.0983},"2005":{"USA":0.0572,"UK":0.0738,"France":0.1059,"Germany":0.1052,"Japan":0.2563,"Hong Kong":0.084,"Singapore":0.1438,"India":0.3757,"China":0.1977,"Korea":0.58,"Taiwan":0.0725},"2006":{"USA":0.1532,"UK":0.3066,"France":0.3542,"Germany":0.3679,"Japan":0.0633,"Hong Kong":0.3035,"Singapore":0.4673,"India":0.51,"China":0.8287,"Korea":0.1319,"Taiwan":0.209},"2007":{"USA":0.0603,"UK":0.0839,"France":0.1403,"Germany":0.3593,"Japan":-0.0414,"Hong Kong":0.412,"Singapore":0.2838,"India":0.7311,"China":0.6623,"Korea":0.3258,"Taiwan":0.0913},"2008":{"USA":-0.3714,"UK":-0.4832,"France":-0.4271,"Germany":-0.455,"Japan":-0.2911,"Hong Kong":-0.5121,"Singapore":-0.4734,"India":-0.6463,"China":-0.5083,"Korea":-0.5507,"Taiwan":-0.4588},"2009":{"USA":0.2714,"UK":0.4337,"France":0.3326,"Germany":0.2656,"Japan":0.0639,"Hong Kong":0.6015,"Singapore":0.74,"India":1.0281,"China":0.6263,"Korea":0.7206,"Taiwan":0.8025},"2010":{"USA":0.1545,"UK":0.088,"France":-0.0323,"Germany":0.0932,"Japan":0.1559,"Hong Kong":0.2323,"Singapore":0.2216,"India":0.2095,"China":0.0483,"Korea":0.2715,"Taiwan":0.2273},"2011":{"USA":0.0199,"UK":-0.0252,"France":-0.16,"Germany":-0.1745,"Japan":-0.1419,"Hong Kong":-0.1602,"Singapore":-0.1791,"India":-0.3717,"China":-0.1824,"Korea":-0.1176,"Taiwan":-0.2015},"2012":{"USA":0.1613,"UK":0.153,"France":0.2282,"Germany":0.321,"Japan":0.0836,"Hong Kong":0.2827,"Singapore":0.3099,"India":0.2597,"China":0.231,"Korea":0.2148,"Taiwan":0.1766},"2013":{"USA":0.3261,"UK":0.2071,"France":0.2766,"Germany":0.324,"Japan":0.2735,"Hong Kong":0.1109,"Singapore":0.0172,"India":-0.0383,"China":0.0396,"Korea":0.0418,"Taiwan":0.0977},"2014":{"USA":0.1336,"UK":-0.0535,"France":-0.0899,"Germany":-0.0976,"Japan":-0.0372,"Hong Kong":0.0507,"Singapore":0.0306,"India":0.2387,"China":0.0826,"Korea":-0.107,"Taiwan":0.1005},"2015":{"USA":0.0132,"UK":-0.0751,"France":0.0078,"Germany":-0.0127,"Japan":0.099,"Hong Kong":-0.0054,"Singapore":-0.1768,"India":-0.0612,"China":-0.0762,"Korea":-0.063,"Taiwan":-0.1097},"2016":{"USA":0.1161,"UK":-0.0004,"France":0.0602,"Germany":0.035,"Japan":0.0273,"Hong Kong":0.0227,"Singapore":0.0147,"India":-0.0143,"China":0.0111,"Korea":0.0925,"Taiwan":0.1959},"2017":{"USA":0.219,"UK":0.2238,"France":0.299,"Germany":0.2849,"Japan":0.2439,"Hong Kong":0.3617,"Singapore":0.3563,"India":0.3876,"China":0.5433,"Korea":0.478,"Taiwan":0.2851},"2018":{"USA":-0.045,"UK":-0.141,"France":-0.119,"Germany":-0.2164,"Japan":-0.1258,"Hong Kong":-0.0783,"Singapore":-0.0937,"India":-0.073,"China":-0.1875,"Korea":-0.2046,"Taiwan":-0.0816},"2019":{"USA":0.3164,"UK":0.2113,"France":0.2695,"Germany":0.2168,"Japan":0.2007,"Hong Kong":0.1034,"Singapore":0.1505,"India":0.0758,"China":0.2366,"Korea":0.131,"Taiwan":0.3769},"2020":{"USA":0.2137,"UK":-0.1043,"France":0.047,"Germany":0.1229,"Japan":0.1491,"Hong Kong":0.0582,"Singapore":-0.074,"India":0.159,"China":0.2967,"Korea":0.4521,"Taiwan":0.4202},"2021":{"USA":0.2697,"UK":0.1853,"France":0.2059,"Germany":0.059,"Japan":0.0204,"Hong Kong":-0.0391,"Singapore":0.0572,"India":0.2666,"China":-0.2164,"Korea":-0.0792,"Taiwan":0.2682},"2022":{"USA":-0.1946,"UK":-0.0483,"France":-0.1267,"Germany":-0.2162,"Japan":-0.1631,"Hong Kong":-0.0471,"Singapore":-0.1095,"India":-0.0749,"China":-0.218,"Korea":-0.2894,"Taiwan":-0.2913},"2023":{"USA":0.271,"UK":0.1411,"France":0.2228,"Germany":0.2397,"Japan":0.2077,"Hong Kong":-0.1477,"Singapore":0.0533,"India":0.2129,"China":-0.1104,"Korea":0.2359,"Taiwan":0.3133},"2024":{"USA":0.2508,"UK":0.0755,"France":-0.046,"Germany":0.1103,"Japan":0.0868,"Hong Kong":0.0008,"Singapore":0.3232,"India":0.1241,"China":0.1967,"Korea":-0.2309,"Taiwan":0.3507},"2025":{"USA":0.1775,"UK":0.3512,"France":0.295,"Germany":0.3708,"Japan":0.2505,"Hong Kong":0.3483,"Singapore":0.324,"India":0.0429,"China":0.3142,"Korea":1.0076,"Taiwan":0.3984}};
+const COUNTRY_NAMES = ["USA","UK","France","Germany","Japan","Hong Kong","Singapore","India","China","Korea","Taiwan"];
+const GROUPS = [
+  {key:"India", label:"India", members:"India", constituents:["India"]},
+  {key:"US", label:"US", members:"USA", constituents:["USA"]},
+  {key:"DM ex USA", label:"DM ex USA", members:"UK · France · Germany · Japan · Singapore · Hong Kong", constituents:["UK","France","Germany","Japan","Singapore","Hong Kong"]},
+  {key:"EM ex India", label:"EM ex India", members:"China · Taiwan · Korea", constituents:["China","Taiwan","Korea"]}
+];
+const SCENARIO_POOLS = [{"pool":"Momentum continuation","candidates":[{"id":"momentum-2007","targetYear":2007,"horizon":5,"emotion":"Euphoria","pressure":93,"mediaTitle":"The winning regions appear to have powerful structural momentum.","patternLabel":"Momentum continued","reality":"The recent leader won again. Momentum can persist—and successful continuation is what makes extrapolation emotionally sticky. The danger is assuming that one successful rule will remain reliable in the next regime.","lesson":"Continuation is not evidence of certainty. A process can acknowledge momentum without concentrating an investor’s entire decision on the belief that yesterday’s leader must remain tomorrow’s winner.","headlines":[{"display":"Emerging markets set for healthy returns in the coming year","exact":"Emerging markets set for healthy returns in 2007","outlet":"Reuters","date":"Reuters archive · 2007 outlook","url":"https://www.reuters.com/article/world/emerging-markets-set-for-healthy-returns-in-2007-idUSL27448508/"},{"display":"A more modest bull run is still expected for world stocks","exact":"More modest bull run seen for world stocks","outlet":"Reuters","date":"Reuters archive · 2007 outlook","url":"https://www.reuters.com/article/world/us/more-modest-bull-run-seen-for-world-stocks-idUSL11799731/"}]},{"id":"momentum-2024","targetYear":2024,"horizon":5,"emotion":"Confidence","pressure":86,"mediaTitle":"U.S. leadership feels validated by earnings, AI enthusiasm and easing-rate expectations.","patternLabel":"Momentum continued","reality":"The recent leader stayed on top. This round rewards the obvious choice, reminding players that performance chasing is seductive because it does work in some periods—not because it is consistently dependable.","lesson":"The correct lesson is not “avoid winners.” It is “do not convert a plausible continuation into a certainty or an all-in allocation.”","headlines":[{"display":"Citi strategists upbeat on U.S. stocks in the coming year, fueled by earnings","exact":"Citi strategists upbeat on US stocks in 2024, fueled by earnings","outlet":"Reuters","date":"8 Dec 2023","url":"https://www.reuters.com/business/finance/citi-strategists-upbeat-us-stocks-2024-fueled-by-earnings-2023-12-08/"},{"display":"Goldman Sachs lifts its S&P 500 target for the coming year","exact":"Goldman Sachs sees S&P 500 hitting 5100 in 2024, boosting forecast","outlet":"Reuters","date":"18 Dec 2023","url":"https://www.reuters.com/business/finance/goldman-sachs-sees-sp-500-hitting-5100-2024-boosting-forecast-2023-12-18/"}]}]},{"pool":"Broad shock","candidates":[{"id":"shock-2008","targetYear":2008,"horizon":5,"emotion":"Euphoria","pressure":98,"mediaTitle":"Records, rising confidence and years of strong returns make risk feel unusually manageable.","patternLabel":"The floor disappeared","reality":"Every basket lost money. The five-year leader fell to last place, while the “winner” was merely the region that lost the least. A ranking game can conceal the more important question: whether all risky assets are exposed to the same shock.","lesson":"When optimism is strongest, investors can mistake a relative ranking for an absolute margin of safety. Diversification cannot eliminate a global drawdown, but it can reduce dependence on the most crowded narrative.","headlines":[{"display":"New Year takes Sensex to a new high","exact":"New Year takes Sensex to a new high","outlet":"Financial Express","date":"Archive · Jan 2008","url":"https://www.financialexpress.com/archive/new-year-takes-sensex-to-a-new-high/258032/"},{"display":"A look back at markets—not as bad as you thought","exact":"A look back at markets in 2007 — not as bad you thought","outlet":"Financial Times","date":"Archive · Jan 2008","url":"https://www.ft.com/content/32936ea8-f926-3733-bcfe-20a8ba87a9bf"}]},{"id":"shock-2022","targetYear":2022,"horizon":4,"emotion":"Complacency","pressure":91,"mediaTitle":"Strong trailing returns encourage forecasts of another positive year.","patternLabel":"Broad sell-off","reality":"All four baskets declined. The recent leader did not win; the least-bad result came from a different region. Forecasts framed around another year of gains could not neutralise inflation, rate and valuation shocks.","lesson":"A bullish consensus can be reasonable and still be wrong. Risk control begins by asking what happens if the shared premise fails, not by finding one more headline that confirms it.","headlines":[{"display":"Wall Street strategists see more gains in the coming year","exact":"Wall Street strategists see more gains in 2022","outlet":"Reuters","date":"1 Dec 2021","url":"https://www.reuters.com/markets/europe/wall-street-strategists-see-more-gains-2022-2021-12-01/"},{"display":"Wall Street closes down, indexes still poised for big annual gains","exact":"Wall Street closes down, indexes still poised for big annual gains","outlet":"Reuters","date":"30 Dec 2021","url":"https://www.reuters.com/markets/europe/wall-street-closes-down-indexes-still-poised-big-annual-gains-2021-12-30/"}]}]},{"pool":"Laggard rebound","candidates":[{"id":"reversal-2014","targetYear":2014,"horizon":3,"emotion":"Fear","pressure":92,"mediaTitle":"India is framed as fragile while developed-market leadership appears safer.","patternLabel":"Laggard became leader","reality":"The trailing laggard became the next-year winner. The negative narrative described genuine vulnerabilities, but prices and future returns did not wait for the story to become comfortable.","lesson":"An unloved market can remain weak—or reprice sharply before the headlines improve. Contrarian investing is not automatically correct, but avoiding a region solely because its recent story feels frightening can be costly.","headlines":[{"display":"“Fragile five” countries face taper crunch","exact":"‘Fragile five’ countries face taper crunch","outlet":"Financial Times","date":"Dec 2013","url":"https://www.ft.com/content/407c42ac-6703-11e3-a5f9-00144feabdc0"},{"display":"India in depth: Let rupee sink to save the economy","exact":"India in depth: Let rupee sink to save the economy","outlet":"Reuters Breakingviews","date":"Aug 2013","url":"https://www.reuters.com/article/idUS295961498/"}]},{"id":"reversal-2017","targetYear":2017,"horizon":4,"emotion":"Anxiety","pressure":84,"mediaTitle":"The established U.S. bull looks extendable; policy uncertainty clouds the rest of the world.","patternLabel":"Leadership reversed","reality":"EM ex India moved from the trailing laggard to the next-year winner, while the trailing leader finished last. A highly plausible U.S.-centric story did not identify the strongest regional return.","lesson":"Forecast confidence is often highest when the historical evidence looks clean. That is when a diversified allocation is most valuable: it owns outcomes the dominant narrative may be discounting.","headlines":[{"display":"Poll: U.S. bull market seen extending into the coming year—but politics is a wild card","exact":"Poll: U.S. bull market seen extending into 2017 but Trump a wild card","outlet":"Reuters","date":"2 Dec 2016","url":"https://www.reuters.com/article/business/poll-us-bull-market-seen-extending-into-2017-but-trump-a-wild-card-idUSKBN13W1UK/"},{"display":"Wall Street thinks stocks will rise—what could go wrong?","exact":"Wall St. thinks stocks will rise in 2017 - What could go wrong?","outlet":"Reuters","date":"7 Dec 2016","url":"https://www.reuters.com/article/business/wall-st-thinks-stocks-will-rise-in-2017-what-could-go-wrong-idUSL1N1EG00R/"}]}]},{"pool":"Leader fade","candidates":[{"id":"fade-2011","targetYear":2011,"horizon":5,"emotion":"Euphoria","pressure":89,"mediaTitle":"India and emerging markets have delivered the most compelling multi-year wealth story.","patternLabel":"Leader fell to last","reality":"The five-year leader became the next-year laggard. The optimistic headlines were not irrational—they were anchored in a powerful run—but they encouraged investors to project a mature trend forward.","lesson":"A long winning history can increase both confidence and embedded expectations. The more popular the story, the more important it becomes to separate business fundamentals from the return already captured in price.","headlines":[{"display":"Indian shares end the year on a high; more gains seen","exact":"Indian shares end 2010 on a high; more gains seen","outlet":"Reuters","date":"31 Dec 2010","url":"https://www.reuters.com/article/markets/asia/indian-shares-end-2010-on-a-high-more-gains-seen-idUSSGE6BU065/"},{"display":"Emerging markets: consensus—or crowded?","exact":"Emerging markets 2011: consensus or crowded","outlet":"Reuters","date":"17 Dec 2010","url":"https://www.reuters.com/article/world/emerging-markets-2011-consensus-or-crowded-idUSTRE6BG4TW/"}]},{"id":"fade-2021","targetYear":2021,"horizon":2,"emotion":"Confidence","pressure":88,"mediaTitle":"China and North Asia appear to have the strongest recovery momentum.","patternLabel":"Leader became laggard","reality":"The two-year leader finished last. The recovery headlines captured real economic strength, yet the next market return was shaped by policy, valuation and sector-specific developments that trailing performance could not summarise.","lesson":"Economic momentum and equity returns are related—but not interchangeable. Markets price expectations, and a strong macro story can coexist with disappointing subsequent returns.","headlines":[{"display":"China’s stunning export comeback has factories scrambling for workers","exact":"China’s stunning export comeback has factories scrambling for workers","outlet":"Reuters","date":"21 Dec 2020","url":"https://www.reuters.com/world/china/chinas-stunning-export-comeback-has-factories-scrambling-workers-2020-12-21/"},{"display":"China’s factory activity likely sustained strong expansion","exact":"China’s factory activity likely sustained strong expansion in Dec","outlet":"Reuters","date":"29 Dec 2020","url":"https://www.reuters.com/business/finance/chinas-factory-activity-likely-sustained-strong-expansion-dec-2020-12-29/"}]}]},{"pool":"Leadership rotation","candidates":[{"id":"rotation-2020","targetYear":2020,"horizon":3,"emotion":"Confidence","pressure":82,"mediaTitle":"U.S. equities end near records, reinforcing a familiar leadership narrative.","patternLabel":"Leadership rotated","reality":"The trailing leader remained strong but did not finish first. EM ex India took the top spot. This is a subtler failure than a crash: the popular market can perform well while another region performs much better.","lesson":"Opportunity cost is hard to predict. Diversification is not only protection from losses; it also provides exposure to leadership that arrives outside the market receiving the most attention.","headlines":[{"display":"Global markets: Stocks end the year near record highs, dollar slides","exact":"Global Markets: Stocks end 2019 near record highs, dollar slides","outlet":"Reuters","date":"31 Dec 2019","url":"https://www.reuters.com/article/business/global-markets-stocks-end-2019-near-record-highs-dollar-slides-idUSKBN1Z01IB/"},{"display":"Goldman Sachs predicts stocks will rise over the next two years","exact":"Goldman Sachs predicts stocks will rise in 2019 and 2020","outlet":"Axios","date":"9 Sep 2019","url":"https://www.axios.com/2019/09/09/goldman-sachs-predicts-stocks-will-rise-2019-and-2020"}]},{"id":"rotation-2012","targetYear":2012,"horizon":5,"emotion":"Anxiety","pressure":87,"mediaTitle":"A difficult year leaves investors expecting instability to dominate again.","patternLabel":"Fear did not pick the winner","reality":"All four baskets rose, but the five-year leader did not lead the rebound. The gloomy environment was understandable; it was not sufficient to rank the following year’s regional returns.","lesson":"After a difficult period, fear can make cash feel like the only rational forecast. Yet recovery may begin before uncertainty is resolved—and its geographic leadership may be different from the previous cycle.","headlines":[{"display":"You thought last year was tough?","exact":"You thought 2011 was tough?","outlet":"Reuters","date":"30 Dec 2011","url":"https://www.reuters.com/article/business/you-thought-2011-was-tough-idUSTRE7BT11S/"},{"display":"Unsettled markets to dominate the coming year’s investment climate","exact":"Unsettled markets to dominate 2012 investment climate","outlet":"Reuters","date":"13 Dec 2011","url":"https://www.reuters.com/article/business/unsettled-markets-to-dominate-2012-investment-climate-idUSL5E7N7451/"}]}]},{"pool":"Fear-to-recovery surprise","candidates":[{"id":"recovery-2009","targetYear":2009,"horizon":2,"emotion":"Panic","pressure":100,"mediaTitle":"Historic losses make another year of danger feel more probable than a violent recovery.","patternLabel":"Panic met a rebound","reality":"The trailing laggard became the winner and more than doubled. The headlines accurately described the damage investors had just experienced; they could not tell participants how much bad news was already reflected in prices.","lesson":"The point is not to buy every collapse blindly. It is to recognise that the emotional evidence is strongest near extremes, exactly when forward returns may stop resembling the recent past.","headlines":[{"display":"Quiet start seen for India shares after historic slump","exact":"Quiet start seen for India shares after 2008 slump","outlet":"Reuters","date":"31 Dec 2008","url":"https://www.reuters.com/article/world/quiet-start-seen-for-india-shares-after-2008-slump-idUSBOM404586/"},{"display":"Worst yearly fall for Sensex; outlook muddy","exact":"Worst yearly fall for Sensex, outlook muddy","outlet":"The New Indian Express / Reuters","date":"Archive · Dec 2008","url":"https://www.newindianexpress.com/business/2008/Dec/31/worst-yearly-fall-for-sensex-outlook-muddy-14642.html"}]},{"id":"recovery-2023","targetYear":2023,"horizon":2,"emotion":"Fear","pressure":94,"mediaTitle":"Recession expectations and repeated market declines dominate the outlook.","patternLabel":"Recession fear, broad rebound","reality":"All four baskets advanced. The recent leader did not necessarily provide a clean forecasting edge, and the fearful consensus did not prevent a strong recovery in risk assets.","lesson":"Macro forecasts can be thoughtful and still fail as market-timing tools. Asset prices respond to the gap between expectations and outcomes—not simply to whether the news is good or bad.","headlines":[{"display":"Big banks see global economy slowing more, with likely U.S. recession","exact":"Big banks see global economy slowing more in 2023, with likely U.S. recession","outlet":"Reuters","date":"9 Dec 2022","url":"https://www.reuters.com/markets/world-banks-see-global-economy-slowing-more-2023-with-likely-us-recession-2022-11-21/"},{"display":"S&P posts fourth straight decline as recession talk weighs on investors","exact":"S&P posts 4th straight decline as recession talk weighs on investors","outlet":"Reuters","date":"6 Dec 2022","url":"https://www.reuters.com/markets/us/futures-subdued-after-sharp-wall-st-selloff-fed-worries-2022-12-06/"}]}]}];
 const STAKE_LAKH = 10;
-let YEARS, DATA;
+const YEARS = Object.keys(COUNTRY_DATA).map(Number).sort((a,b)=>a-b);
+const DATA = Object.fromEntries(YEARS.map(year=>[String(year),Object.fromEntries(GROUPS.map(group=>[
+  group.key, group.constituents.reduce((sum,c)=>sum+COUNTRY_DATA[String(year)][c],0)/group.constituents.length
+]))]));
 let state = {seed:"",rng:null,rounds:[],current:0,selected:null,mood:null,records:[],flashShown:false,flashTimer:null};
-
-async function loadGameData() {
-  try {
-    const res = await fetch('/games/global-returns-prediction/data.json');
-    const data = await res.json();
-    COUNTRY_DATA = data.COUNTRY_DATA;
-    COUNTRY_NAMES = data.COUNTRY_NAMES;
-    GROUPS = data.GROUPS;
-    SCENARIO_POOLS = data.SCENARIO_POOLS;
-    
-    YEARS = Object.keys(COUNTRY_DATA).map(Number).sort((a,b)=>a-b);
-    DATA = Object.fromEntries(YEARS.map(year=>[String(year),Object.fromEntries(GROUPS.map(group=>[
-      group.key, group.constituents.reduce((sum,c)=>sum+COUNTRY_DATA[String(year)][c],0)/group.constituents.length
-    ]))]));
-    
-    document.getElementById('startBtn').disabled = false;
-    document.getElementById('startBtn').textContent = 'Start the six rounds';
-  } catch (err) {
-    console.error("Failed to load game data:", err);
-    alert("Could not load game data.");
-  }
-}
-loadGameData();
-
 
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const screens = ["welcome","game","results"];
-function showScreen(id){screens.forEach(x=>document.getElementById(x).classList.toggle("active",x===id));window.scrollTo({top:0,behavior:"smooth"})}
+function showScreen(id){screens.forEach(x=>document.getElementById(x).classList.toggle("active",x===id));document.body.dataset.screen=id;window.scrollTo({top:0,behavior:"auto"})}
 function hashString(str){let h=2166136261>>>0;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
 function mulberry32(a){return function(){let t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
 function shuffle(arr,rng){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
@@ -640,6 +1109,18 @@ function startGame(same=false){
   state={seed,rng:mulberry32(hashString(seed)),rounds:buildRounds(seed),current:0,selected:null,mood:null,records:[],flashShown:false,flashTimer:null};
   $("#gameCode").textContent=seed;renderRound();showScreen("game");
 }
+
+const GROUP_THEMES = {
+  "India": {tagline:"One nation. Many opportunities.", monogram:"IN"},
+  "US": {tagline:"Innovation. Scale. Influence.", monogram:"US"},
+  "DM ex USA": {tagline:"Broad developed-market exposure.", monogram:"DM"},
+  "EM ex India": {tagline:"Emerging markets beyond India.", monogram:"EM"}
+};
+const PAPER_NAMES = ["The Global Chronicle","The Daily Ledger","The Market Journal","The Financial Dispatch"];
+const PAPER_SECTIONS = ["Global Markets","World Economy","Capital Markets","International Desk"];
+function paperMeta(idx){return {name:PAPER_NAMES[idx%PAPER_NAMES.length], section:PAPER_SECTIONS[idx%PAPER_SECTIONS.length]};}
+function groupSlug(key){return key.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
+
 function renderRound(){
   const r=state.rounds[state.current];state.selected=null;state.mood=null;
   $("#roundLabel").textContent=`Round ${state.current+1} of 6`;
@@ -651,18 +1132,24 @@ function renderRound(){
   $("#emotionLabel").textContent=r.emotion;
   $("#pressureValue").textContent=`${r.pressure}/100`;
   $("#pressureBar").style.width=`${r.pressure}%`;
-  $("#headlineList").innerHTML=r.headlines.map(h=>`<article class="headline-card"><h4>${escapeHTML(h.display)}</h4><div class="headline-meta"><span class="source-badge">${escapeHTML(h.outlet)}</span><span>Date hidden until reveal</span></div></article>`).join("");
+  $("#headlineList").innerHTML=r.headlines.map((h,idx)=>{const p=paperMeta(idx);return `<article class="headline-card"><div class="paper-banner"><span class="paper-name">${p.name}</span><span class="paper-section">${p.section}</span></div><div class="paper-date">Date hidden until reveal</div><h4>${escapeHTML(h.display)}</h4><p class="paper-note">A contemporaneous narrative cue designed to recreate the emotional feel of the period.</p><div class="headline-meta"><span class="source-badge">${escapeHTML(h.outlet)}</span><span>Historical clipping</span></div></article>`}).join("");
   $$(".mood-btn").forEach(b=>b.classList.remove("selected"));
   $("#cards").innerHTML=GROUPS.map((g,idx)=>{
     const annual=r.history[g.key].map((v,i)=>`<div class="h-row"><div class="h-label">T−${r.horizon-i}</div><div class="mini-track"><span class="mini-bar ${v>=0?"pos":"neg"}" style="${miniBarStyle(v)}"></span></div><div class="h-value">${pct(v)}</div></div>`).join("");
-    return `<button class="group-card" data-group="${g.key}" aria-label="Choose ${g.label}">
-      <div class="card-index">OPTION ${idx+1}</div><h3>${g.label}</h3><div class="members">${g.members}</div>
+    const theme=GROUP_THEMES[g.key]||{tagline:"",monogram:g.label.slice(0,2).toUpperCase()}, slug=groupSlug(g.key);
+    return `<button class="group-card group-${slug}" data-group="${g.key}" aria-label="Choose ${g.label}">
+      <div class="group-hero"><span>${theme.monogram}</span></div>
+      <div class="card-index">Option ${idx+1}</div>
+      <h3>${g.label}</h3>
+      <div class="group-tagline">${theme.tagline}</div>
+      <div class="members">${g.members}</div>
       <div class="history">${annual}</div>
       <div class="aggregate-box">
         <div class="aggregate-item"><span>${r.horizon}-year cumulative</span><strong>${pct(r.trailing[g.key])}</strong></div>
         <div class="aggregate-item"><span>Annualised CAGR</span><strong>${pct(r.trailingCagr[g.key])}</strong></div>
       </div>
       <div class="trailing" style="margin-top:8px"><span>Recent rank</span><strong class="rank-badge">#${r.trailingRanks.map[g.key]} of 4</strong></div>
+      <div class="select-hint">Select basket →</div>
     </button>`;
   }).join("");
   $$(".group-card").forEach(card=>card.addEventListener("click",()=>selectGroup(card.dataset.group)));
@@ -687,7 +1174,7 @@ function revealRound(){
     <div class="outcome-metric"><span>25% in each basket</span><strong>${pct(equalReturn)}<br>${lakh(equalEnd)}</strong></div>
     <div class="outcome-metric"><span>Best possible choice</span><strong>${winner}<br>${pct(bestReturn)}</strong></div>`;
   $("#narrativeReveal").innerHTML=`<div class="narrative-reveal-head"><strong>Headline reality check</strong><span>Source and archive details now revealed</span></div>
-    <div class="revealed-headlines">${r.headlines.map(h=>`<div class="revealed-headline"><a href="${escapeHTML(h.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(h.exact)}</a><small>${escapeHTML(h.outlet)} · ${escapeHTML(h.date)}</small></div>`).join("")}</div>
+    <div class="revealed-headlines">${r.headlines.map((h,idx)=>{const p=paperMeta(idx);return `<article class="revealed-headline"><div class="paper-banner"><span class="paper-name">${p.name}</span><span class="paper-section">${p.section}</span></div><h4>${escapeHTML(h.exact)}</h4><div class="headline-meta"><span class="source-badge">${escapeHTML(h.outlet)}</span><span>${escapeHTML(h.date)}</span></div><a href="${escapeHTML(h.url)}" target="_blank" rel="noopener noreferrer">Open source ↗</a></article>`}).join("")}</div>
     <p class="reality-check">${escapeHTML(r.reality)}</p>`;
   $("#lesson").innerHTML=`<b>Investment lesson:</b> ${escapeHTML(r.lesson)}${state.mood?` <span class="story-chip">You felt ${escapeHTML(state.mood)}</span>`:""}`;
   $("#nextBtn").textContent=state.current===5?"Reveal my scorecard":"Next round";
@@ -723,7 +1210,7 @@ function renderResults(){
   const m=messages.find(([limit])=>hits<=limit)||messages[messages.length-1];$("#resultHeadline").textContent=m[1];
   const gap=selectedTotal-equalTotal;
   $("#resultNarrative").textContent=`Across six separate ₹10 lakh decisions, your ending value was ${lakh(selectedTotal)}. The equal four-way basket ended at ${lakh(equalTotal)}—${Math.abs(gap).toFixed(2)} lakh ${gap>=0?"below":"above"} your selections. ${m[2]}`;
-  $("#kpis").innerHTML=`<div class="kpi"><span>Winners selected</span><strong>${hits}/6</strong></div><div class="kpi"><span>Your ending value</span><strong>${lakh(selectedTotal)}</strong></div><div class="kpi"><span>Equal four-way basket</span><strong>${lakh(equalTotal)}</strong></div><div class="kpi"><span>Chased / chose laggard</span><strong>${chaseCount} / ${contrarianCount}</strong></div>`;
+  $("#kpis").innerHTML=`<div class="kpi"><span>Winners selected</span><strong>${hits}/6</strong></div><div class="kpi"><span>Your ending value</span><strong>${lakh(selectedTotal)}</strong></div><div class="kpi"><span>Equal four-way basket</span><strong>${lakh(equalTotal)}</strong></div><div class="kpi"><span>Perfect foresight</span><strong>${lakh(perfectTotal)}</strong></div><div class="kpi"><span>Chased / chose laggard</span><strong>${chaseCount} / ${contrarianCount}</strong></div>`;
   $("#scoreTable").innerHTML=`<thead><tr><th>Round</th><th>Lens</th><th>Target</th><th>Your bet</th><th>Return</th><th>Rank</th><th>Winner</th><th>Feeling</th></tr></thead><tbody>${state.records.map(r=>`<tr><td>${r.round}</td><td>${r.horizon}Y</td><td>${r.targetYear}</td><td>${r.selected}</td><td class="num">${pct(r.selectedReturn)}</td><td class="num">#${r.selectedRank}</td><td>${r.winner}</td><td>${r.mood}</td></tr>`).join("")}</tbody>`;
   $("#horizonStats").innerHTML=[2,3,4,5].map(h=>{const s=computeHorizonStats(h);return `<div class="horizon-card"><h4>${h}-year evidence lens · ${s.n} tests</h4><div class="horizon-card-grid"><div class="horizon-mini"><strong>${Math.round(s.leaderWins/s.n*100)}%</strong><span>leader won next year</span></div><div class="horizon-mini"><strong>${s.leaderLast}</strong><span>leader fell to last</span></div><div class="horizon-mini"><strong>${s.laggardWins}</strong><span>laggard became winner</span></div></div></div>`}).join("");
   renderCountryDataset();
@@ -746,8 +1233,8 @@ function triggerDataFlash(auto=false){
   if(auto&&state.flashShown)return;state.flashShown=true;clearInterval(state.flashTimer);
   const overlay=$("#dataFlash");overlay.classList.add("active");overlay.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";
   let i=0;const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function frame(){const y=YEARS[i],row=COUNTRY_DATA[String(y)];$("#flashYear").textContent=y;$("#flashGrid").innerHTML=COUNTRY_NAMES.map(c=>`<div class="flash-cell"><b>${c}</b><strong>${pct(row[c],1)}</strong></div>`).join("");$("#flashProgress").style.width=`${((i+1)/YEARS.length)*100}%`;$("#flashCaption").textContent=i===0?"The record begins in a global bear market.":i===YEARS.length-1?"The latest year changes the ranking again.":"Leadership rotates; certainty arrives only in hindsight.";i++;if(i>=YEARS.length){clearInterval(state.flashTimer);setTimeout(closeDataFlash,reduce?1200:900)}}
-  frame();state.flashTimer=setInterval(frame,reduce?360:95);
+  function frame(){const y=YEARS[i],row=COUNTRY_DATA[String(y)],best=Math.max(...COUNTRY_NAMES.map(c=>row[c])),leaders=COUNTRY_NAMES.filter(c=>row[c]===best);$("#flashYear").textContent=y;$("#flashGrid").innerHTML=COUNTRY_NAMES.map(c=>`<div class="flash-cell ${leaders.includes(c)?"flash-best":""}"><b>${c}</b><strong>${pct(row[c],1)}</strong></div>`).join("");$("#flashProgress").style.width=`${((i+1)/YEARS.length)*100}%`;const context=i===0?"The record begins in a global bear market.":i===YEARS.length-1?"The latest year changes the ranking again.":"Leadership rotates; certainty arrives only in hindsight.";$("#flashCaption").textContent=`${context} Highest return in ${y}: ${leaders.join(" & ")} (${pct(best,1)}).`;i++;if(i>=YEARS.length){clearInterval(state.flashTimer);setTimeout(closeDataFlash,reduce?2200:1900)}}
+  frame();state.flashTimer=setInterval(frame,reduce?1360:1095);
 }
 function closeDataFlash(){clearInterval(state.flashTimer);$("#dataFlash").classList.remove("active");$("#dataFlash").setAttribute("aria-hidden","true");document.body.style.overflow="";setTimeout(()=>$("#datasetSection").scrollIntoView({behavior:"smooth",block:"start"}),120)}
 function downloadGameCSV(){
@@ -764,7 +1251,7 @@ $("#methodBtn").addEventListener("click",openModal);$("#methodBtn2").addEventLis
 $("#fullBtn").addEventListener("click",()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()});
 $$(".mood-btn").forEach(b=>b.addEventListener("click",()=>selectMood(b.dataset.mood)));
 document.addEventListener("keydown",e=>{if($("#dataFlash").classList.contains("active")){if(e.key==="Escape"||e.key==="Enter")closeDataFlash();return}if($("#game").classList.contains("active")&&!$("#decision").classList.contains("hidden")){if(["1","2","3","4"].includes(e.key)){const card=$$(".group-card")[Number(e.key)-1];if(card)selectGroup(card.dataset.group)}else if(e.key==="Enter"&&state.selected)revealRound()}else if($("#game").classList.contains("active")&&$("#reveal").classList.contains("active")&&e.key==="Enter")nextRound();if(e.key==="Escape")closeModal()});
-randomSeed();
+randomSeed();document.body.dataset.screen="welcome";
 </script>
 </body>
 </html>
