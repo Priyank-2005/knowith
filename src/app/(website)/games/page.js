@@ -86,8 +86,8 @@ const chapters = [
   {
     id: 'global-returns',
     num: '09',
-    title: 'Global Returns Prediction',
-    desc: 'Test your ability to predict global market returns across different asset classes and geographies.',
+    title: 'Global Asset Allocator',
+    desc: 'Test your abilities to allocate globally, Pink papers are there to help.',
     href: '/games/global-returns',
     color: '#0ea5e9' // sky blue
   }

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from 'react';
 import Navbar from '@/components/Navbar';
@@ -12,7 +12,7 @@ export default function GlobalReturnsGamePage() {
         <iframe 
           src="/games/global-returns-prediction/index.html" 
           className="w-full h-[85vh] border-none"
-          title="Knowith Global Returns Prediction Game"
+          title="Knowith Global Asset Allocator Game"
         />
       </main>
       <Footer />

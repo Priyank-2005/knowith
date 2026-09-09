@@ -12,7 +12,7 @@ const ALL_GAMES = [
   { id: 'chapter6', title: 'Freedom Stack' },
   { id: 'chapter7', title: 'The Market Cap Challenge' },
   { id: 'chapter8', title: 'Match the Performers' },
-  { id: 'global-returns', title: 'Global Returns Prediction' }
+  { id: 'global-returns', title: 'Global Asset Allocator' }
 ];
 
 export default function GameConfigPage() {
