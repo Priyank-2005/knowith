@@ -34,7 +34,7 @@ export default function Navbar() {
           {/* Right Nav */}
           <div className={styles.navRight}>
             <span className={styles.phone}>+91 98765 43210</span>
-            <a href="https://grid.knowith.com" className={styles.loginBtn} target="_blank" rel="noopener noreferrer">Grid</a>
+            <a href="https://grid.knowithcapital.com" className={styles.loginBtn} target="_blank" rel="noopener noreferrer">Grid</a>
             <Link href="/login" className={styles.loginBtn}>Login</Link>
             <Link href="/contact" className={styles.bookBtn}>Book a Consultation</Link>
           </div>
