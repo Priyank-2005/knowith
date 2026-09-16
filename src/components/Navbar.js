@@ -1,5 +1,6 @@
-"use client";
+﻿"use client";
 
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
@@ -7,6 +8,7 @@ import MarketTicker from './MarketTicker';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <header className={styles.headerWrapper}>
@@ -39,13 +41,48 @@ export default function Navbar() {
             <Link href="/contact" className={styles.bookBtn}>Book a Consultation</Link>
           </div>
 
-          <button className={styles.mobileToggle}>
+          <button className={styles.mobileToggle} onClick={() => setIsMobileMenuOpen(true)}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </button>
 
         </div>
       </nav>
       <MarketTicker />
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className={styles.mobileMenuOverlay}>
+          <div className={styles.mobileMenu}>
+            <div className={styles.mobileMenuHeader}>
+              <Link href="/" className={styles.logo} onClick={() => setIsMobileMenuOpen(false)}>
+                <span className={styles.logoSerif}>Knowith</span>
+                <span className={styles.logoMono}>CAPITAL · UDAIPUR</span>
+              </Link>
+              <button className={styles.closeBtn} onClick={() => setIsMobileMenuOpen(false)}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            
+            <div className={styles.mobileNavLinks}>
+              <Link href="/approach" onClick={() => setIsMobileMenuOpen(false)}>Approach</Link>
+              <Link href="/services" onClick={() => setIsMobileMenuOpen(false)}>Services</Link>
+              <Link href="/products" onClick={() => setIsMobileMenuOpen(false)}>Products</Link>
+              <Link href="/calculators" onClick={() => setIsMobileMenuOpen(false)}>Calculators</Link>
+              <Link href="/games" onClick={() => setIsMobileMenuOpen(false)}>Education</Link>
+              <Link href="/market-concentration" onClick={() => setIsMobileMenuOpen(false)}>Markets</Link>
+              <Link href="/insights" onClick={() => setIsMobileMenuOpen(false)}>Insights</Link>
+              <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+            </div>
+            
+            <div className={styles.mobileNavRight}>
+              <span className={styles.phone}>+91 98765 43210</span>
+              <a href="https://grid.knowithcapital.com" className={styles.loginBtn} target="_blank" rel="noopener noreferrer">Grid</a>
+              <Link href="/login" className={styles.loginBtn} onClick={() => setIsMobileMenuOpen(false)}>Login</Link>
+              <Link href="/contact" className={styles.bookBtn} onClick={() => setIsMobileMenuOpen(false)}>Book a Consultation</Link>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
