@@ -151,6 +151,12 @@
   text-transform: uppercase;
 }
 
+@media (max-width: 980px) {
+  .trustBar {
+    justify-content: flex-start;
+  }
+}
+
 /* Approach Section */
 .approachCards {
   grid-template-columns: repeat(4, 1fr);
@@ -255,6 +261,10 @@
   .productItem { border-bottom: 1px solid var(--border-dark); }
 }
 
+@media (max-width: 600px) {
+  .productsStrip { grid-template-columns: 1fr; }
+}
+
 /* Calculator Section */
 .calcBox {
   display: grid;
@@ -302,7 +312,7 @@
 
 .outputValue {
   font-family: var(--font-display), serif;
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 8vw, 3.5rem);
   color: var(--marble);
   margin-bottom: 40px;
 }

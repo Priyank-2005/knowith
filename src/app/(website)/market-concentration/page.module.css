@@ -48,6 +48,7 @@
 .filters {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .select {
@@ -73,6 +74,7 @@
   padding: 0.5rem 1rem;
   border-radius: 9999px;
   border: 1px solid var(--border-light, rgba(11,46,51,0.12));
+  flex-wrap: wrap;
 }
 
 .legendItem {

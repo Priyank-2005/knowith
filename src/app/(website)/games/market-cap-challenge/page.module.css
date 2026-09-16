@@ -802,10 +802,23 @@
   .hugeHeading {
     font-size: 3.5rem;
   }
+  .playLayout {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
   .optionsRow {
     flex-direction: column;
+  }
+  .prevYearStats {
+    grid-template-columns: 1fr;
+  }
+  .guessButtons {
+    grid-template-columns: 1fr;
+  }
+  .scoreComparison {
+    flex-direction: column;
+    gap: 1rem;
   }
 }

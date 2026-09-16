@@ -793,3 +793,11 @@
   background: #1a1a1a;
   color: white;
 }
+
+@media (max-width: 900px) {
+  .introMainGrid { grid-template-columns: 1fr; gap: 2rem; }
+  .dataroomGrid { grid-template-columns: 1fr; gap: 2rem; }
+  .argumentGrid { grid-template-columns: 1fr; gap: 2rem; }
+  .bottomFooter { grid-template-columns: 1fr; gap: 1.5rem; }
+  .introHeadline { font-size: 3rem; }
+}

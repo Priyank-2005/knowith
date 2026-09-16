@@ -16,7 +16,7 @@ export default function ProductsPage() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: '2rem' }}>
             <div style={{ background: 'white', padding: '2.5rem', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
               <h3 style={{ fontSize: '1.5rem', fontFamily: 'var(--font-display)', color: 'var(--ink)', marginBottom: '1rem' }}>Core Equity Portfolio</h3>
               <p style={{ color: 'var(--slate)', lineHeight: 1.6, marginBottom: '2rem' }}>

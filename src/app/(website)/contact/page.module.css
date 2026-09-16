@@ -79,3 +79,8 @@
   .contactGrid { grid-template-columns: 1fr; gap: 40px; }
   .contactForm { padding: 40px; }
 }
+
+@media (max-width: 600px) {
+  .contactForm { padding: 24px; }
+  .contactGrid { gap: 32px; }
+}

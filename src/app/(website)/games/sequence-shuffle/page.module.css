@@ -206,3 +206,16 @@
   margin-top: 1.5rem;
   font-size: 1.1rem;
 }
+
+@media (max-width: 768px) {
+  .slotsContainer {
+    flex-direction: column;
+  }
+  .chipsContainer {
+    flex-wrap: wrap;
+  }
+  .stats {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
