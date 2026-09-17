@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -35,7 +35,7 @@ export default function NotFound() {
         <p style={{ maxWidth: '500px', margin: '0 auto 2.5rem', color: 'var(--slate)', fontSize: '1.1rem' }}>
           The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
         </p>
-        <Link href="/" className="btn-gold">
+        <Link href="/" className="btn btn-gold">
           Return to Homepage
         </Link>
       </main>

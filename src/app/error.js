@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect } from "react";
 import Link from "next/link";
@@ -41,10 +41,10 @@ export default function Error({ error, reset }) {
           We are experiencing an unexpected server error. Our technical team has been notified. Please try again in a few moments.
         </p>
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-          <button onClick={() => reset()} className="btn-ghost" style={{ border: '1px solid var(--ink)', color: 'var(--ink)' }}>
+          <button onClick={() => reset()} className="btn btn-ghost" style={{ border: '1px solid var(--ink)', color: 'var(--ink)' }}>
             Try Again
           </button>
-          <Link href="/" className="btn-gold">
+          <Link href="/" className="btn btn-gold">
             Return to Homepage
           </Link>
         </div>
