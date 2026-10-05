@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import TestimonialCarousel from '@/components/TestimonialCarousel';
+import HeroFaq from '@/components/HeroFaq';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -85,14 +86,20 @@ export default function Home() {
           </motion.div>
         </motion.div>
         
-        {/* The Graphic */}
-        <div className={styles.heroGraphic}>
+        {/* Investor FAQ over the ripple graphic */}
+        <div className={styles.heroGraphic} aria-hidden>
           <div className={styles.rippleRing}></div>
           <div className={styles.rippleRing}></div>
           <div className={styles.rippleRing}></div>
-          <img src="/images/skyline.jpg" alt="Skyline Placeholder" className={styles.citySkyline} style={{mixBlendMode: 'luminosity', filter: 'sepia(1) hue-rotate(10deg) opacity(0.3)'}} />
-          <img src="/images/skyline.jpg" alt="Skyline Reflect" className={styles.citySkylineReflect} style={{mixBlendMode: 'luminosity', filter: 'sepia(1) hue-rotate(10deg)'}} />
         </div>
+        <motion.div
+          className={styles.heroFaq}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
+        >
+          <HeroFaq />
+        </motion.div>
       </section>
 
       {/* 2. Trust Bar */}

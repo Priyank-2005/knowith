@@ -47,6 +47,15 @@ model Session {
   
   feature       String    // e.g., 'ADVISOR', 'HEALTH', 'PORTFOLIO'
   promptVersion String    // e.g., 'v1.0.3'
+
+  // Who was chatting (approved client signed in with email OTP, or staff testing)
+  clientId      String?
+  client        ApprovedClient? @relation(fields: [clientId], references: [id], onDelete: SetNull)
+  actorEmail    String?   // snapshot, kept even if the client is later removed
+  actorName     String?
+
+  profile       Json?     // details collected so far (age, income, goals…)
+  report        Json?     // generated blueprint/report, when the tool produced one
   
   // Cost tracking per session
   tokenUsage    Int       @default(0)
@@ -56,12 +65,14 @@ model Session {
   
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+
+  @@index([feature, updatedAt])
 }
 
 model Message {
   id            String    @id @default(uuid())
   sessionId     String
-  session       Session   @relation(fields: [sessionId], references: [id])
+  session       Session   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
   
   role          String    // USER, ASSISTANT, SYSTEM
   content       String    // For structured output, store stringified JSON here
@@ -82,6 +93,7 @@ model Lead {
   city                String?
   investmentRange     String?
   leadSource          String    @default("AI Support")
+  sessionId           String?   @unique // support chat this lead came from
   conversationSummary String?
   status              String    @default("NEW") // NEW, CONTACTED, CLOSED
   
@@ -269,6 +281,7 @@ model Insight {
   type         String   @default("ARTICLE")
   contentUrl   String?
   contentBody  String?  @db.Text
+  article      Json?    // structured article converted from an uploaded PDF (type REPORT)
   thumbnailUrl String?
   publishedAt  DateTime?
   isActive     Boolean  @default(true)
@@ -281,4 +294,37 @@ model AppConfig {
   id          String   @id @default("default")
   activeGames String[] // Array of active game IDs
   updatedAt   DateTime @updatedAt
+}
+
+// ── Client access (email OTP login) ─────────────────────────────
+// Only emails on this list (managed in Admin → Client Access) can sign in.
+model ApprovedClient {
+  id          String    @id @default(uuid())
+  name        String?
+  email       String    @unique // stored lower-case
+  isActive    Boolean   @default(true)
+  lastLoginAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  sessions    Session[]
+}
+
+model LoginOtp {
+  id         String    @id @default(uuid())
+  email      String
+  codeHash   String
+  expiresAt  DateTime
+  attempts   Int       @default(0)
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([email, createdAt])
+}
+
+// Rate limiting / lockouts for login endpoints (key e.g. "otp-send:<email>")
+model AuthThrottle {
+  key         String    @id
+  count       Int       @default(0)
+  windowStart DateTime  @default(now())
+  lockedUntil DateTime?
 }

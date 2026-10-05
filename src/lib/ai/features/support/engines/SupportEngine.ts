@@ -11,7 +11,7 @@ import { SupportResponse } from '@/schemas/support.schema';
 export class SupportEngine {
   private knowledgeProvider = new StaticKnowledgeProvider();
 
-  async processMessage(sessionId: string, userId: string | null, message: string): Promise<SupportResponse> {
+  async processMessage(sessionId: string, message: string): Promise<SupportResponse> {
     console.log(`[SupportEngine] Processing message for session ${sessionId}`);
     
     // 1. Fetch History
@@ -22,13 +22,8 @@ export class SupportEngine {
     
     const history = session?.messages.map(m => ({ role: m.role, content: m.content })) || [];
     
-    // 2. Fetch Lead Data if available
-    let lead = await prisma.lead.findFirst({
-      where: userId ? { userId } : { id: 'dummy_for_now' }, // Real logic would link via session or user
-      orderBy: { createdAt: 'desc' }
-    });
-    
-    // For anonymous users, we might link lead to sessionId. Let's just pass empty for now.
+    // 2. Lead captured earlier in this conversation (one lead per support chat)
+    const lead = await prisma.lead.findUnique({ where: { sessionId } });
     const leadData = lead ? { name: lead.name, email: lead.email, phone: lead.phone, city: lead.city, investmentRange: lead.investmentRange } : {};
 
     // 3. Intent Detection
@@ -89,67 +84,33 @@ export class SupportEngine {
       }
     }
 
-    // 6. Save User Message
-    await prisma.message.create({
-      data: {
-        sessionId,
-        role: 'user',
-        content: message
-      }
-    });
+    // 6. Save the exchange (user → assistant order preserved) and bump the session's activity time
+    const now = Date.now();
+    await prisma.$transaction([
+      prisma.message.createMany({
+        data: [
+          { sessionId, role: 'user', content: message, createdAt: new Date(now) },
+          { sessionId, role: 'assistant', content: proposedResponse, createdAt: new Date(now + 1) },
+        ],
+      }),
+      prisma.session.update({ where: { id: sessionId }, data: { updatedAt: new Date() } }),
+    ]);
 
-    // 7. Save Assistant Message
-    await prisma.message.create({
-      data: {
-        sessionId,
-        role: 'assistant',
-        content: proposedResponse
-      }
-    });
-
-    // 8. Update Lead if new data captured
-    if (capturedLeadData && Object.keys(capturedLeadData).length > 0 && (capturedLeadData.name || capturedLeadData.email || capturedLeadData.phone)) {
-       console.log(`[SupportEngine] Lead data captured, saving to DB:`, capturedLeadData);
-       
-       if (userId || lead?.id) {
-         // Update existing lead
-         await prisma.lead.update({
-           where: { id: lead?.id || 'placeholder' }, // In reality, we'd use the actual ID. Let's just create one if we don't have a reliable ID.
-           data: {
-             name: capturedLeadData.name,
-             email: capturedLeadData.email,
-             phone: capturedLeadData.phone,
-             city: capturedLeadData.city,
-             investmentRange: capturedLeadData.investmentRange
-           }
-         }).catch(() => {
-           // Fallback to create if update fails (e.g. ID mismatch)
-           return prisma.lead.create({
-             data: {
-               name: capturedLeadData.name || 'Unknown',
-               email: capturedLeadData.email,
-               phone: capturedLeadData.phone,
-               city: capturedLeadData.city,
-               investmentRange: capturedLeadData.investmentRange,
-               status: 'NEW',
-               leadSource: 'Chatbot'
-             }
-           });
-         });
-       } else {
-         // Create new lead
-         await prisma.lead.create({
-           data: {
-             name: capturedLeadData.name || 'Unknown',
-             email: capturedLeadData.email,
-             phone: capturedLeadData.phone,
-             city: capturedLeadData.city,
-             investmentRange: capturedLeadData.investmentRange,
-             status: 'NEW',
-             leadSource: 'Chatbot'
-           }
-         });
-       }
+    // 7. Create or enrich this conversation's lead when contact details were captured
+    if (capturedLeadData && (capturedLeadData.name || capturedLeadData.email || capturedLeadData.phone)) {
+      const fields = {
+        name: capturedLeadData.name || lead?.name || 'Unknown',
+        email: capturedLeadData.email ?? lead?.email,
+        phone: capturedLeadData.phone ?? lead?.phone,
+        city: capturedLeadData.city ?? lead?.city,
+        investmentRange: capturedLeadData.investmentRange ?? lead?.investmentRange,
+      };
+      await prisma.lead.upsert({
+        where: { sessionId },
+        create: { ...fields, sessionId, status: 'NEW', leadSource: isEscalated ? 'Chatbot – advisor request' : 'Chatbot' },
+        update: fields,
+      });
+      console.log(`[SupportEngine] Lead saved for session ${sessionId}`);
     }
 
     return {

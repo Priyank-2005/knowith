@@ -25,9 +25,8 @@ export default function Navbar() {
           <div className={styles.navLinks}>
             <Link href="/approach" style={{ color: pathname === '/approach' ? 'var(--gold)' : '' }}>Approach</Link>
             <Link href="/services" style={{ color: pathname === '/services' ? 'var(--gold)' : '' }}>Services</Link>
-            <Link href="/products" style={{ color: pathname === '/products' ? 'var(--gold)' : '' }}>Products</Link>
             <Link href="/calculators" style={{ color: pathname === '/calculators' ? 'var(--gold)' : '' }}>Calculators</Link>
-            <Link href="/games" style={{ color: pathname?.startsWith('/games') ? 'var(--gold)' : '' }}>Education</Link>
+            <Link href="/games" style={{ color: pathname?.startsWith('/games') ? 'var(--gold)' : '' }}>Quiz</Link>
             <Link href="/market-concentration" style={{ color: pathname === '/market-concentration' ? 'var(--gold)' : '' }}>Markets</Link>
             <Link href="/insights" style={{ color: pathname === '/insights' ? 'var(--gold)' : '' }}>Insights</Link>
             <Link href="/contact" style={{ color: pathname === '/contact' ? 'var(--gold)' : '' }}>Contact</Link>
@@ -35,7 +34,6 @@ export default function Navbar() {
 
           {/* Right Nav */}
           <div className={styles.navRight}>
-            <span className={styles.phone}>+91 98765 43210</span>
             <a href="https://grid.knowithcapital.com" className={styles.loginBtn} target="_blank" rel="noopener noreferrer">Grid</a>
             <Link href="/login" className={styles.loginBtn}>Login</Link>
             <Link href="/contact" className={styles.bookBtn}>Book a Consultation</Link>
@@ -66,16 +64,14 @@ export default function Navbar() {
             <div className={styles.mobileNavLinks}>
               <Link href="/approach" onClick={() => setIsMobileMenuOpen(false)}>Approach</Link>
               <Link href="/services" onClick={() => setIsMobileMenuOpen(false)}>Services</Link>
-              <Link href="/products" onClick={() => setIsMobileMenuOpen(false)}>Products</Link>
               <Link href="/calculators" onClick={() => setIsMobileMenuOpen(false)}>Calculators</Link>
-              <Link href="/games" onClick={() => setIsMobileMenuOpen(false)}>Education</Link>
+              <Link href="/games" onClick={() => setIsMobileMenuOpen(false)}>Quiz</Link>
               <Link href="/market-concentration" onClick={() => setIsMobileMenuOpen(false)}>Markets</Link>
               <Link href="/insights" onClick={() => setIsMobileMenuOpen(false)}>Insights</Link>
               <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
             </div>
             
             <div className={styles.mobileNavRight}>
-              <span className={styles.phone}>+91 98765 43210</span>
               <a href="https://grid.knowithcapital.com" className={styles.loginBtn} target="_blank" rel="noopener noreferrer">Grid</a>
               <Link href="/login" className={styles.loginBtn} onClick={() => setIsMobileMenuOpen(false)}>Login</Link>
               <Link href="/contact" className={styles.bookBtn} onClick={() => setIsMobileMenuOpen(false)}>Book a Consultation</Link>

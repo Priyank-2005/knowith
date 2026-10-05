@@ -108,14 +108,14 @@ function ArticleCards({ items }) {
               )}
             </div>
             <div className={styles.articleContent}>
-              <span className={styles.articleEyebrow}>Research Article</span>
+              <span className={styles.articleEyebrow}>{item.type === 'REPORT' ? 'Research Report' : 'Research Article'}</span>
               <h3 className={styles.articleTitle}>{item.title}</h3>
               {item.description && (
                 <p className={styles.articleDesc}>{item.description}</p>
               )}
               <div className={styles.articleMeta}>
                 <span>{new Date(item.publishedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
-                <span className={styles.readMore}>Read Article →</span>
+                <span className={styles.readMore}>{item.type === 'REPORT' ? 'Read Report →' : 'Read Article →'}</span>
               </div>
             </div>
           </Link>
@@ -137,7 +137,7 @@ export default function Insights() {
       .then(d => {
         const all = d.insights || [];
         setInfographics(all.filter(i => i.type === 'INFOGRAPHIC'));
-        setArticles(all.filter(i => i.type === 'ARTICLE'));
+        setArticles(all.filter(i => i.type === 'ARTICLE' || i.type === 'REPORT'));
       })
       .finally(() => setLoading(false));
   }, []);

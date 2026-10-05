@@ -74,13 +74,6 @@
   gap: 16px;
 }
 
-.phone {
-  font-family: var(--font-mono), monospace;
-  font-size: 13px;
-  color: var(--ink);
-  white-space: nowrap;
-}
-
 .bookBtn {
   display: inline-flex;
   align-items: center;
@@ -137,7 +130,7 @@
 }
 
 @media (max-width: 980px) {
-  .navLinks, .phone, .bookBtn, .loginBtn {
+  .navLinks, .bookBtn, .loginBtn {
     display: none;
   }
   .mobileToggle {
@@ -213,6 +206,3 @@
   margin-top: auto;
 }
 
-.mobileNavRight .phone {
-  margin-bottom: 8px;
-}

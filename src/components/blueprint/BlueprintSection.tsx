@@ -16,14 +16,14 @@ export function BlueprintSection({ title, subtitle, children, className = '', fu
   return (
     <section className={`relative print:break-inside-avoid print:py-8 ${className}`}>
       {(title || subtitle) && (
-        <header className="mb-8 print:mb-6">
+        <header className="mb-6 print:mb-6">
           {title && (
-            <h2 className="font-serif text-3xl md:text-4xl text-slate-900  font-medium tracking-tight mb-2 print:text-black">
+            <h2 className="font-serif text-2xl md:text-3xl text-[#0B2E33] font-medium tracking-tight mb-2 print:text-black">
               {title}
             </h2>
           )}
           {subtitle && (
-            <p className="text-lg text-slate-500  font-sans print:text-slate-600">
+            <p className="text-lg text-[#6B7876]  font-sans print:text-[#42504F]">
               {subtitle}
             </p>
           )}

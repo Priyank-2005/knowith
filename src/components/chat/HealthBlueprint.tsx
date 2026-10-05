@@ -85,7 +85,7 @@ export default function HealthBlueprintUI({ data, onDownload }: Props) {
           <RoadmapTimeline steps={data.recommendations} />
         </BlueprintSection>
 
-        <hr className="border-t border-slate-200  print:border-slate-300 my-16" />
+        <hr className="border-t border-[#E8E2D2]  print:border-[#D9D2C3] my-10" />
 
         <BlueprintSection>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
@@ -96,7 +96,7 @@ export default function HealthBlueprintUI({ data, onDownload }: Props) {
               />
             </div>
             <div className="lg:col-span-5">
-              <h3 className="font-serif text-2xl font-medium mb-6 text-slate-900  print:text-black">
+              <h3 className="font-serif text-2xl font-medium mb-6 text-[#0B2E33]  print:text-black">
                 Frequently Asked Questions
               </h3>
               <FAQAccordion faqs={data.faqs} />

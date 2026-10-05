@@ -23,6 +23,8 @@ export default function HealthPage() {
   const [isTyping, setIsTyping] = useState(false);
   const [isOrchestrating, setIsOrchestrating] = useState(false);
   const [blueprint, setBlueprint] = useState<HealthBlueprint | null>(null);
+  // Server-issued conversation id: keeps every turn in one chat log
+  const [sessionId, setSessionId] = useState<string | null>(null);
 
   const handleSendMessage = async (content: string) => {
     if (!content.trim() || isTyping || isOrchestrating) return;
@@ -37,6 +39,7 @@ export default function HealthPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: content,
+          sessionId,
           profileData: profile,
           currentState,
           history: messages
@@ -46,6 +49,7 @@ export default function HealthPage() {
       const data = await response.json();
 
       if (!response.ok) throw new Error(data.error);
+      if (data.sessionId) setSessionId(data.sessionId);
 
       if (data.updatedProfile) {
         setProfile(data.updatedProfile);
@@ -63,6 +67,7 @@ export default function HealthPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             message: "Generate blueprint",
+            sessionId: data.sessionId,
             profileData: data.updatedProfile,
             currentState: 'REPORT_READY',
             history: [...newMessages, { role: 'assistant', content: data.message }]
@@ -111,8 +116,9 @@ export default function HealthPage() {
             <HealthBlueprintUI data={blueprint} onDownload={handleDownloadPDF} />
             
             {/* Chat interface resumes below the blueprint */}
-            <div className="mt-12 max-w-4xl mx-auto bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-2xl p-6 print:hidden">
-              <h3 className="text-xl font-medium text-slate-200 mb-6">Ask Follow-up Questions</h3>
+            <div className="mt-12 max-w-4xl mx-auto bg-[#F6F3EC] border border-[#E8E2D2] rounded-2xl p-4 md:p-6 print:hidden">
+              <h3 className="text-xl font-serif text-[#0B2E33] mb-2">Ask follow-up questions</h3>
+              <p className="text-sm text-[#839F9D] mb-4">Your answers above are remembered — ask anything about this report.</p>
               <ChatWindow messages={messages} isTyping={isTyping} />
               <div className="mt-4">
                 <ChatInput 

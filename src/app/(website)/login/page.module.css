@@ -1,0 +1,294 @@
+.page {
+  background: var(--marble);
+  padding: var(--page-head-pad) 32px 96px;
+}
+
+.header {
+  max-width: 760px;
+  margin: 0 auto 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-family: var(--font-display), serif;
+  font-weight: 500;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 12px 0 16px;
+}
+
+.subtitle {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--slate);
+  margin: 0;
+}
+
+.grid {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.25fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 2px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cardFeature {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--on-dark);
+}
+
+.cardNo {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+}
+
+.card h2 {
+  font-family: var(--font-display), serif;
+  font-weight: 500;
+  font-size: 1.6rem;
+  margin: 0;
+  color: var(--ink);
+}
+
+.cardFeature h2 {
+  color: #ffffff;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--slate);
+  flex-grow: 0;
+}
+
+.cardFeature p {
+  color: var(--on-dark-soft);
+}
+
+.btnPrimary,
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 20px;
+  border-radius: 2px;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--marble);
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  margin-top: auto;
+}
+
+.btnPrimary:hover {
+  background: var(--ink-2);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.cardFeature .btnPrimary {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #ffffff;
+}
+
+.cardFeature .btnPrimary:hover {
+  background: #a27530;
+}
+
+.btnGhost {
+  background: transparent;
+  color: var(--on-dark);
+  border-color: var(--border-dark);
+}
+
+.cardActions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cardActions .btnPrimary {
+  margin-top: 0;
+}
+
+.appRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.qr {
+  width: 84px;
+  height: 84px;
+  border: 1px solid var(--border-light);
+  padding: 4px;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.appTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.qrHint {
+  font-size: 0.75rem;
+  color: var(--slate-soft);
+  margin-top: 2px;
+}
+
+.textLink {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.textLink:hover {
+  text-decoration: underline;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.form label {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+.input {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: 2px;
+  border: 1px solid var(--border-dark);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  font-family: var(--font-body), sans-serif;
+  font-size: 1rem;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--on-dark-soft);
+}
+
+.input:focus {
+  border-color: var(--gold-light);
+}
+
+.codeInput {
+  font-family: var(--font-mono), monospace;
+  font-size: 1.5rem;
+  letter-spacing: 0.5em;
+  text-align: center;
+}
+
+.form .btnPrimary {
+  margin-top: 4px;
+}
+
+.error {
+  color: #fca5a5 !important;
+  font-size: 0.85rem !important;
+}
+
+.notice {
+  color: var(--on-dark) !important;
+  font-size: 0.85rem !important;
+}
+
+.muted {
+  color: var(--on-dark-soft);
+  font-size: 0.9rem;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.linkBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.82rem;
+  color: var(--gold-light);
+  cursor: pointer;
+}
+
+.linkBtn:hover {
+  text-decoration: underline;
+}
+
+.signedIn {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: auto;
+}
+
+.signedIn strong {
+  color: #ffffff;
+}
+
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Phones use the app link directly — no need to scan */
+  .qr,
+  .qrHint {
+    display: none;
+  }
+
+  .page {
+    padding: 48px 16px 72px;
+  }
+}

@@ -1,12 +1,12 @@
-import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
+import { Fraunces, Manrope, IBM_Plex_Mono } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
-// @ts-ignore
 import AuthGuard from "@/components/AuthGuard";
-import "../(website)/website.css";
+import "./dashboard.css";
 
-const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: '--font-playfair' });
-const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: '--font-jetbrains' });
+// Same typefaces as the public website so the tools read as one brand
+const fraunces = Fraunces({ subsets: ["latin"], weight: ["400", "500", "600"], style: ["normal", "italic"], variable: '--font-display' });
+const manrope = Manrope({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], variable: '--font-body' });
+const ibmMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: '--font-brand-mono' });
 
 export default function DashboardLayout({
   children,
@@ -14,10 +14,11 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} ${inter.className} bg-[var(--ink)] text-white antialiased min-h-screen relative`}>
+    <div className={`dashboard-root ${fraunces.variable} ${manrope.variable} ${ibmMono.variable} ${manrope.className} bg-[var(--ink)] text-white antialiased min-h-screen relative`}>
       <AuthGuard>
         <Sidebar />
-        <main className="ml-[260px] min-h-screen bg-[#050505] print:ml-0 print:bg-white">
+        {/* Fixed-height scroll area: chat tools fill it (input pinned to the bottom); admin pages scroll inside it */}
+        <main className="lg:ml-[260px] pt-14 lg:pt-0 h-[100dvh] overflow-y-auto bg-[#050505] print:ml-0 print:pt-0 print:h-auto print:overflow-visible print:bg-white">
           {children}
         </main>
       </AuthGuard>

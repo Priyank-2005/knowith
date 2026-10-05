@@ -20,7 +20,7 @@ export type AdvisorProfile = z.infer<typeof AdvisorProfileSchema>;
 
 // The payload sent from the client to the API
 export const AdvisorChatRequestSchema = z.object({
-  sessionId: z.string().uuid().optional(),
+  sessionId: z.string().uuid().nullish(),
   message: z.string().min(1).max(1000),
   history: z.array(
     z.object({

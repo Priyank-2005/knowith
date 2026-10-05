@@ -15,6 +15,8 @@ export default function AdvisorPage() {
   const [isTyping, setIsTyping] = useState(false);
   const [isOrchestrating, setIsOrchestrating] = useState(false);
   const [blueprintData, setBlueprintData] = useState<BlueprintData | null>(null);
+  // Server-issued conversation id: keeps every turn in one chat log
+  const [sessionId, setSessionId] = useState<string | null>(null);
   
   // Initialize conversation
   useEffect(() => {
@@ -48,6 +50,7 @@ export default function AdvisorPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: content,
+          sessionId,
           history: messages.map(m => ({ role: m.role, content: m.content })), // Send full history for context
           currentState: profileData, // Inject explicit state machine payload
         }),
@@ -60,6 +63,7 @@ export default function AdvisorPage() {
       }
 
       const aiData = result.data; // GroqAdvisorResponse
+      if (aiData.sessionId) setSessionId(aiData.sessionId);
 
       // 3. Update the dynamic ProfileSidebar UI
       if (aiData.updatedProfile) {

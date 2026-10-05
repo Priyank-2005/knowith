@@ -1,13 +1,58 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { ArrowUpDown, AlertTriangle } from 'lucide-react';
 import styles from './page.module.css';
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import IndianFundsView from './IndianFundsView';
+
+type Market = 'global' | 'india';
 
 export default function MarketConcentrationPage() {
+  return (
+    <>
+      <Navbar />
+      <div className={styles.container}>
+        <Suspense fallback={<div className={styles.loading}>Loading market data...</div>}>
+          <MarketSwitcher />
+        </Suspense>
+      </div>
+      <Footer />
+    </>
+  );
+}
+
+function MarketSwitcher() {
+  // The selected market lives in the URL (?market=india) so it can be shared/bookmarked
+  const market: Market = useSearchParams().get('market') === 'india' ? 'india' : 'global';
+
+  const selectMarket = (m: Market) => {
+    const url = new URL(window.location.href);
+    if (m === 'india') url.searchParams.set('market', 'india');
+    else url.searchParams.delete('market');
+    window.history.replaceState(null, '', url);
+  };
+
+  return (
+    <>
+      <div className={styles.marketToggle} role="tablist" aria-label="Market">
+        <button role="tab" aria-selected={market === 'global'} className={market === 'global' ? styles.toggleActive : ''} onClick={() => selectMarket('global')}>
+          Global Markets
+        </button>
+        <button role="tab" aria-selected={market === 'india'} className={market === 'india' ? styles.toggleActive : ''} onClick={() => selectMarket('india')}>
+          Indian Market
+        </button>
+      </div>
+
+      {market === 'global' ? <GlobalConcentrationView /> : <IndianFundsView />}
+    </>
+  );
+}
+
+function GlobalConcentrationView() {
   const [data, setData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [filterType, setFilterType] = useState('All');
@@ -50,14 +95,13 @@ export default function MarketConcentrationPage() {
 
   return (
     <>
-      <Navbar />
-      <div className={styles.container}>
         <div className={styles.header}>
-          <h1 className={styles.title}>{data?.title || 'Global Market Concentration'}</h1>
+          <span className={styles.eyebrow}>Global Markets</span>
+          <h1 className={styles.title}>Global Market Concentration</h1>
           <p className={styles.subtitle}>Analysis of top-heavy equity markets across developed and emerging economies.</p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', justifyContent: 'center' }}>
+          <div className={styles.metaRow}>
             {data && <div className={styles.badge}>Data as of {data.month}</div>}
-            <span style={{ fontSize: '0.85rem', color: 'var(--slate)', fontStyle: 'italic' }}>* Updated once every day</span>
+            <span className={styles.metaNote}>* Updated once every day</span>
           </div>
         </div>
 
@@ -95,18 +139,18 @@ export default function MarketConcentrationPage() {
                   Country <ArrowUpDown className="w-3 h-3 inline ml-1 opacity-50" />
                 </th>
                 <th onClick={() => handleSort('marketCapUsd')} className={styles.th}>
-                  Market Cap <ArrowUpDown className="w-3 h-3 inline ml-1 opacity-50" />
+                  Market Cap <sup className={styles.est}>est.</sup> <ArrowUpDown className="w-3 h-3 inline ml-1 opacity-50" />
                 </th>
                 <th onClick={() => handleSort('top10ConcentrationPct')} className={styles.th}>
-                  Top-10 % <ArrowUpDown className="w-3 h-3 inline ml-1 opacity-50" />
+                  Top-10 % <sup className={styles.est}>est.</sup> <ArrowUpDown className="w-3 h-3 inline ml-1 opacity-50" />
                 </th>
                 <th onClick={() => handleSort('top1SharePct')} className={styles.th}>
-                  Top-1 % <ArrowUpDown className="w-3 h-3 inline ml-1 opacity-50" />
+                  Top-1 % <sup className={styles.est}>est.</sup> <ArrowUpDown className="w-3 h-3 inline ml-1 opacity-50" />
                 </th>
                 <th onClick={() => handleSort('oneYrReturnPct')} className={styles.th}>
                   1-Yr Return <ArrowUpDown className="w-3 h-3 inline ml-1 opacity-50" />
                 </th>
-                <th className={styles.th}>Index & Drivers</th>
+                <th className={styles.th}>Index & Largest Company</th>
               </tr>
             </thead>
             <tbody>
@@ -158,11 +202,13 @@ export default function MarketConcentrationPage() {
       )}
 
       <div className={styles.footer}>
-        <p>Source: Knowith Capital Intelligence. Market cap and concentration data based on primary indices for each country.</p>
-        <p>Return figures are trailing 12-months. Top return drivers indicate the sector or thematic grouping responsible for the majority of the index returns.</p>
+        <p>Source: Yahoo Finance for index levels, 1-year returns and the largest listed company (ranked live by market capitalisation).</p>
+        <p>
+          1-Yr Return is the trailing 12-month price return of each country&rsquo;s primary index in local currency. Columns marked <em>est.</em> (total
+          market cap, top-10 and top-1 concentration) and the return driver are AI model estimates, anchored to the live largest-company
+          market cap; they are indicative, not exchange-reported figures.
+        </p>
       </div>
-    </div>
-    <Footer />
     </>
   );
 }
