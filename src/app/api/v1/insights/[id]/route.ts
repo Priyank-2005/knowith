@@ -1,22 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
-import fs from 'fs';
-import path from 'path';
-import { extractText, getDocumentProxy } from 'unpdf';
+import { deleteFiles, isStoredFileUrl } from '@/lib/storage';
+import { ArticleSchema } from '@/lib/insights/articleTypes';
+import { getAdminSession, requireAdmin } from '@/lib/auth/guards';
 
 export const dynamic = 'force-dynamic';
 
+/** GET /api/v1/insights/:id — drafts are only returned with ?preview=1 */
 export async function GET(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await ctx.params;
-    const insight = await prisma.insight.findUnique({
-      where: { id }
-    });
+    const insight = await prisma.insight.findUnique({ where: { id } });
+    const preview = req.nextUrl.searchParams.get('preview') === '1' && Boolean(await getAdminSession());
 
-    if (!insight) {
+    if (!insight || (!insight.isActive && !preview)) {
       return NextResponse.json({ error: 'Insight not found' }, { status: 404 });
     }
-
     return NextResponse.json({ insight });
   } catch (error) {
     console.error('Failed to fetch insight:', error);
@@ -24,68 +24,47 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ id: string 
   }
 }
 
+/** Partial update. File fields are URLs from /api/v1/uploads; replaced files are deleted. */
 export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
   try {
     const { id } = await ctx.params;
-    const formData = await req.formData();
-    const title = formData.get('title') as string | null;
-    const description = formData.get('description') as string | null;
-    const type = formData.get('type') as string | null;
-    let contentBody = formData.get('contentBody') as string | null;
-    const thumbnail = formData.get('thumbnail') as File | null;
-    const file = formData.get('file') as File | null;
+    const body = await req.json();
 
-    const existingInsight = await prisma.insight.findUnique({ where: { id } });
-    if (!existingInsight) {
+    const existing = await prisma.insight.findUnique({ where: { id } });
+    if (!existing) {
       return NextResponse.json({ error: 'Insight not found' }, { status: 404 });
     }
 
-    const updateData: Record<string, unknown> = {};
-    if (title) updateData.title = title;
-    if (description !== null) updateData.description = description;
-    if (type) updateData.type = type;
-    if (contentBody !== null) updateData.contentBody = contentBody;
-
-    const uploadDir = path.join(process.cwd(), 'public/uploads');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
+    const data: Prisma.InsightUpdateInput = {};
+    if (typeof body.title === 'string') data.title = body.title;
+    if (typeof body.description === 'string') data.description = body.description;
+    if (typeof body.contentBody === 'string') data.contentBody = body.contentBody;
+    if (typeof body.contentUrl === 'string' && isStoredFileUrl(body.contentUrl)) data.contentUrl = body.contentUrl;
+    if (typeof body.thumbnailUrl === 'string' && isStoredFileUrl(body.thumbnailUrl)) data.thumbnailUrl = body.thumbnailUrl;
+    if (typeof body.isActive === 'boolean') {
+      data.isActive = body.isActive;
+      // Publishing a draft dates it to the moment it goes live
+      if (body.isActive && !existing.isActive) data.publishedAt = new Date();
+    }
+    if (body.article) {
+      const parsed = ArticleSchema.safeParse(body.article);
+      if (!parsed.success) return NextResponse.json({ error: 'Invalid article structure' }, { status: 400 });
+      data.article = parsed.data as Prisma.InputJsonValue;
     }
 
-    if (thumbnail && thumbnail.size > 0) {
-      const bytes = await thumbnail.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const fileName = `${Date.now()}-thumb-${thumbnail.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-      const filePath = path.join(uploadDir, fileName);
-      fs.writeFileSync(filePath, buffer);
-      updateData.thumbnailUrl = `/uploads/${fileName}`;
+    const updated = await prisma.insight.update({ where: { id }, data });
+
+    // Clean up files that were replaced
+    const replaced = [];
+    if (data.contentUrl && existing.contentUrl !== data.contentUrl) replaced.push(existing.contentUrl);
+    if (data.thumbnailUrl && existing.thumbnailUrl !== data.thumbnailUrl && existing.thumbnailUrl !== existing.contentUrl) {
+      replaced.push(existing.thumbnailUrl);
     }
+    await deleteFiles(replaced);
 
-    if (file && file.size > 0) {
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-      const filePath = path.join(uploadDir, fileName);
-      fs.writeFileSync(filePath, buffer);
-      updateData.contentUrl = `/uploads/${fileName}`;
-
-      // Extract text from PDF if no manual content was provided
-      if ((file.type === 'application/pdf' || file.name.endsWith('.pdf')) && !contentBody) {
-        try {
-          const pdf = await getDocumentProxy(new Uint8Array(buffer));
-          const { text } = await extractText(pdf, { mergePages: true });
-          updateData.contentBody = text;
-        } catch (pdfError) {
-          console.error('Failed to parse PDF:', pdfError);
-        }
-      }
-    }
-
-    const updatedInsight = await prisma.insight.update({
-      where: { id },
-      data: updateData
-    });
-
-    return NextResponse.json({ success: true, insight: updatedInsight });
+    return NextResponse.json({ success: true, insight: updated });
   } catch (error) {
     console.error('Failed to update insight:', error);
     return NextResponse.json({ error: 'Failed to update insight' }, { status: 500 });
@@ -93,28 +72,20 @@ export async function PUT(req: NextRequest, ctx: { params: Promise<{ id: string 
 }
 
 export async function DELETE(req: NextRequest, ctx: { params: Promise<{ id: string }> }) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
   try {
     const { id } = await ctx.params;
-    
-    const existingInsight = await prisma.insight.findUnique({ where: { id } });
-    if (!existingInsight) {
+    const existing = await prisma.insight.findUnique({ where: { id } });
+    if (!existing) {
       return NextResponse.json({ error: 'Insight not found' }, { status: 404 });
     }
 
-    // Clean up uploaded files
-    const uploadDir = path.join(process.cwd(), 'public/uploads');
-    if (existingInsight.contentUrl) {
-      const filePath = path.join(uploadDir, path.basename(existingInsight.contentUrl));
-      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
-    }
-    if (existingInsight.thumbnailUrl && existingInsight.thumbnailUrl !== existingInsight.contentUrl) {
-      const filePath = path.join(uploadDir, path.basename(existingInsight.thumbnailUrl));
-      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
-    }
+    await prisma.insight.delete({ where: { id } });
 
-    await prisma.insight.delete({
-      where: { id }
-    });
+    const article = ArticleSchema.safeParse(existing.article);
+    const figureUrls = article.success ? article.data.figures.map(f => f.url) : [];
+    await deleteFiles([existing.contentUrl, existing.thumbnailUrl, ...figureUrls]);
 
     return NextResponse.json({ success: true });
   } catch (error) {

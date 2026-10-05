@@ -24,10 +24,11 @@ const workflowExecutor = new WorkflowExecutor(
   { maxConcurrent: 1, maxRetries: 3 } // Changed to 1 to prevent rate-limit cascade
 );
 
-// @ts-ignore
-import { logChatSequence } from '@/lib/chatLogger';
+import { getChatActor, logChatTurn, resolveSessionId } from '@/lib/chatLogger';
 
 export async function POST(request: Request) {
+  // Lets the error handler record a failed turn in the conversation log
+  let turn: { sessionId: string; actor: Awaited<ReturnType<typeof getChatActor>>; message: string } | null = null;
   try {
     const body = await request.json();
     
@@ -42,10 +43,12 @@ export async function POST(request: Request) {
 
     const { message, currentState, history = [] } = parsed.data;
 
-    // We need a session ID from the client, or generate a temporary one
-    // For now we'll use a random UUID if not provided by the frontend.
-    // In a real app, you'd update the frontend schema to send sessionId.
-    const sessionId = body.sessionId || `session-${Date.now()}`;
+    // One conversation = one session (validated server-side); identity comes from the signed cookie
+
+    const actor = await getChatActor();
+
+    const sessionId = await resolveSessionId(body.sessionId, 'ADVISOR', actor);
+    turn = { sessionId, actor, message };
 
     // 2. We use the original LLM purely as a conversational router to collect data.
     const messages = [
@@ -99,14 +102,15 @@ export async function POST(request: Request) {
 
     // Log to DB
     const botResponseStr = aiData.message || (massiveBlueprint ? "Here is your generated blueprint." : "Please provide the next piece of information.");
-    await logChatSequence(
+    await logChatTurn({
       sessionId,
-      'ADVISOR',
-      body.userId || null,
-      message,
-      botResponseStr,
-      'v1.0.0'
-    );
+      feature: 'ADVISOR',
+      actor,
+      userMessage: message,
+      assistantMessage: botResponseStr,
+      profile: { ...(currentState || {}), ...(aiData.updatedProfile || {}) },
+      report: massiveBlueprint ?? undefined,
+    });
 
     // 4. Return to Frontend
     return NextResponse.json({
@@ -124,6 +128,14 @@ export async function POST(request: Request) {
 
   } catch (error: any) {
     console.error('Advisor API Error:', error);
+    if (turn) {
+      await logChatTurn({
+        ...turn,
+        feature: 'ADVISOR',
+        userMessage: turn.message,
+        assistantMessage: `⚠️ The assistant could not respond (${error?.message || 'unknown error'}).`,
+      });
+    }
     return NextResponse.json(
       { success: false, error: { code: 'INTERNAL_SERVER_ERROR', message: error.message } },
       { status: 500 }

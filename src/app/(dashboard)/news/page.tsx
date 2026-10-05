@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 import { MarketBlueprint as MarketBlueprintUI } from "@/components/market/MarketBlueprint";
 import { OrchestratorLoading } from "@/components/chat/OrchestratorLoading";
 import { MarketBlueprint } from "@/schemas/market.schema";
-import { RefreshCw } from "lucide-react";
+import Link from "next/link";
+import { RefreshCw, ChevronLeft, ShieldCheck } from "lucide-react";
 
 export default function MarketNewsPage() {
   const [blueprint, setBlueprint] = useState<MarketBlueprint | null>(null);
@@ -48,14 +49,22 @@ export default function MarketNewsPage() {
 
   return (
     <>
-      <div className="flex-1 flex flex-col h-full bg-slate-50 overflow-hidden print:bg-white print:h-auto print:overflow-visible">
+      <div className="flex-1 flex flex-col h-full bg-[#F6F3EC] overflow-hidden print:bg-white print:h-auto print:overflow-visible">
         
-        {/* Top bar for mobile/web structure (consistent with platform but no chat sidebar) */}
-        <header className="h-14 bg-white border-b border-slate-200 flex items-center px-6 shrink-0 z-10 print:hidden shadow-sm">
-           <h2 className="font-medium text-indigo-900">Market News</h2>
+        {/* Same header as the other research tools */}
+        <header className="h-16 bg-white/60 backdrop-blur-md border-b border-[#E8E2D2] flex items-center gap-3 md:gap-4 px-4 md:px-6 shrink-0 z-10 print:hidden">
+          <Link href="/" aria-label="Back to website" className="text-[#839F9D] hover:text-[#0B2E33] transition-colors p-2 rounded-full hover:bg-white/80">
+            <ChevronLeft size={20} />
+          </Link>
+          <div className="flex items-center gap-3 pl-2 border-l border-[#E8E2D2] min-w-0">
+            <div className="bg-[#0B2E33] p-1.5 rounded text-[#D9B978] shadow-sm shrink-0"><ShieldCheck size={16} /></div>
+            <span className="font-medium text-[#0B2E33] hidden sm:block font-serif text-lg tracking-wide">Knowith Capital</span>
+            <span className="text-[#C4D1D0] hidden sm:block">/</span>
+            <h1 className="font-semibold text-[#B8873D] tracking-wider text-xs md:text-sm uppercase font-mono truncate">Market Intelligence</h1>
+          </div>
         </header>
 
-        <main className="flex-1 overflow-y-auto w-full print:overflow-visible">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden w-full print:overflow-visible">
           {isLoading ? (
             <div className="h-full w-full flex items-center justify-center">
               <OrchestratorLoading />
@@ -69,7 +78,7 @@ export default function MarketNewsPage() {
               <p className="text-slate-500 mb-6">{error}</p>
               <button 
                 onClick={() => fetchMarketIntelligence(true)}
-                className="px-6 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+                className="px-6 py-2 bg-[#0B2E33] text-[#F6F3EC] font-medium rounded-lg hover:bg-[#0F3A3F] transition-colors"
               >
                 Try Again
               </button>

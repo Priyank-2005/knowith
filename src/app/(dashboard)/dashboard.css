@@ -1,0 +1,14 @@
+/*
+ * The website stylesheet provides the brand tokens (--ink, --gold…) used here,
+ * but its element rules (h1–h6, a, .container…) are unlayered and would beat
+ * Tailwind's utility classes. Importing it into the `base` layer lets utilities win.
+ */
+@import "../(website)/website.css" layer(base);
+
+/* Map Tailwind's font utilities (font-serif / font-sans / font-mono) to the brand fonts */
+.dashboard-root {
+  --font-serif: var(--font-display), ui-serif, Georgia, serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-brand-mono), ui-monospace, monospace;
+  font-family: var(--font-sans);
+}

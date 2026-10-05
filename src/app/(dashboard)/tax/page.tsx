@@ -16,6 +16,8 @@ export default function TaxPage() {
   }]);
   
   const [profile, setProfile] = useState<Record<string, any>>({});
+  // Server-issued conversation id: keeps every turn in one chat log
+  const [sessionId, setSessionId] = useState<string | null>(null);
   const [blueprint, setBlueprint] = useState<any | null>(null);
   
   const [isTyping, setIsTyping] = useState(false);
@@ -34,6 +36,7 @@ export default function TaxPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: content,
+          sessionId,
           currentState: profile,
           history: messages
         })
@@ -43,8 +46,9 @@ export default function TaxPage() {
 
       if (!response.ok) throw new Error(data.error?.message || "Something went wrong.");
 
+      if (data.data?.sessionId) setSessionId(data.data.sessionId);
       if (data.data?.updatedProfile) {
-        setProfile(data.data.updatedProfile);
+        setProfile(prev => ({ ...prev, ...data.data.updatedProfile }));
       }
 
       if (data.data?.nextState === 'REPORT_READY') {
@@ -88,8 +92,9 @@ export default function TaxPage() {
           <div className="max-w-5xl mx-auto p-4 md:p-8 space-y-6">
             <TaxBlueprintUI data={blueprint} />
             
-            <div className="mt-12 max-w-4xl mx-auto bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-2xl p-6 print:hidden">
-              <h3 className="text-xl font-medium text-slate-200 mb-6">Ask Follow-up Questions</h3>
+            <div className="mt-12 max-w-4xl mx-auto bg-[#F6F3EC] border border-[#E8E2D2] rounded-2xl p-4 md:p-6 print:hidden">
+              <h3 className="text-xl font-serif text-[#0B2E33] mb-2">Ask follow-up questions</h3>
+              <p className="text-sm text-[#839F9D] mb-4">Your answers above are remembered — ask anything about this report.</p>
               <ChatWindow messages={messages} isTyping={isTyping} />
               <div className="mt-4">
                 <ChatInput 

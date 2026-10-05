@@ -1,0 +1,138 @@
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(246, 243, 236, 0.97);
+  color: var(--ink);
+  border-radius: 6px;
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.55);
+  padding: 22px 22px 14px;
+  position: relative;
+  z-index: 3;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--slate);
+  padding-bottom: 14px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.45); }
+  70% { box-shadow: 0 0 0 8px rgba(22, 163, 74, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 4px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.question:hover .qText {
+  color: var(--gold);
+}
+
+.question:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.qIcon {
+  flex: 0 0 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qText {
+  flex: 1;
+  transition: color 0.2s;
+}
+
+.chevron {
+  color: var(--slate-soft);
+  transition: transform 0.25s;
+  display: flex;
+}
+
+.itemOpen .chevron {
+  transform: rotate(180deg);
+  color: var(--gold);
+}
+
+.itemOpen .qText {
+  font-weight: 600;
+}
+
+.answerWrap {
+  overflow: hidden;
+}
+
+.answer {
+  padding: 0 4px 16px 38px;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--slate);
+}
+
+.answer p {
+  margin: 0 0 10px;
+}
+
+.cta {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.cta:hover {
+  text-decoration: underline;
+}

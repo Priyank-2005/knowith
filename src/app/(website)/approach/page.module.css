@@ -1,6 +1,6 @@
 .header {
   text-align: center;
-  padding: 100px 20px 60px;
+  padding: var(--page-head-pad) 20px var(--page-head-pad);
   background: radial-gradient(circle at center 0%, var(--ink-2) 0%, var(--ink) 100%);
   color: var(--marble);
   position: relative;

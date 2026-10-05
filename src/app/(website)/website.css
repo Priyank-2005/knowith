@@ -21,6 +21,10 @@
   --container-max: 1180px;
   --section-pad-y: 110px;
   --section-pad-x: 32px;
+  /* Sticky navbar + market ticker */
+  --site-header-h: 121px;
+  /* Compact padding for the title block at the top of inner pages */
+  --page-head-pad: 48px;
 }
 
 
@@ -195,10 +199,25 @@ a {
   color: var(--marble);
 }
 
+/*
+ * Page title blocks: the first section of an inner page sits right under the
+ * sticky header, so it gets compact padding (not the full --section-pad-y),
+ * and the section after it starts closer, so content is visible without scrolling.
+ */
+main > section:first-child:is(.section-light, .section-light-2, .section-dark) {
+  padding-top: var(--page-head-pad);
+  padding-bottom: var(--page-head-pad);
+}
+
+main > section:first-child:is(.section-light, .section-light-2, .section-dark) + section:is(.section-light, .section-light-2, .section-dark) {
+  padding-top: calc(var(--page-head-pad) + 16px);
+}
+
 /* Mobile Adjustments */
 @media (max-width: 980px) {
   :root {
     --section-pad-y: 60px;
     --section-pad-x: 20px;
+    --page-head-pad: 32px;
   }
 }

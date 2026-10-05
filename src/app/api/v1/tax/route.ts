@@ -8,8 +8,7 @@ import { TaxWorkflow } from '@/lib/ai/features/tax/TaxWorkflow';
 import { TaxCalculatorCapability } from '@/lib/ai/features/tax/capabilities/TaxCalculatorCapability';
 import { TaxStrategistCapability } from '@/lib/ai/features/tax/capabilities/TaxStrategistCapability';
 
-// @ts-ignore
-import { logChatSequence } from '@/lib/chatLogger';
+import { getChatActor, logChatTurn, resolveSessionId } from '@/lib/chatLogger';
 
 const taxRegistry = new Map();
 taxRegistry.set(TaxCalculatorCapability.id, TaxCalculatorCapability);
@@ -22,6 +21,8 @@ const workflowExecutor = new WorkflowExecutor(
 );
 
 export async function POST(request: Request) {
+  // Lets the error handler record a failed turn in the conversation log
+  let turn: { sessionId: string; actor: Awaited<ReturnType<typeof getChatActor>>; message: string } | null = null;
   try {
     const body = await request.json();
     
@@ -34,7 +35,10 @@ export async function POST(request: Request) {
     }
 
     const { message, currentState, history = [] } = parsed.data;
-    const sessionId = body.sessionId || `session-${Date.now()}`;
+    // One conversation = one session (validated server-side); identity comes from the signed cookie
+    const actor = await getChatActor();
+    const sessionId = await resolveSessionId(body.sessionId, 'TAX', actor);
+    turn = { sessionId, actor, message };
 
     const messages = [
       { 
@@ -80,14 +84,15 @@ export async function POST(request: Request) {
     const botResponseStr = aiData.message || (massiveBlueprint ? "Here is your generated tax optimization blueprint." : "Please provide the next piece of information.");
     
     // Log to DB
-    await logChatSequence(
+    await logChatTurn({
       sessionId,
-      'TAX',
-      body.userId || null,
-      message,
-      botResponseStr,
-      'v1.0.0'
-    );
+      feature: 'TAX',
+      actor,
+      userMessage: message,
+      assistantMessage: botResponseStr,
+      profile: { ...(currentState || {}), ...(aiData.updatedProfile || {}) },
+      report: massiveBlueprint ?? undefined,
+    });
 
     return NextResponse.json({
       success: true,
@@ -104,6 +109,14 @@ export async function POST(request: Request) {
 
   } catch (error: any) {
     console.error('Tax API Error:', error);
+    if (turn) {
+      await logChatTurn({
+        ...turn,
+        feature: 'TAX',
+        userMessage: turn.message,
+        assistantMessage: `⚠️ The assistant could not respond (${error?.message || 'unknown error'}).`,
+      });
+    }
     return NextResponse.json(
       { success: false, error: { code: 'INTERNAL_SERVER_ERROR', message: error.message } },
       { status: 500 }

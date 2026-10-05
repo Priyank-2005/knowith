@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useSession, signOut } from '@/lib/auth/useSession';
 import { 
   LayoutDashboard, 
   TrendingUp, 
@@ -17,7 +18,11 @@ import {
   LayoutTemplate,
   LogOut,
   Globe,
-  PlayCircle
+  PlayCircle,
+  UserCheck,
+  Menu,
+  X,
+  ArrowLeft
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -26,14 +31,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// AI Features — visible to NON_CLIENT only
+// AI tools — for approved clients (email OTP) and admins
 const aiFeatureItems = [
   { name: 'Investment Advisor', href: '/advisor', icon: TrendingUp },
   { name: 'Financial Health', href: '/health', icon: Activity },
   { name: 'Portfolio Analyzer', href: '/portfolio', icon: PieChart },
   { name: 'SIP Calculator', href: '/sip', icon: Target },
   { name: 'Tax Advisor', href: '/tax', icon: ShieldCheck },
-  { name: 'Market News', href: '/market', icon: Newspaper },
+  { name: 'Market News', href: '/news', icon: Newspaper },
 ];
 
 const adminItems = [
@@ -43,63 +48,67 @@ const adminItems = [
   { name: 'Chat Logs', href: '/admin/chats', icon: Headphones },
   { name: 'Market Data', href: '/admin/market-data', icon: Globe },
   { name: 'Insights', href: '/admin/insights', icon: Newspaper },
+  { name: 'Client Access', href: '/admin/clients', icon: UserCheck },
   { name: 'Games config', href: '/admin/games', icon: PlayCircle },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const [userRole, setUserRole] = useState<string | null>(null);
-  const [userName, setUserName] = useState<string>('');
+  const { admin, member } = useSession();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  // The admin area shows staff tools; everything else is the member tools area
+  const userRole = pathname.startsWith('/admin') && admin ? 'ADMIN' : 'MEMBER';
+  const userName = (userRole === 'ADMIN' ? admin?.name || admin?.email : member?.name || member?.email || admin?.email) ?? '';
 
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem('knowith_user');
-      if (stored) {
-        const user = JSON.parse(stored);
-        setUserRole(user.role);
-        setUserName(user.name || user.email);
-      }
-    } catch {}
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('knowith_user');
-    router.push('/login');
+  const handleLogout = async () => {
+    await signOut(userRole === 'ADMIN' ? 'admin' : 'member');
+    router.push(userRole === 'ADMIN' ? '/admin' : '/');
   };
 
-  // Determine which nav items to show based on role
-  let navItems: typeof aiFeatureItems = [];
-  let sidebarTitle = 'Knowith AI';
-  let sidebarSubtitle = 'Capital Intelligence';
-
-  if (userRole === 'ADMIN') {
-    navItems = adminItems;
-    sidebarTitle = 'Knowith Admin';
-    sidebarSubtitle = 'Email Marketing';
-  } else if (userRole === 'NON_CLIENT') {
-    navItems = aiFeatureItems;
-    sidebarTitle = 'Knowith AI';
-    sidebarSubtitle = 'Capital Intelligence';
-  } else {
-    // Default: show AI features (fallback)
-    navItems = aiFeatureItems;
-  }
+  const navItems = userRole === 'ADMIN' ? adminItems : aiFeatureItems;
+  const sidebarTitle = userRole === 'ADMIN' ? 'Knowith Admin' : 'Knowith AI';
+  const sidebarSubtitle = userRole === 'ADMIN' ? 'Admin Console' : 'Capital Intelligence';
 
   return (
-    <div className="fixed top-0 left-0 bottom-0 z-50 flex w-[260px] flex-col bg-[#0B2E33] border-r border-[#15464D] text-white print:hidden">
+    <>
+    {/* Mobile top bar */}
+    <div className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 flex items-center justify-between px-4 bg-[#0B2E33] border-b border-[#15464D] print:hidden">
+      <div>
+        <div className="text-lg font-serif text-[#F6F3EC] leading-none">{sidebarTitle}</div>
+        <div className="text-[9px] text-[#D9B978] mt-1 tracking-widest uppercase font-mono">{sidebarSubtitle}</div>
+      </div>
+      <button onClick={() => setMobileOpen(true)} aria-label="Open menu" className="p-2 rounded-lg text-[#F6F3EC] hover:bg-[#0F3A3F]">
+        <Menu className="w-5 h-5" />
+      </button>
+    </div>
+
+    {/* Drawer backdrop (mobile) */}
+    {mobileOpen && (
+      <div className="lg:hidden fixed inset-0 z-40 bg-black/50 print:hidden" onClick={() => setMobileOpen(false)} aria-hidden />
+    )}
+
+    <div className={cn(
+      "fixed top-0 left-0 bottom-0 z-50 flex w-[260px] flex-col bg-[#0B2E33] border-r border-[#15464D] text-white print:hidden transition-transform duration-200",
+      mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+    )}>
       {/* Logo */}
-      <div className="px-6 py-8">
-        <h1 className="text-2xl font-serif text-[#F6F3EC] tracking-wide">
-          {sidebarTitle}
-        </h1>
-        <p className="text-[10px] text-[#D9B978] mt-1 tracking-widest uppercase font-mono">{sidebarSubtitle}</p>
+      <div className="px-6 py-8 flex items-start justify-between">
+        <div>
+          <div className="text-2xl font-serif text-[#F6F3EC] tracking-wide">
+            {sidebarTitle}
+          </div>
+          <p className="text-[10px] text-[#D9B978] mt-1 tracking-widest uppercase font-mono">{sidebarSubtitle}</p>
+        </div>
+        <button onClick={() => setMobileOpen(false)} aria-label="Close menu" className="lg:hidden p-1 rounded text-[#839F9D] hover:text-white">
+          <X className="w-5 h-5" />
+        </button>
       </div>
 
       {/* Section Label */}
       <div className="px-6 pb-2 mt-2">
         <p className="text-[10px] font-semibold text-[#839F9D] uppercase tracking-widest font-mono">
-          {userRole === 'ADMIN' ? 'Email Marketing' : 'AI Tools'}
+          {userRole === 'ADMIN' ? 'Manage' : 'AI Tools'}
         </p>
       </div>
 
@@ -112,6 +121,7 @@ export default function Sidebar() {
             <Link
               key={item.name}
               href={item.href}
+              onClick={() => setMobileOpen(false)}
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-lg text-[13.5px] font-medium transition-all duration-200",
                 isActive 
@@ -143,6 +153,12 @@ export default function Sidebar() {
           </div>
         </div>
 
+        {userRole !== 'ADMIN' && (
+          <Link href="/" className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-[11px] uppercase font-mono tracking-widest text-[#C4D1D0] hover:text-white hover:bg-[#0F3A3F] transition-colors">
+            <ArrowLeft className="w-3.5 h-3.5" />
+            Back to website
+          </Link>
+        )}
         <button
           onClick={handleLogout}
           className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-[11px] uppercase font-mono tracking-widest text-[#839F9D] hover:text-[#ef4444] hover:bg-red-500/10 transition-colors"
@@ -152,5 +168,6 @@ export default function Sidebar() {
         </button>
       </div>
     </div>
+    </>
   );
 }

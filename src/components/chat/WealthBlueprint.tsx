@@ -56,7 +56,7 @@ export const WealthBlueprint: React.FC<{ data: BlueprintData }> = ({ data }) => 
         </BlueprintSection>
 
         <BlueprintSection title="Executive Summary">
-          <p className="text-lg text-slate-700  leading-relaxed max-w-3xl print:text-black">
+          <p className="text-lg text-[#42504F]  leading-relaxed max-w-3xl print:text-black">
             {data.healthAnalysis}
           </p>
         </BlueprintSection>
@@ -72,29 +72,35 @@ export const WealthBlueprint: React.FC<{ data: BlueprintData }> = ({ data }) => 
             </InsightCallout>
           </div>
 
+          {(data.behaviouralBiases?.length || data.likelyMistakes?.length) ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {data.behaviouralBiases?.length ? (
             <div className="space-y-4">
-              <h4 className="font-semibold text-slate-900  print:text-black">Identified Biases</h4>
+              <h4 className="font-semibold text-[#0B2E33]  print:text-black">Identified Biases</h4>
               {data.behaviouralBiases?.map((bias, i) => (
                 <InsightCallout key={i} type="risk">
                   {bias}
                 </InsightCallout>
               ))}
             </div>
+            ) : null}
+            {data.likelyMistakes?.length ? (
             <div className="space-y-4">
-              <h4 className="font-semibold text-slate-900  print:text-black">Common Mistakes to Avoid</h4>
+              <h4 className="font-semibold text-[#0B2E33]  print:text-black">Common Mistakes to Avoid</h4>
               {data.likelyMistakes?.map((mistake, i) => (
                 <InsightCallout key={i} type="risk">
                   {mistake}
                 </InsightCallout>
               ))}
             </div>
+            ) : null}
           </div>
+          ) : null}
         </BlueprintSection>
 
         <BlueprintSection title="Asset Allocation Strategy">
           <div className="mb-8">
-            <p className="text-lg text-slate-700  italic border-l-2 border-indigo-500 pl-4 print:text-black">
+            <p className="text-lg text-[#42504F]  italic border-l-2 border-[#D9B978] pl-4 print:text-black">
               {data.allocationReasoning}
             </p>
           </div>
@@ -102,9 +108,9 @@ export const WealthBlueprint: React.FC<{ data: BlueprintData }> = ({ data }) => 
           {/* Simple tabular representation of allocation */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {Object.entries(data.assetAllocation || {}).map(([asset, percentage], idx) => (
-              <div key={idx} className="p-6 border border-slate-200  rounded-xl print:border-slate-300">
-                <div className="text-3xl font-serif text-slate-900  mb-2 print:text-black">{percentage}</div>
-                <div className="text-sm font-medium text-slate-500 uppercase tracking-widest print:text-slate-700">{asset}</div>
+              <div key={idx} className="p-6 border border-[#E8E2D2]  rounded-xl print:border-[#D9D2C3]">
+                <div className="text-3xl font-serif text-[#0B2E33]  mb-2 print:text-black">{percentage}</div>
+                <div className="text-sm font-medium text-[#6B7876] uppercase tracking-widest print:text-[#42504F]">{asset}</div>
               </div>
             ))}
           </div>
@@ -136,23 +142,25 @@ export const WealthBlueprint: React.FC<{ data: BlueprintData }> = ({ data }) => 
           <RoadmapTimeline steps={data.actionPlan?.map(a => ({ ...a, impact: a.impact || '' })) || []} />
         </BlueprintSection>
 
+        {data.missingData?.length ? (
         <BlueprintSection title="Data Quality">
-          <div className="p-6 border border-dashed border-slate-300  rounded-xl max-w-2xl print:border-slate-400">
-            <h4 className="font-semibold text-slate-900  mb-2 print:text-black">Improve this Blueprint</h4>
-            <p className="text-sm text-slate-600  mb-4 print:text-slate-800">
+          <div className="p-6 border border-dashed border-[#D9D2C3]  rounded-xl max-w-2xl print:border-[#839F9D]">
+            <h4 className="font-semibold text-[#0B2E33]  mb-2 print:text-black">Improve this Blueprint</h4>
+            <p className="text-sm text-[#42504F]  mb-4 print:text-[#0B2E33]">
               We could make even more precise recommendations if you provide:
             </p>
             <div className="flex flex-wrap gap-2">
               {data.missingData?.map((item, idx) => (
-                <span key={idx} className="px-3 py-1 bg-slate-100  text-slate-700  text-xs font-medium rounded-full print:border print:border-slate-300 print:bg-white print:text-black">
+                <span key={idx} className="px-3 py-1 bg-[#EFEAE0]  text-[#42504F]  text-xs font-medium rounded-full print:border print:border-[#D9D2C3] print:bg-white print:text-black">
                   + {item}
                 </span>
               ))}
             </div>
           </div>
         </BlueprintSection>
+        ) : null}
 
-        <hr className="border-t border-slate-200  print:border-slate-300 my-16" />
+        <hr className="border-t border-[#E8E2D2]  print:border-[#D9D2C3] my-10" />
 
         <BlueprintSection>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
@@ -163,7 +171,7 @@ export const WealthBlueprint: React.FC<{ data: BlueprintData }> = ({ data }) => 
               />
             </div>
             <div className="lg:col-span-5">
-              <h3 className="font-serif text-2xl font-medium mb-6 text-slate-900  print:text-black">
+              <h3 className="font-serif text-2xl font-medium mb-6 text-[#0B2E33]  print:text-black">
                 Frequently Asked Questions
               </h3>
               <FAQAccordion faqs={data.faqs || []} />

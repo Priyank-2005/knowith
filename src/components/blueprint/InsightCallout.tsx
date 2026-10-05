@@ -10,10 +10,10 @@ interface InsightCalloutProps {
 }
 
 const typeStyles = {
-  insight: 'bg-blue-50  border-blue-500 text-blue-900 ',
+  insight: 'bg-[#FBF7EE]  border-[#D9B978] text-[#0B2E33] ',
   strength: 'bg-emerald-50  border-emerald-500 text-emerald-900 ',
   risk: 'bg-rose-50  border-rose-500 text-rose-900 ',
-  neutral: 'bg-slate-50  border-slate-400 text-slate-800 '
+  neutral: 'bg-[#F6F3EC]  border-[#839F9D] text-[#0B2E33] '
 };
 
 const TypeIcon = ({ type, className }: { type: InsightType, className?: string }) => {

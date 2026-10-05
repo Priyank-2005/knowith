@@ -19,7 +19,7 @@ export const ProfileSidebar: React.FC<ProfileSidebarProps> = ({ fields, profileD
   const readinessScore = Math.min(progress, 99); // Max 99 until fully computed in the Blueprint
 
   return (
-    <div className="w-80 bg-white h-full flex flex-col hidden lg:flex z-10 border-l border-gray-200">
+    <div className="w-full bg-white h-full flex flex-col overflow-y-auto z-10">
       
       {/* Header & Readiness Score */}
       <div className="p-8 border-b border-gray-200 bg-white relative overflow-hidden">

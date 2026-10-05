@@ -1,50 +1,34 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { useSession } from '@/lib/auth/useSession';
 
+/**
+ * UI-level guard for the dashboard area. The real enforcement happens in
+ * src/proxy.ts (signed session cookies); this only avoids flashing a page
+ * whose session expired while the tab was open.
+ */
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const { loading, admin, member } = useSession();
+
+  const isAdminArea = pathname.startsWith('/admin');
+  const authorized = isAdminArea ? Boolean(admin) : Boolean(member || admin);
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem('knowith_user');
-      if (!stored) {
-        // No user found, redirect to login
-        router.push('/login');
-        return;
-      }
+    if (loading || authorized) return;
+    router.replace(isAdminArea ? `/admin?next=${encodeURIComponent(pathname)}` : `/login?next=${encodeURIComponent(pathname)}`);
+  }, [loading, authorized, isAdminArea, pathname, router]);
 
-      const user = JSON.parse(stored);
-      
-      // Role-based routing protection
-      if (user.role === 'ADMIN' && !pathname.startsWith('/admin')) {
-        // Admin shouldn't be in AI tools
-        router.push('/admin/campaigns');
-        return;
-      }
-      
-      if (user.role !== 'ADMIN' && pathname.startsWith('/admin')) {
-        // Non-admin shouldn't be in admin tools
-        router.push('/advisor');
-        return;
-      }
-
-      // If we made it here, they are authorized for this route
-      setIsAuthorized(true);
-    } catch (error) {
-      // JSON parse error or something else, force login
-      localStorage.removeItem('knowith_user');
-      router.push('/login');
-    }
-  }, [router, pathname]);
-
-  // Don't render children until we've confirmed authorization to prevent flash of unauthorized content
-  if (!isAuthorized) {
-    return <div className="h-screen w-screen bg-[#050505]" />; // Blank screen while checking
+  if (!authorized) {
+    // Match the area's background (dark admin, light member tools) to avoid a flash
+    return (
+      <div className={`h-[100dvh] w-full flex items-center justify-center ${isAdminArea ? 'bg-[#050505]' : 'bg-[#F6F3EC]'}`}>
+        <div className="h-6 w-6 rounded-full border-2 border-[#D9B978] border-t-transparent animate-spin" aria-label="Loading" />
+      </div>
+    );
   }
-
   return <>{children}</>;
 }

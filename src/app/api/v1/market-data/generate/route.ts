@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { generateMarketConcentrationReport } from '@/lib/services/generateMarketReport';
+import { INDIAN_MF_CACHE_TAG } from '@/lib/services/indianMutualFunds';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60; // Allow up to 60 seconds for Vercel
@@ -22,6 +24,10 @@ export async function GET(request: Request) {
   }
 
   try {
+    // Indian MF performance is computed on demand from AMFI and cached; expire it
+    // so the next visitor gets the latest NAVs (stale copy is served meanwhile).
+    revalidateTag(INDIAN_MF_CACHE_TAG, 'max');
+
     const result = await generateMarketConcentrationReport();
 
     if (result.success) {

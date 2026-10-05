@@ -10,7 +10,7 @@ import { HealthBehaviourCapability } from '@/lib/ai/features/health/capabilities
 import { HealthRecommenderCapability } from '@/lib/ai/features/health/capabilities/HealthRecommenderCapability';
 import { HealthEducatorCapability } from '@/lib/ai/features/health/capabilities/HealthEducatorCapability';
 // @ts-ignore
-import { logChatSequence } from '@/lib/chatLogger';
+import { getChatActor, logChatTurn, resolveSessionId } from '@/lib/chatLogger';
 
 const healthRegistry = new Map();
 const analyst = new HealthAnalystCapability();
@@ -30,6 +30,10 @@ export async function POST(request: Request) {
     const body = await request.json();
     const validatedData = HealthChatRequestSchema.parse(body);
     const { message, profileData, currentState, history } = validatedData;
+
+    // One conversation = one session (validated server-side); identity comes from the signed cookie
+    const actor = await getChatActor();
+    const sessionId = await resolveSessionId(body.sessionId, 'HEALTH', actor);
 
     // --- REPORT_READY INTERCEPT ---
     // If the conversation engine decided it has all 6 fields, it set nextState to 'REPORT_READY'
@@ -66,7 +70,6 @@ export async function POST(request: Request) {
 
       // Phase 2: Orchestrate the Multi-Agent Workflow
       const executor = new WorkflowExecutor(HealthWorkflow, healthRegistry, { maxConcurrent: 1 });
-      const sessionId = `health_${Date.now()}`;
       
       const payload = {
         ...profileData,
@@ -75,14 +78,16 @@ export async function POST(request: Request) {
 
       const aiResponse = await executor.execute(sessionId, payload, 'user_placeholder');
 
-      await logChatSequence(
+      // Report step is triggered by the page, not typed by the user — log only the outcome
+      await logChatTurn({
         sessionId,
-        'HEALTH',
-        body.userId || null,
-        message,
-        "Your Financial Health Blueprint is ready.",
-        'v1.0.0'
-      );
+        feature: 'HEALTH',
+        actor,
+        userMessage: null,
+        assistantMessage: 'Your Financial Health Blueprint is ready.',
+        profile: profileData,
+        report: aiResponse.data ?? undefined,
+      });
 
       return NextResponse.json({
         version: "1.0",
@@ -114,18 +119,17 @@ If all fields are present and valid, set nextState to "REPORT_READY" immediately
       { temperature: 0.1 }
     );
 
-    const sessionId = body.sessionId || `health_${Date.now()}`;
     const data = aiResult.data as any;
     const botResponseStr = data.message || (data.nextState === 'REPORT_READY' ? "Generating health report..." : "Please provide more details.");
 
-    await logChatSequence(
+    await logChatTurn({
       sessionId,
-      'HEALTH',
-      body.userId || null,
-      message,
-      botResponseStr,
-      'v1.0.0'
-    );
+      feature: 'HEALTH',
+      actor,
+      userMessage: message,
+      assistantMessage: botResponseStr,
+      profile: { ...profileData, ...(data.updatedProfile || {}) },
+    });
 
     return NextResponse.json({ ...data, sessionId });
 

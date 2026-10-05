@@ -1,96 +1,72 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import fs from 'fs';
-import path from 'path';
-import { extractText, getDocumentProxy } from 'unpdf';
+import { isStoredFileUrl } from '@/lib/storage';
+import { getAdminSession, requireAdmin } from '@/lib/auth/guards';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+const INSIGHT_TYPES = ['REPORT', 'ARTICLE', 'INFOGRAPHIC'];
+
+/**
+ * GET /api/v1/insights          → published insights (list fields only)
+ * GET /api/v1/insights?all=1    → every insight incl. drafts (admin panel)
+ */
+export async function GET(req: NextRequest) {
   try {
+    const includeDrafts = req.nextUrl.searchParams.get('all') === '1' && Boolean(await getAdminSession());
     const insights = await prisma.insight.findMany({
-      orderBy: { createdAt: 'desc' }
+      where: includeDrafts ? {} : { isActive: true },
+      orderBy: [{ publishedAt: 'desc' }, { createdAt: 'desc' }],
+      select: {
+        id: true, title: true, description: true, type: true, contentUrl: true,
+        thumbnailUrl: true, publishedAt: true, isActive: true, createdAt: true,
+      },
     });
     return NextResponse.json({ insights });
   } catch (error) {
+    console.error('Failed to fetch insights:', error);
     return NextResponse.json({ error: 'Failed to fetch insights' }, { status: 500 });
   }
 }
 
+/**
+ * Creates an ARTICLE (editor) or INFOGRAPHIC (image) insight.
+ * Files are uploaded beforehand via /api/v1/uploads; this receives their URLs.
+ * PDF reports are created through /api/v1/insights/convert instead.
+ */
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
   try {
-    const formData = await req.formData();
-    const title = formData.get('title') as string;
-    const description = formData.get('description') as string;
-    const type = formData.get('type') as string;
-    let contentBody = formData.get('contentBody') as string | null;
-    const file = formData.get('file') as File | null;
-    const thumbnail = formData.get('thumbnail') as File | null;
-    
-    if (!type) {
-      return NextResponse.json({ error: 'Type is required' }, { status: 400 });
+    const body = await req.json();
+    const { title, description, type, contentBody, contentUrl, thumbnailUrl } = body ?? {};
+
+    if (!INSIGHT_TYPES.includes(type)) {
+      return NextResponse.json({ error: 'A valid type is required' }, { status: 400 });
     }
-    if (type === 'ARTICLE' && !title) {
-      return NextResponse.json({ error: 'Title is required for articles' }, { status: 400 });
+    if (type !== 'INFOGRAPHIC' && !title) {
+      return NextResponse.json({ error: 'Title is required' }, { status: 400 });
     }
-
-    let contentUrl = '';
-    let thumbnailUrl = '';
-
-    const uploadDir = path.join(process.cwd(), 'public/uploads');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
+    for (const url of [contentUrl, thumbnailUrl]) {
+      if (url && !isStoredFileUrl(url)) return NextResponse.json({ error: 'Files must be uploaded first' }, { status: 400 });
     }
-
-    // Process thumbnail
-    if (thumbnail && thumbnail.size > 0) {
-      const bytes = await thumbnail.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const fileName = `${Date.now()}-thumb-${thumbnail.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-      const filePath = path.join(uploadDir, fileName);
-      fs.writeFileSync(filePath, buffer);
-      thumbnailUrl = `/uploads/${fileName}`;
-    }
-
-    // Process main file
-    if (file && file.size > 0) {
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-      const filePath = path.join(uploadDir, fileName);
-      fs.writeFileSync(filePath, buffer);
-      contentUrl = `/uploads/${fileName}`;
-
-      // PDF text extraction for ARTICLE type
-      if (type === 'ARTICLE' && !contentBody && (file.type === 'application/pdf' || file.name.endsWith('.pdf'))) {
-        try {
-          const pdf = await getDocumentProxy(new Uint8Array(buffer));
-          const { text } = await extractText(pdf, { mergePages: true });
-          contentBody = text;
-        } catch (pdfError) {
-          console.error('Failed to parse PDF:', pdfError);
-        }
-      }
-      
-      // For INFOGRAPHIC type, use file URL as thumbnail if none provided
-      if (type === 'INFOGRAPHIC' && !thumbnailUrl) {
-          thumbnailUrl = contentUrl;
-      }
+    if (type === 'INFOGRAPHIC' && !contentUrl) {
+      return NextResponse.json({ error: 'An image is required for infographics' }, { status: 400 });
     }
 
     const insight = await prisma.insight.create({
       data: {
-        title,
+        title: title || '',
         description: description || '',
         type,
-        contentUrl,
-        thumbnailUrl,
+        contentUrl: contentUrl || null,
+        thumbnailUrl: thumbnailUrl || (type === 'INFOGRAPHIC' ? contentUrl : null),
         contentBody: contentBody || '',
         publishedAt: new Date(),
-        isActive: true,
-      }
+        isActive: body.isActive ?? true,
+      },
     });
-    
+
     return NextResponse.json({ success: true, insight });
   } catch (error) {
     console.error('Failed to create insight:', error);
