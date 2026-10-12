@@ -11,7 +11,7 @@ export default function GlobalReturnsGamePage() {
       <main className="min-h-[85vh] bg-[#050505]">
         <iframe 
           src="/games/global-returns-prediction/index.html" 
-          className="w-full h-[85vh] border-none"
+          className="w-full h-[calc(100dvh-4.5rem)] min-h-[640px] border-none"
           title="Knowith Global Asset Allocator Game"
         />
       </main>

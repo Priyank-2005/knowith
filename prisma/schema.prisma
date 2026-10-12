@@ -328,3 +328,41 @@ model AuthThrottle {
   windowStart DateTime  @default(now())
   lockedUntil DateTime?
 }
+
+// ── Homepage "Investors are asking" Q&A (managed in Admin → FAQs) ──
+model Faq {
+  id        String   @id @default(uuid())
+  question  String
+  answer    String   @db.Text
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive, sortOrder])
+}
+
+// ── Curated product lists shown on the Indian Market page (Admin → Products) ──
+// SIF, Gift City and PMS have no free data feed, so they are maintained by hand or via Excel upload.
+model ProductListing {
+  id            String   @id @default(uuid())
+  category      String   // SIF | GIFT_CITY | PMS
+  name          String
+  provider      String?  // AMC / PMS manager / fund house
+  strategy      String?  // strategy or sub-category, e.g. "Equity Long-Short"
+  minInvestment String?  // free text, e.g. "₹10 lakh"
+  return1y      Float?
+  return3y      Float?
+  return5y      Float?
+  aum           String?  // free text, e.g. "₹1,250 Cr"
+  benchmark     String?
+  fees          String?
+  notes         String?
+  url           String?
+  sortOrder     Int      @default(0)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([category, isActive, sortOrder])
+}

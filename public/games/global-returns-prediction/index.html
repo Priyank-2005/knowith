@@ -779,6 +779,128 @@ body[data-screen="game"] main {
   padding-bottom: 80px !important;
 }
 .feature-card strong, .feature-card span { display: block; } .seed-input-wrap { background: #fff !important; border-color: rgba(11, 46, 51, 0.2) !important; } .seed-input-wrap input { color: var(--ink) !important; } .seed-random { color: var(--ink) !important; } main { max-width: 98% !important; width: 100% !important; } body[data-screen="game"] main { padding-bottom: 10px !important; margin-bottom: 0px !important; } .topbar { padding: 8px 20px !important; } .prompt-row { margin-bottom: 10px !important; } .media-panel { margin: 0 0 10px !important; } .game-head { padding: 10px 24px !important; } .stage { padding: 10px 24px !important; } .cards { margin-top: 10px !important; gap: 8px !important; } .group-card { padding: 12px 14px !important; } body { zoom: 0.75 !important; } </style>
+<style id="legibility-overrides">
+/* ============================================================
+   Legibility pass (client feedback, Oct 2026)
+   - drop the 0.75 page zoom and the 6-10px type used to cram the page onto one screen
+   - headlines + feeling selector sit in a left column; the four baskets are a 2x2 grid on the right
+   ============================================================ */
+body{zoom:1!important}
+button:focus-visible,.group-card:focus-visible{outline:3px solid #bb8a31;outline-offset:2px}
+
+@media (min-width:980px) and (min-height:600px){
+  body[data-screen="game"] .topbar{padding:6px clamp(16px,2vw,26px)!important}
+  body[data-screen="game"] .brand-logo{width:110px}
+  body[data-screen="game"] .game-head{padding:8px 20px!important}
+  body[data-screen="game"] .round-label,body[data-screen="game"] .game-code{font-size:13px}
+  body[data-screen="game"] .progress{height:8px}
+  body[data-screen="game"] .stage{padding:12px 18px 14px!important}
+
+  body[data-screen="game"] #decision{
+    display:grid;
+    grid-template-columns:minmax(380px,.82fr) minmax(0,1.5fr);
+    grid-template-areas:"prompt cards" "media cards" "actions actions";
+    grid-template-rows:auto 1fr auto;
+    gap:12px 18px;align-items:start;
+  }
+  body[data-screen="game"] #decision .prompt-row{position:relative;display:block}
+  body[data-screen="game"] #decision .stake{position:absolute;right:0;top:-2px}
+  body[data-screen="game"] .window-chip{font-size:12px;padding:5px 10px;margin:0 0 8px}
+  body[data-screen="game"] .prompt-row h2{font-size:clamp(22px,1.9vw,28px);line-height:1.12;margin:0 0 6px}
+  body[data-screen="game"] .prompt-row p{font-size:13px;line-height:1.4;max-width:none}
+  body[data-screen="game"] .stake{padding:7px 12px;min-width:0;border-radius:12px;display:flex;align-items:baseline;gap:8px;text-align:left}
+  body[data-screen="game"] .stake small{font-size:11px;display:inline}
+  body[data-screen="game"] .stake strong{font-size:18px;display:inline;margin:0}
+
+  /* Media panel: stacked in the left column */
+  body[data-screen="game"] .media-panel{display:block;border-radius:16px}
+  body[data-screen="game"] .media-top{display:grid;grid-template-columns:minmax(0,1fr) 168px;gap:12px;padding:12px 14px 10px;border:0;border-bottom:1px solid #e4dac8}
+  body[data-screen="game"] .media-kicker{display:none}
+  body[data-screen="game"] .media-title{font-size:19px;line-height:1.15}
+  body[data-screen="game"] .media-sub{display:none}
+  body[data-screen="game"] .emotion-box{margin:0;padding:9px 11px;border-radius:12px}
+  body[data-screen="game"] .emotion-box small{font-size:10px}
+  body[data-screen="game"] .emotion-box strong{font-size:19px;margin:2px 0 6px}
+  body[data-screen="game"] .pressure-label{font-size:10px;margin-bottom:4px}
+  body[data-screen="game"] .pressure-track{height:6px}
+  body[data-screen="game"] .headline-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px 14px}
+  body[data-screen="game"] .headline-card{min-height:0;padding:10px 11px 9px;transform:none!important;border-radius:5px}
+  body[data-screen="game"] .headline-card:before{height:4px}
+  body[data-screen="game"] .headline-card .paper-banner{padding-bottom:4px;margin-bottom:4px}
+  body[data-screen="game"] .headline-card .paper-name{font-size:13px}
+  body[data-screen="game"] .headline-card .paper-section{font-size:9px}
+  body[data-screen="game"] .headline-card .paper-date{display:none}
+  body[data-screen="game"] .headline-card h4{font-size:16px;line-height:1.18;margin:3px 0 6px}
+  body[data-screen="game"] .headline-meta span:not(.source-badge){display:none}
+  body[data-screen="game"] .headline-card .paper-note{display:none}
+  body[data-screen="game"] .headline-meta{font-size:11px;gap:5px}
+  body[data-screen="game"] .source-badge{padding:3px 6px}
+
+  /* "What did you feel" selector */
+  body[data-screen="game"] .mood-row{padding:9px 14px 11px;gap:6px;border-top:1px solid #e8dfcf}
+  body[data-screen="game"] .mood-row span{flex:0 0 100%;font-size:14px;font-weight:800;color:#3b4d63;margin:0 0 2px}
+  body[data-screen="game"] .mood-btn{padding:6px 11px;font-size:13px;font-weight:700;border-width:1.5px}
+
+  /* The four baskets: 2 x 2 */
+  body[data-screen="game"] #decision #cards,
+  body[data-screen="game"] .cards.variable-history{grid-area:cards;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;align-items:stretch;margin:0}
+  body[data-screen="game"] .group-card{padding:10px 14px!important;border-radius:16px;align-self:stretch;text-align:left}
+  body[data-screen="game"] .group-hero{display:none}
+  body[data-screen="game"] .card-index{font-size:11px;letter-spacing:.1em}
+  body[data-screen="game"] .group-card h3{font-size:25px;line-height:1.05;margin:1px 0 3px}
+  body[data-screen="game"] .group-tagline{display:none}
+  body[data-screen="game"] .members{font-size:12px;line-height:1.3;min-height:0;color:#566a82}
+  body[data-screen="game"] .history{margin:6px 0 4px;padding-top:5px}
+  body[data-screen="game"] .h-row{grid-template-columns:34px 1fr 54px;gap:8px;margin:3px 0}
+  body[data-screen="game"] .h-label{font-size:12px;color:#6d6455}
+  body[data-screen="game"] .h-value{font-size:14px}
+  body[data-screen="game"] .mini-track{height:8px}
+  body[data-screen="game"] .mini-bar{top:1px;height:6px}
+  body[data-screen="game"] .aggregate-box{gap:8px;margin-top:6px}
+  body[data-screen="game"] .aggregate-item{padding:5px 9px;border-radius:10px}
+  body[data-screen="game"] .aggregate-item span{font-size:11px;line-height:1.2}
+  body[data-screen="game"] .aggregate-item strong{font-size:17px;margin-top:2px}
+  body[data-screen="game"] .trailing{padding:5px 10px;border-radius:10px;margin-top:6px!important}
+  body[data-screen="game"] .trailing span{font-size:11px}
+  body[data-screen="game"] .trailing strong,body[data-screen="game"] .rank-badge{font-size:14px!important}
+  body[data-screen="game"] .select-hint{display:none}
+  body[data-screen="game"] .group-card.selected:after{right:10px;top:10px;font-size:11px;padding:4px 9px;letter-spacing:.06em}
+
+  /* Lock button always reachable */
+  body[data-screen="game"] #decision .decision-actions{
+    grid-area:actions;margin:0;padding:8px 4px 0;position:sticky;bottom:-14px;z-index:6;
+    background:linear-gradient(180deg,rgba(245,240,230,0),#f5f0e6 38%);
+  }
+  body[data-screen="game"] .keyboard-hint{font-size:13px}
+  body[data-screen="game"] .decision-actions .primary{padding:12px 26px;font-size:16px}
+
+  /* Reveal screen: same size floor */
+  body[data-screen="game"] .reveal-title h2{font-size:30px}
+  body[data-screen="game"] .reveal-title p{font-size:14px}
+  body[data-screen="game"] .pattern{font-size:11px;padding:7px 11px}
+  body[data-screen="game"] .actual-chart{padding:14px}
+  body[data-screen="game"] .actual-row{grid-template-columns:130px 1fr 64px;gap:10px;margin:10px 0}
+  body[data-screen="game"] .actual-name{font-size:14px}
+  body[data-screen="game"] .actual-name small{font-size:12px}
+  body[data-screen="game"] .actual-track{height:16px}
+  body[data-screen="game"] .actual-bar{height:12px}
+  body[data-screen="game"] .actual-value{font-size:14px}
+  body[data-screen="game"] .outcome-card{padding:14px}
+  body[data-screen="game"] .outcome-card h3{font-size:18px;margin-bottom:8px}
+  body[data-screen="game"] .outcome-metric{padding:8px 0}
+  body[data-screen="game"] .outcome-metric span,body[data-screen="game"] .outcome-metric strong{font-size:13px}
+  body[data-screen="game"] .narrative-reveal-head{padding:10px 12px}
+  body[data-screen="game"] .narrative-reveal-head strong{font-size:14px}
+  body[data-screen="game"] .narrative-reveal-head span{font-size:12px}
+  body[data-screen="game"] .revealed-headlines{padding:10px;gap:8px}
+  body[data-screen="game"] .revealed-headline{padding:10px}
+  body[data-screen="game"] .revealed-headline .paper-name{font-size:12px}
+  body[data-screen="game"] .revealed-headline h4{font-size:16px;line-height:1.2}
+  body[data-screen="game"] .revealed-headline .headline-meta,body[data-screen="game"] .revealed-headline a{font-size:12px}
+  body[data-screen="game"] .reality-check,body[data-screen="game"] .lesson{padding:12px 14px;font-size:14px;line-height:1.45}
+  body[data-screen="game"] .reveal-actions .primary{padding:12px 26px;font-size:16px}
+}
+</style>
 </head>
 <body>
 

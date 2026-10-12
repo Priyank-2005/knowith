@@ -27,7 +27,8 @@ export default function MarketConcentrationPage() {
 
 function MarketSwitcher() {
   // The selected market lives in the URL (?market=india) so it can be shared/bookmarked
-  const market: Market = useSearchParams().get('market') === 'india' ? 'india' : 'global';
+  const params = useSearchParams();
+  const market: Market = params.get('market') === 'india' ? 'india' : 'global';
 
   const selectMarket = (m: Market) => {
     const url = new URL(window.location.href);
@@ -47,7 +48,7 @@ function MarketSwitcher() {
         </button>
       </div>
 
-      {market === 'global' ? <GlobalConcentrationView /> : <IndianFundsView />}
+      {market === 'global' ? <GlobalConcentrationView /> : <IndianFundsView initialProduct={params.get('product')} />}
     </>
   );
 }
