@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import { ChevronLeft, Loader2, ShieldCheck, Target } from "lucide-react";
+import { ChevronLeft, Loader2, Target } from "lucide-react";
 
 const inr = (v: number) => `₹${Math.round(v).toLocaleString("en-IN")}`;
 
@@ -64,8 +65,7 @@ export default function SIPCalculatorPage() {
           <ChevronLeft size={20} />
         </Link>
         <div className="flex items-center gap-3 pl-2 border-l border-[#E8E2D2] min-w-0">
-          <div className="bg-[#0B2E33] p-1.5 rounded text-[#D9B978] shadow-sm shrink-0"><ShieldCheck size={16} /></div>
-          <span className="font-medium text-[#0B2E33] hidden sm:block font-serif text-lg tracking-wide">Knowith Capital</span>
+          <Image src="/images/brand/logo-horizontal-light.png" alt="Knowith Capital" width={158} height={28} className="h-7 w-auto shrink-0" />
           <span className="text-[#C4D1D0] hidden sm:block">/</span>
           <h1 className="font-semibold text-[#B8873D] tracking-wider text-xs md:text-sm uppercase font-mono truncate">SIP Goal Planner</h1>
         </div>

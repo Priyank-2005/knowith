@@ -2,6 +2,7 @@
 
 import styles from './Footer.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -11,8 +12,7 @@ export default function Footer() {
         <div className={styles.footerGrid}>
           {/* Brand Col */}
           <div className={styles.brandCol}>
-            <span className={styles.logoSerif}>Knowith</span>
-            <span className={styles.logoMono}>CAPITAL · UDAIPUR</span>
+            <Image src="/images/brand/logo-stacked-dark.png" alt="Knowith Capital" width={190} height={112} className={styles.logoImg} />
             <p className={styles.brandDesc}>
               Institutional-grade mutual fund advisory and financial planning for those who value structure, clarity, and uncompromising elegance.
             </p>

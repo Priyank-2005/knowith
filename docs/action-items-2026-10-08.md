@@ -7,14 +7,15 @@ The auto-generated notes garbled a few details, so every item below was checked 
 - **Us** = Priyank and Ayushi · **Abhinav** = the client
 - "Code done" means it is built and tested locally; it goes live with the next deploy (see [Deploy checklist](#deploy-checklist)).
 
-Progress: 20 of 65 items done. Everything left depends on content or access from Abhinav, on the production go-live, or is small follow-up work (the deploy checklist items count as open until you deploy).
+Progress: 23 of 66 items done. Everything left depends on content or access from Abhinav, on the production go-live, or is small follow-up work (the deploy checklist items count as open until you deploy).
 
 ---
 
 ## Website
 
-- [ ] **Add the company logo** to the website (client noticed it is missing). — Us (needs the final logo file, see A-14)
-- [ ] **Re-check the colour theme and overall UI of every page** once the logo is in; the logo has a fixed colour theme. — Us
+- [x] **Add the company logo** to the website (client noticed it is missing). — Us (code done, 12 Oct). The supplied lockup is blue; it was recoloured to the site theme (ink teal + gold on light backgrounds, marble + soft gold on dark) and added to the navbar, mobile menu, footer, admin login, admin sidebar and the research tool headers. The favicon is now the logo mark. Files are in `public/images/brand/`.
+- [x] **Re-check the colour theme and overall UI of every page** once the logo is in. — Us (done 12 Oct). Home, Approach, Services, Calculators, Contact, Login, Markets and the quiz were checked with the new logo; no clashes with the teal/gold theme.
+- [ ] **Confirm the recoloured logo with Abhinav.** The original is blue and light blue; the website uses the logo in the site colours instead. If he wants the original blue lockup used as-is, swap the files in `public/images/brand/`. — Us
 - [ ] **Update the email and phone number** on the website (the number also goes on the WhatsApp button). — Us, after Abhinav sends two numbers and the mailbox exists
 - [ ] **Our Story page**: gallery of company/office/event photos plus article-style text. — Us (page can be built now, content needed from Abhinav)
 - [ ] **Forms section** in the footer legal area (KYC, transfer, transmission, common transaction forms), with admin upload so the client can add and replace forms himself. — Us
@@ -93,7 +94,7 @@ Progress: 20 of 65 items done. Everything left depends on content or access from
 - [ ] **A-11 Re-check the Funds Bazar link** he shared.
 - [ ] **A-12 Search for mutual fund and investment APIs** (shared with us) to help curate the product lists.
 - [ ] **A-13 Share the remaining pending content** he mentioned ("plenty of things I had to give you").
-- [ ] **A-14 Final logo file and colour theme**, if we do not already have them.
+- [x] **A-14 Logo file** — received 12 Oct (`Lockup Colour.png`).
 
 Abhinav travels **11 Oct to 17/18 Oct** and will be less available, so anything we need from him should be requested before then.
 
@@ -114,7 +115,6 @@ Abhinav travels **11 Oct to 17/18 Oct** and will be less available, so anything 
 | SIF, Gift City, PMS lists | Requirements and data (A-10) |
 | Client login for the full client list | Excel list (A-3) |
 | Funds Bazar redirect | Correct link (A-11) |
-| Logo and theme refresh | Logo file (A-14) |
 | Portfolio holdings and sector weights | A paid or alternative data source (L-4, A-12) |
 | Production database, server, Gemini API | Go-live decision and budget |
 
@@ -137,6 +137,12 @@ Abhinav travels **11 Oct to 17/18 Oct** and will be less available, so anything 
 3. Which ETF categories does the client want? We built Equity, Gold, Silver, Debt and International.
 4. How should SIF, Gift City and PMS be grouped? He said not to copy Fine Print's grouping.
 5. Who owns each open task between Priyank and Ayushi? Last round Priyank did Markets and Ayushi did Insights.
+
+## Logo follow-ups
+
+- [ ] Add the logo to the OTP sign-in email and the campaign email templates (needs an absolute image URL, so best done once the production domain is final).
+- [ ] The navbar uses a compact version of the logo (centre circle plus wordmark) because the full three-circle lockup is too wide for an 80px bar. The full lockup is used in the footer. Confirm this is acceptable.
+- [ ] The "UDAIPUR" tagline that used to sit under the text logo is no longer shown. Say if it should come back.
 
 ## Known limitations
 

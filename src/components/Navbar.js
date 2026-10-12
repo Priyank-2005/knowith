@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.css';
 import MarketTicker from './MarketTicker';
@@ -16,9 +17,8 @@ export default function Navbar() {
         <div className={styles.navContainer}>
           
           {/* Logo */}
-          <Link href="/" className={styles.logo}>
-            <span className={styles.logoSerif}>Knowith</span>
-            <span className={styles.logoMono}>CAPITAL · UDAIPUR</span>
+          <Link href="/" className={styles.logo} aria-label="Knowith Capital — home">
+            <Image src="/images/brand/logo-horizontal-light.png" alt="Knowith Capital" width={249} height={44} className={styles.logoImg} priority />
           </Link>
 
           {/* Links */}
@@ -52,9 +52,8 @@ export default function Navbar() {
         <div className={styles.mobileMenuOverlay}>
           <div className={styles.mobileMenu}>
             <div className={styles.mobileMenuHeader}>
-              <Link href="/" className={styles.logo} onClick={() => setIsMobileMenuOpen(false)}>
-                <span className={styles.logoSerif}>Knowith</span>
-                <span className={styles.logoMono}>CAPITAL · UDAIPUR</span>
+              <Link href="/" className={styles.logo} aria-label="Knowith Capital — home" onClick={() => setIsMobileMenuOpen(false)}>
+                <Image src="/images/brand/logo-horizontal-light.png" alt="Knowith Capital" width={249} height={44} className={styles.logoImg} />
               </Link>
               <button className={styles.closeBtn} onClick={() => setIsMobileMenuOpen(false)}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>

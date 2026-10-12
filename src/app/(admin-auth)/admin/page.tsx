@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 import { safeNext } from '@/lib/config/site';
 
 // Staff sign-in. Not linked from the public site; when ADMIN_IP_ALLOWLIST is
@@ -46,7 +47,8 @@ function AdminLoginForm() {
   return (
     <form onSubmit={submit} className="w-full max-w-sm bg-[#111] border border-[#2E2E3E] rounded-2xl p-8 shadow-2xl space-y-5">
       <div>
-        <div className="text-2xl font-serif text-[#F6F3EC]">Knowith Admin</div>
+        <Image src="/images/brand/logo-horizontal-dark.png" alt="Knowith Capital" width={200} height={35} className="h-9 w-auto" priority />
+        <div className="text-lg font-serif text-[#F6F3EC] mt-3">Knowith Capital</div>
         <div className="text-[10px] text-[#D9B978] mt-1 tracking-widest uppercase font-mono">Restricted access</div>
       </div>
       <div className="space-y-1">

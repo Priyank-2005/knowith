@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useSession, signOut } from '@/lib/auth/useSession';
@@ -71,7 +72,6 @@ export default function Sidebar() {
   };
 
   const navItems = userRole === 'ADMIN' ? adminItems : aiFeatureItems;
-  const sidebarTitle = userRole === 'ADMIN' ? 'Knowith Admin' : 'Knowith AI';
   const sidebarSubtitle = userRole === 'ADMIN' ? 'Admin Console' : 'Capital Intelligence';
 
   return (
@@ -79,7 +79,7 @@ export default function Sidebar() {
     {/* Mobile top bar */}
     <div className="lg:hidden fixed top-0 inset-x-0 z-40 h-14 flex items-center justify-between px-4 bg-[#0B2E33] border-b border-[#15464D] print:hidden">
       <div>
-        <div className="text-lg font-serif text-[#F6F3EC] leading-none">{sidebarTitle}</div>
+        <Image src="/images/brand/logo-horizontal-dark.png" alt="Knowith Capital" width={141} height={25} className="h-6 w-auto" />
         <div className="text-[9px] text-[#D9B978] mt-1 tracking-widest uppercase font-mono">{sidebarSubtitle}</div>
       </div>
       <button onClick={() => setMobileOpen(true)} aria-label="Open menu" className="p-2 rounded-lg text-[#F6F3EC] hover:bg-[#0F3A3F]">
@@ -99,9 +99,7 @@ export default function Sidebar() {
       {/* Logo */}
       <div className="px-6 py-8 flex items-start justify-between">
         <div>
-          <div className="text-2xl font-serif text-[#F6F3EC] tracking-wide">
-            {sidebarTitle}
-          </div>
+          <Image src="/images/brand/logo-horizontal-dark.png" alt="Knowith Capital" width={200} height={35} className="h-9 w-auto" />
           <p className="text-[10px] text-[#D9B978] mt-1 tracking-widest uppercase font-mono">{sidebarSubtitle}</p>
         </div>
         <button onClick={() => setMobileOpen(false)} aria-label="Close menu" className="lg:hidden p-1 rounded text-[#839F9D] hover:text-white">
